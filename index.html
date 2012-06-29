@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+	<!--Loading libraries-->
+	<script type='text/javascript' src='js/libs/jquery/jquery-1.7.2.min.js'></script>
+	<script type="text/javascript" src="js/libs/underscore-min.js"></script>
+	<script type="text/javascript" src="js/libs/backbone-min.js"></script>
+	<script type="text/javascript" src="js/libs/jquery.masonry.min.js"></script>
+	
+
+	<!---MVC loaded based on dependencies-->
+	<script type="text/javaScript" src="http://j.maxmind.com/app/geoip.js"></script>
+	<script type="text/javascript" src="js/util/utils.js"></script>
+	<script type="text/javascript" src="js/util/HttpUtil.js"></script>
+	<script type="text/javascript" src="js/model/MdlConfig.js"></script>
+
+	<!--Models-->
+	<script type="text/javascript" src="js/model/StubHubEventModel.js"></script>
+	<script type="text/javascript" src="js/model/FacebookUserModel.js"></script>
+	<!--Collections-->
+	<script type="text/javascript" src="js/collection/StubHubEventCollection.js"></script>
+	<!--Views-->
+	<script type="text/javascript" src="js/view/TimelineView.js"></script>
+	<script type="text/javascript" src="js/view/TimelineMonthView.js"></script>
+	<script type="text/javascript" src="js/view/TimelineItemView.js"></script>
+	<script type="text/javascript" src="js/view/TimelineEventView.js"></script>
+
+
+
+</head>
+
+
+<body>
+	<!--Facebook Javascript API-->
+	<div id="fb-root"></div>
+	<script type="text/javascript">
+		var button;
+		var userInfo;
+		
+		window.fbAsyncInit = function() {
+			FB.init({ appId: '244073459035160', 
+				status: true, 
+				cookie: true,
+				xfbml: true,
+				oauth: true});
+
+			// run once with current status and whenever the status changes
+			//FB.getLoginStatus(updateButton);
+			FB.Event.subscribe('auth.statusChange', updateButton);
+			
+			console.log('fbinit');	
+		};
+
+		(function() {
+			var e = document.createElement('script'); e.async = true;
+			e.src = document.location.protocol 
+				+ '//connect.facebook.net/en_US/all.js';
+			//e.src = "js/libs/all.js"
+			document.getElementById('fb-root').appendChild(e);
+		}());
+	</script>
+	<button id="fb-auth">Login</button>
+    <br />
+    <div id="user-info"></div>
+
+	<div id="wrapper">       
+
+		<div id="content_container">
+
+			<div id="header_container"></div>
+
+			<div id='view-container'>
+				<ul class="timeline"></ul>	
+				<select class='dropdown'>
+			  		<option>Next 7 Days</option>
+			  		<option>Next 10 Days</option>
+			  		<option>Next 100 Days</option>
+				</select>
+			</div>
+			 
+		</div><!-- content_container -->
+
+	</div><!-- wrapper -->
+
+</body>
+	<!--- Loading app file -->
+	<script type='text/javascript' src='js/app.js'></script>
+</html>

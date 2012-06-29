@@ -1,0 +1,142 @@
+/*============fbCalendar Stylesheet=========== */
+html, body { 
+	font-family:arial; 
+	font-size:13px;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+#wrapper {
+	position: relative;
+	height: 100%;
+}
+
+#content_container{
+	position: relative;
+	max-height: 100%;
+	min-height: 100%;
+	width: 760px;
+	overflow-y: hidden;
+	margin: 0 auto; 
+	background-color: #C9E6FF;
+}
+
+#header_container {
+	border: 1px green dotted;
+}
+
+#view-container {
+	position: relative;
+	height: 100%;
+}
+
+.dropdown {
+	position: absolute;
+	left: 620px;
+	top: 15px;
+}
+
+/*---------------------TimelineView---------------------*/
+ul.timeline {
+	list-style-type: none;
+	padding: 0;
+	margin-left: 0;
+}
+ul.timeline li {
+
+}
+
+/*---------------------TimelineMonthView---------------------*/
+.timeline-month {
+	position: relative;
+	width: 760px;
+	height: 100%;
+}
+
+.month-number {
+	position: relative;
+	font-size: 2em;
+	left: 10px;
+	top: 5px;
+	width: 200px;
+}
+
+.timeline-items {
+	position: relative;
+	top: 15px;
+}
+
+/*---------------------TimelineItemView---------------------*/
+.timelineitem-container {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	position: relative;
+	width: 760px;
+	height: 100px;
+	background-color: #e0effa;
+}
+
+.dateNumber {
+	position: absolute;
+	font-size: 4em;
+	top: 15px;
+	left: 10px;
+}
+
+.dateSlate {
+	position: absolute;
+	left: 50px;
+	width: 20px;
+	height: 100px;
+	background-color: orange;
+
+}
+
+.dateName {
+	position: absolute;
+	font-size: 1em;
+	left: 5px;
+	top: 25px;
+}
+
+.eventInfos {
+	position: absolute;
+	left: 70px;
+	width: 685px;
+	height: 100px;
+}
+
+ul.timeline-items {
+	list-style: none; 
+}
+ul.timeline-items li {
+	margin-left: -40px;
+}
+
+/*---------------------TimelineEventView---------------------*/
+
+ul.eventInfos {
+	list-style: none;
+	margin-left: -35px;
+}
+ul.eventInfos li {
+	margin-left: 5px;
+	margin-top: 5px;
+	display: block;
+	width: 90px;
+	height: 90px;
+	float: left;
+}
+
+.timelineevent-container {
+	border: 1px red dotted;
+}
+
+.thumbnails {
+	position: absolute;
+}
+
+.info-overlay {
+	position: absolute;
+}
