@@ -3,7 +3,7 @@ window.TimelineEventView = Backbone.View.extend({
 
 	className: 'timelineevent-container',
 
-	model: TimelineEventModel,
+	model: StubHubEventModel,
 
 	initialize: function() {
 		_.bindAll(this, 'render');

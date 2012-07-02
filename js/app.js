@@ -11,6 +11,13 @@ var AppRouter = Backbone.Router.extend({
 		this.collection = new StubHubEventCollection();
 		window.CONFIG = new MdlConfig();
 		this.collection.fetch({success: function(){}});
+
+		this.HunchRecCollection = new HunchRecCollection();
+		this.HunchRecCollection.meta('topic_ids', 'list_musician');
+		this.HunchRecCollection.meta('likes', 'hn_3570964');
+		this.HunchRecCollection.meta('blocked_result_ids', 'hn_3570964');
+		console.log(this.HunchRecCollection.url());
+		this.HunchRecCollection.fetch();
 	},
 
 });
