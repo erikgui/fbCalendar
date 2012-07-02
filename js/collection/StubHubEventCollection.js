@@ -20,13 +20,13 @@ window.StubHubEventCollection = Backbone.Collection.extend({
 		var theUrl = 'http://www.stubhub.com/listingCatalog/select?';
 		var lat = geoip_latitude();
 		var lon = geoip_longitude();
-		var radiusInKm = 100;
+		var radiusInKm = 60;
 		
 		if( typeof lat != 'undefined' && typeof lon != 'undefined' && typeof radiusInKm != 'undefined') {
 			theUrl +='fq={!geofilt pt='+lat+','+lon+' sfield=lat_lon d='+radiusInKm+'}&';
 		}
 		
-		var allowedViewingDomain = this.get('allowedViewingDomain');
+		var allowedViewingDomain = this.meta('allowedViewingDomain');
 		
 		theUrl +='q=stubhubDocumentType:event';
 		
