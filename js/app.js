@@ -82,7 +82,7 @@ function updateButton(response) {
 				} else {
 					//user cancelled login or did not grant authorization
 				}
-			}, {scope:'email,user_birthday,status_update,publish_stream,user_about_me,user_likes,user_events,user_location'});  	
+			}, {scope:'status_update,publish_stream,user_about_me,user_likes,user_events,user_location'});  	
 		}
 	}
 }
