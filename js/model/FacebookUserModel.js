@@ -3,14 +3,11 @@ window.FacebookUserModel = Backbone.Model.extend({
 		name: '',
 		fb_id: '',
 		likes: [],
+		access_token: ''
 	},
 
 	initialize: function() {
 
-	},
-
-	validateItem: function(key) {
-		return (this.validators[key]) ? this.validators[key](this.get(key)) : {isValid: true};
 	},
 
 	publishStream: function() {
@@ -21,7 +18,14 @@ window.FacebookUserModel = Backbone.Model.extend({
 		FB.login(function(response) {
 				if (response.authResponse) {
 					FB.api('/me', function(info) {
-						login(response, info);
+						if (response.authResponse) {
+							this.set('access_token') =   response.authResponse.accessToken;
+							
+							/*userInfo.innerHTML                             = '<img src="https://graph.facebook.com/' + info.id + '/picture">' + info.name
+																			 + "<br /> Your Access Token: " + accessToken;
+							*/
+							document.getElementById('user-info').innerHTML = "Hello, " + info.name + "!";
+						}
 					});	   
 				} else {
 					//user cancelled login or did not grant authorization
