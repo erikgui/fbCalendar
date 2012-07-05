@@ -1,6 +1,6 @@
 console.log('app.js started')
 
-var AppRouter = Backbone.Router.extend({
+window.AppRouter = Backbone.Router.extend({
 
 	routes: {
 		"" : "timeline"
@@ -9,26 +9,25 @@ var AppRouter = Backbone.Router.extend({
 	initialize: function() {
 		this.view = new TimelineView();
 		this.collection = new StubHubEventCollection();
+		this.hunch = new HunchRecCollection();
 		window.CONFIG = new MdlConfig();
-		this.collection.fetch({success: function(){}});
+		//this.collection.fetch({success: function(){}});
 
-		this.HunchRecCollection = new HunchRecCollection();
+/*		this.HunchRecCollection = new HunchRecCollection();
 		this.HunchRecCollection.meta('topic_ids', 'list_musician');
 		this.HunchRecCollection.meta('likes', 'hn_3570964');
 		this.HunchRecCollection.meta('blocked_result_ids', 'hn_3570964');
 		console.log(this.HunchRecCollection.url());
-		this.HunchRecCollection.fetch();
+		this.HunchRecCollection.fetch();*/
 	},
 
 });
 
 
-var app;
-
 (function($){
 	utils.loadTemplate(['TimelineMonthView','TimelineItemView', 'TimelineEventView'], function(){
 		console.log('finish loading templates');
-		app = new AppRouter();
+		window.app = new AppRouter();
 		Backbone.history.start();
 	});
 	
@@ -37,24 +36,24 @@ var app;
 /*---------------------Facebook Stuff---------------------*/
 var accessToken;
 
-function login(response, info){
+/*function login(response, info){
 	if (response.authResponse) {
 		accessToken                                 =   response.authResponse.accessToken;
 		
-		/*userInfo.innerHTML                             = '<img src="https://graph.facebook.com/' + info.id + '/picture">' + info.name
+		userInfo.innerHTML                             = '<img src="https://graph.facebook.com/' + info.id + '/picture">' + info.name
 														 + "<br /> Your Access Token: " + accessToken;
-		*/
+		
 		userInfo.innerHTML = "Hello, " + info.name + "!";
 		button.innerHTML                               = 'Logout';
 	}
-}
-
+}*/
+/*
 function logout(response){
 	userInfo.innerHTML                             =   "";
 	document.getElementById('debug').innerHTML     =   "";
 	document.getElementById('other').style.display =   "none";
-}
-
+}*/
+/*
 function updateButton(response) {
 	button       =   document.getElementById('fb-auth');
 	userInfo     =   document.getElementById('user-info');
@@ -86,8 +85,8 @@ function updateButton(response) {
 		}
 	}
 }
-
-var rsp;
+*/
+/*var rsp;
 var likes;
 
 var musicians = [];
@@ -167,4 +166,4 @@ function getLCSURL(data) {
 
 		return HttpUtil.prependProxyUrl(theUrl);
 
-}
+}*/

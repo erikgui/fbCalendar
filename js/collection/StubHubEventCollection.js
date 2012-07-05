@@ -9,53 +9,57 @@ window.StubHubEventCollection = Backbone.Collection.extend({
 	},
 	
 	meta: function(property, value) {
-		if (typeof value === "undefined") {
+		if (typeof value == "undefined") {
 			return this._meta[property];
 		} else {
 			this._meta[property] = value;
 		}
 	},
 
+	clearMeta: function() {
+		this._meta = {};
+	},
+
 	url: function() {
-		var theUrl = 'http://www.stubhub.com/listingCatalog/select?';
-		var lat = geoip_latitude();
+		var URL = 'http://www.stubhub.com/listingCatalog/select?';
+		/*var lat = geoip_latitude();
 		var lon = geoip_longitude();
-		var radiusInKm = 60;
+		var radiusInKm = 60;*/
 		
 		if( typeof lat != 'undefined' && typeof lon != 'undefined' && typeof radiusInKm != 'undefined') {
-			theUrl +='fq={!geofilt pt='+lat+','+lon+' sfield=lat_lon d='+radiusInKm+'}&';
+			URL +='fq={!geofilt pt='+lat+','+lon+' sfield=lat_lon d='+radiusInKm+'}&';
 		}
 		
-		var allowedViewingDomain = this.meta('allowedViewingDomain');
+		URL +='q=stubhubDocumentType:event';
 		
-		theUrl +='q=stubhubDocumentType:event';
-		
-		if(typeof allowedViewingDomain != 'undefined') {
-			theUrl +=' +allowedViewingDomain:'+allowedViewingDomain +' ';
+		if(typeof this.meta('allowedViewingDomain') != 'undefined') {
+			URL +=' +allowedViewingDomain:'+ this.meta('allowedViewingDomain') +' ';
 		}
 		
-		if(typeof this.meta('description') !== 'undefined') {
-			theUrl += ' AND description:%22' + this.meta('description') + '%22 ';
+		if(typeof this.meta('description') != 'undefined') {
+			URL += ' AND description:%22' + this.meta('description') + '%22 ';
 		}
 		
-		// theUrl += ' AND event_date_local:'+ this.meta('timeRange') +'';
-		theUrl += ' AND event_date_time_local:[NOW-8HOURS TO *]';
-		
-		var venueName = this.get('venueName');
-		if(typeof venueName != 'undefined') {
-			theUrl += ' AND venue_name_text:"'+venueName+'" ';
+		// URL += ' AND event_date_local:'+ this.meta('timeRange') +'';
+		if(typeof this.meta('event_date_time_local') != 'undefined') {
+			URL += ' AND event_date_time_local:' + this.meta('event_date_time_local');
 		}
 		
-		theUrl += ' AND active:1 ';
-		
-		var query = this.get('query');
-		if( typeof query != 'undefined') {
-			theUrl +=' AND '+query;
+		if(typeof this.meta('venue_name_text') != 'undefined') {
+			URL += ' AND venue_name_text:"'+ this.meta('venue_name_text') +'" ';
 		}
 		
-		theUrl+='&version=2.2&start=0&rows=10&indent=on&wt=json';
-		console.log('returning url', theUrl);
-		return HttpUtil.prependProxyUrl(theUrl);
+		URL += ' AND active:1 ';
+		
+		if( typeof this.meta('query') != 'undefined') {
+			URL +=' AND '+ this.meta('query');
+		}
+		
+		URL +='&version=2.2&start=0&rows=10&indent=on&wt=json';
+		
+		console.log('returning url', URL);
+		
+		return HttpUtil.prependProxyUrl(URL);
 	},
 	
 	parse: function(response) {
@@ -72,9 +76,10 @@ window.StubHubEventCollection = Backbone.Collection.extend({
 				}, true );
 			*/
 			}
+			console.log(this);
 			return docs;
 		} else {
-			console.log('ColEvents: no event found for query', this.get('query'));
+			console.log('ColEvents: no event found for query');
 			return {};
 		}
 	},
@@ -88,8 +93,16 @@ window.StubHubEventCollection = Backbone.Collection.extend({
 	},
 	
 	fetch: function(options) {
-		options.add = true;
+
+		if (typeof options == 'undefined') {
+			options = {};
+			options.add = true;
+		} else {
+			options.add = true;	
+		}
+
 		return Backbone.Collection.prototype.fetch.call(this, options);
 	
-	}
+	},
+
 });

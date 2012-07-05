@@ -10,7 +10,8 @@ window.TimelineEventView = Backbone.View.extend({
 	},
 
 	render: function() {
-		$(this.el).append(this.template);
+		var data = {'info': 'concert name here!'};
+		$(this.el).append(this.template(data));
 		return this.el;
 	}
 });

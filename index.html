@@ -38,10 +38,13 @@
 <body>
 	<!--Facebook Javascript API-->
 	<div id="fb-root"></div>
+	<!--Hunch Javascript API-->
+	<div id="hn-root"></div>
 	<script type="text/javascript">
 		var button;
 		var userInfo;
 		
+		//async loading Facebook Javascript SDK
 		window.fbAsyncInit = function() {
 			FB.init({ appId: '244073459035160', 
 				status: true, 
@@ -55,21 +58,27 @@
 			
 			console.log('fbinit');	
 
-			window.FacebookUserModel = new FacebookUserModel();
-			window.FacebookUserModel.fbLogin();
+			var fbUserModel = new FacebookUserModel();
 		};
 
-		(function() {
-			var e = document.createElement('script'); e.async = true;
-			//e.src = document.location.protocol 
-			//	+ '//connect.facebook.net/en_US/all.js';
-			e.src = "js/libs/all.js"
-			document.getElementById('fb-root').appendChild(e);
-		}());
+		// (function() {
+		// 	var e = document.createElement('script'); e.async = true;
+		// 	e.src = document.location.protocol 
+		// 		+ '//connect.facebook.net/en_US/all.js';
+		// 	document.getElementById('fb-root').appendChild(e);
+		// }());
+
+		//async loading Hunch Javascript SDK
+		window.hnAsyncInit = function() {
+			console.log('hninit');
+		};
+		// (function() {
+		// 	var e = document.createElement('script'); e.async = true;
+		// 	e.src = document.location.protocol 
+		// 		+ '//hunch.com/media/js/hunch-api.js';
+		// 	document.getElementById('hn-root').appendChild(e);
+		// }());
 	</script>
-	<button id="fb-auth">Login</button>
-    <br />
-    <div id="user-info"></div>
 
 	<div id="wrapper">       
 

@@ -14,16 +14,13 @@ html, body {
 
 #content_container{
 	position: relative;
-	max-height: 100%;
-	min-height: 100%;
 	width: 760px;
-	overflow-y: hidden;
 	margin: 0 auto; 
 	background-color: #C9E6FF;
 }
 
 #header_container {
-	border: 1px green dotted;
+
 }
 
 #view-container {
@@ -43,6 +40,7 @@ ul.timeline {
 	padding: 0;
 	margin-left: 0;
 }
+
 ul.timeline li {
 
 }
@@ -73,22 +71,23 @@ ul.timeline li {
 	margin-bottom: 10px;
 	position: relative;
 	width: 760px;
-	height: 100px;
+	height: 150px;
 	background-color: #e0effa;
 }
 
 .dateNumber {
 	position: absolute;
-	font-size: 4em;
-	top: 15px;
-	left: 10px;
+	text-align: right;
+	font-size: 3em;
+	top: 55px;
+	left: 15px;
 }
 
 .dateSlate {
 	position: absolute;
-	left: 50px;
+	left: 75px;
 	width: 20px;
-	height: 100px;
+	height: 150px;
 	background-color: orange;
 
 }
@@ -97,35 +96,34 @@ ul.timeline li {
 	position: absolute;
 	font-size: 1em;
 	left: 5px;
-	top: 25px;
+	top: 50px;
 }
 
 .eventInfos {
 	position: absolute;
-	left: 70px;
-	width: 685px;
-	height: 100px;
+	left: 0px;
+	height: 150px;
+	width: 800px;
 }
 
 ul.timeline-items {
 	list-style: none; 
 }
 ul.timeline-items li {
-	margin-left: -40px;
+	margin-left: 0px;
 }
 
 /*---------------------TimelineEventView---------------------*/
 
 ul.eventInfos {
 	list-style: none;
-	margin-left: -35px;
+	margin-left: 0px;
 }
 ul.eventInfos li {
-	margin-left: 5px;
-	margin-top: 5px;
+	margin-left: 15px;
 	display: block;
-	width: 90px;
-	height: 90px;
+	width: 180px;
+	height: 150px;
 	float: left;
 }
 
@@ -139,4 +137,9 @@ ul.eventInfos li {
 
 .info-overlay {
 	position: absolute;
+	top: 80px;
+	height: 70px;
+	width: 180px;
+	background-color: #FFF;
+	opacity: 0.6;
 }
