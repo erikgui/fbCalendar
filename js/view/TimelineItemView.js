@@ -36,6 +36,10 @@ window.TimelineItemView = Backbone.View.extend({
 
 	addEvent: function(eventInfo) {
 		//TODO: WRITE THIS
+		var tempEventView = new TimelineEventView(eventInfo);
+	    this.meta('timelineEventViews', [tempEventView]);
+	    $(this.el).find('.eventInfos').append(tempEventView.el);
+		return this.el;
 	},
 
 	getDayOfWeek: function(number) {

@@ -17,6 +17,8 @@ window.TimelineMonthView = Backbone.View.extend({
 	},
 
 	render: function(eventInfo) {
+		this.meta('eventYear', eventInfo.eventYear);
+		this.meta('eventMonth', eventInfo.eventMonth);
 		var eventYear = eventInfo.eventYear;
 		var month_number = this.getMonthName(eventInfo.eventMonth) + ', ' + eventYear;
 		
@@ -32,11 +34,12 @@ window.TimelineMonthView = Backbone.View.extend({
 	}, 
 
 	addEvent: function(eventInfo) {
+		console.log('adding event from MonthView');
 		var timelineItemViews = this.meta('timelineItemViews');
 
 		var tempItemView = new TimelineItemView(eventInfo);
 	    this.meta('timelineItemViews', timelineItemViews.push(tempItemView));
-	    $(this.el).append(tempItemView);
+	    $(this.el).append(tempItemView.el);
 	},
 
 	getMonthName: function(number) {

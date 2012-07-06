@@ -80,7 +80,9 @@ ul.timeline li {
 	text-align: right;
 	font-size: 3em;
 	top: 55px;
-	left: 15px;
+	left: 10px;
+	width: 50px;
+	text-align: center;
 }
 
 .dateSlate {
@@ -89,7 +91,9 @@ ul.timeline li {
 	width: 20px;
 	height: 150px;
 	background-color: orange;
-
+    box-shadow:  1px 2px 5px 2px #666;
+	-webkit-box-shadow:  1px 2px 5px 2px #666;
+	border: 1px black solid;
 }
 
 .dateName {
@@ -117,7 +121,7 @@ ul.timeline-items li {
 
 ul.eventInfos {
 	list-style: none;
-	margin-left: 0px;
+	margin-left: 8px;
 }
 ul.eventInfos li {
 	margin-left: 15px;
@@ -128,7 +132,9 @@ ul.eventInfos li {
 }
 
 .timelineevent-container {
-	border: 1px red dotted;
+	box-shadow:  1px 2px 5px 2px #666;
+	-webkit-box-shadow:  1px 2px 5px 2px #666;
+	border: 1px black solid;
 }
 
 .thumbnails {

@@ -37,6 +37,8 @@ window.TimelineView = Backbone.View.extend({
 		var eventName = eventInfo.eventName;
 		var monthViews = this.meta('timelineMonthViews');
 
+		console.log('adding events');
+
 		if (typeof monthViews != 'undefined') {
 			var containsMonth = false;
 			var containsDate = false;
@@ -44,7 +46,7 @@ window.TimelineView = Backbone.View.extend({
 			var dateView;
 			for (var i = 0; i < monthViews.length; i++) {
 				var mv = monthViews[i];
-				if (mv.meta('month_number') === eventMonth) {
+				if (mv.meta('eventMonth') === eventMonth) {
 					containsMonth = true;
 					monthView = mv;
 					var dates = mv.meta('timelineItemViews');
@@ -60,17 +62,28 @@ window.TimelineView = Backbone.View.extend({
 				}
 			};
 
+			console.log('containsMonth: ' + containsMonth);
+			console.log('containsDate: ' + containsDate);
+
 			if (typeof monthView != 'undefined') {
+
+				console.log('monthView defined');
 				if (typeof dateView != 'undefined') { //contains month and date
 					//add event view
+					console.log('adding in same day');
+					console.log(dateView);
 					dateView.addEvent(eventInfo);
 				} else { //contains month but not specific date
+					console.log('adding in diff day');
 					monthView.addEvent(eventInfo);
 				}
 			} else {
 				//add monthView and each subViews
-				monthViews.push(new TimelineMonthView(eventInfo));
+				console.log('adding new monthView');
+				var tempMonth = new TimelineMonthView(eventInfo);
+				monthViews.push(tempMonth);
 				this.meta('timelineMonthViews', monthViews);
+				$(this.el).append(tempMonth.el);
 			}
 		} else {
 			var tempMonth = new TimelineMonthView(eventInfo);
