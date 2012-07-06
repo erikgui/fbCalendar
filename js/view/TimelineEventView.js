@@ -3,7 +3,6 @@ window.TimelineEventView = Backbone.View.extend({
 
 	className: 'timelineevent-container',
 
-	model: StubHubEventModel,
 	meta: function(property, value) {
 		if (typeof value === "undefined") {
 			return this._meta[property];
@@ -12,16 +11,15 @@ window.TimelineEventView = Backbone.View.extend({
 		}
 	},
 
-	initialize: function(eventInfo) {
+	initialize: function() {
 		_.bindAll(this, 'render');
 		this._meta = {};
-		this.render(eventInfo);
 	},
 
 	render: function(eventInfo) {
-		console.log('rendering eventView');
-		var eventName = eventInfo.eventName;
-		var data = {'info': eventName};
+		var eventName = eventInfo.get('eventName');
+		var act_primary = eventInfo.get('act_primary');
+		var data = {'info': eventName + ' act_primary: ' + act_primary};
 		$(this.el).append(this.template(data));
 /*		var data = {'info': 'concert name here!'};
 		$(this.el).append(this.template(data));*/

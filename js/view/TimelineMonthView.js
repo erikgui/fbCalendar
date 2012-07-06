@@ -10,23 +10,24 @@ window.TimelineMonthView = Backbone.View.extend({
 		}
 	},
 
-	initialize: function(eventInfo) {
+	initialize: function() {
 		_.bindAll(this, 'render');
 		this._meta = {};
-		this.render(eventInfo);
+		//this.render(eventInfo);
 	},
 
 	render: function(eventInfo) {
-		this.meta('eventYear', eventInfo.eventYear);
-		this.meta('eventMonth', eventInfo.eventMonth);
-		var eventYear = eventInfo.eventYear;
-		var month_number = this.getMonthName(eventInfo.eventMonth) + ', ' + eventYear;
+		this.meta('eventYear', eventInfo.get('eventYear'));
+		this.meta('eventMonth', eventInfo.get('eventMonth'));
+		var eventYear = eventInfo.get('eventYear');
+		var month_number = this.getMonthName(eventInfo.get('eventMonth')) + ', ' + eventYear;
 		
 		var data = {'month_number': month_number};
 		this.meta('month_number', month_number);
 		$(this.el).append(this.template(data));
 		
-		var tempItemView = new TimelineItemView(eventInfo);
+		var tempItemView = new TimelineItemView();
+		tempItemView.render(eventInfo);
 	    this.meta('timelineItemViews', [tempItemView]);
 	    $(this.el).append(tempItemView.el);
 	    
@@ -34,11 +35,12 @@ window.TimelineMonthView = Backbone.View.extend({
 	}, 
 
 	addEvent: function(eventInfo) {
-		console.log('adding event from MonthView');
 		var timelineItemViews = this.meta('timelineItemViews');
 
-		var tempItemView = new TimelineItemView(eventInfo);
-	    this.meta('timelineItemViews', timelineItemViews.push(tempItemView));
+		var tempItemView = new TimelineItemView();
+		tempItemView.render(eventInfo);
+		timelineItemViews.push(tempItemView);
+	    this.meta('timelineItemViews', timelineItemViews);
 	    $(this.el).append(tempItemView.el);
 	},
 

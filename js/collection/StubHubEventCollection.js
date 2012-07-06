@@ -22,9 +22,9 @@ window.StubHubEventCollection = Backbone.Collection.extend({
 
 	url: function() {
 		var URL = 'http://www.stubhub.com/listingCatalog/select?';
-		/*var lat = geoip_latitude();
+		var lat = geoip_latitude();
 		var lon = geoip_longitude();
-		var radiusInKm = 60;*/
+		var radiusInKm = 120;
 		
 		if( typeof lat != 'undefined' && typeof lon != 'undefined' && typeof radiusInKm != 'undefined') {
 			URL +='fq={!geofilt pt='+lat+','+lon+' sfield=lat_lon d='+radiusInKm+'}&';
@@ -49,7 +49,7 @@ window.StubHubEventCollection = Backbone.Collection.extend({
 			URL += ' AND venue_name_text:"'+ this.meta('venue_name_text') +'" ';
 		}
 		
-		URL += ' AND active:1 ';
+		URL += ' AND active:1 ' + '&sort=event_date_time_local%20asc&rows=200'
 		
 		if( typeof this.meta('query') != 'undefined') {
 			URL +=' AND '+ this.meta('query');
@@ -64,20 +64,16 @@ window.StubHubEventCollection = Backbone.Collection.extend({
 	
 	parse: function(response) {
 		var docs = response.response.docs;
+		var view = this.meta('view');
 		console.log(response);
 		if(docs.length > 0 ) {
-			//console.log('ColEvents.parse', docs);
+			var ret = [];
 			for (var i = 0; i < docs.length; i++) {
-			/*
-				$('#calendar').fullCalendar( 'renderEvent', {
-					title: docs[i].name_primary,
-					start: DateUtil.convertToDateObject(docs[i].event_date_time_local),
-					allDay: false
-				}, true );
-			*/
+				var tempEvent = new StubHubEventModel(docs[i]);
+				ret.push(tempEvent);
+				//view.addEvent(tempEvent);
 			}
-			console.log(this);
-			return docs;
+			return ret;
 		} else {
 			console.log('ColEvents: no event found for query');
 			return {};

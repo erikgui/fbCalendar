@@ -14,8 +14,10 @@
 	<!---MVC loaded based on dependencies-->
 	<script type="text/javaScript" src="http://j.maxmind.com/app/geoip.js"></script>
 	<script type="text/javascript" src="js/util/utils.js"></script>
-	<script type="text/javascript" src="js/util/HttpUtil.js"></script>
 	<script type="text/javascript" src="js/model/MdlConfig.js"></script>
+	<script type="text/javascript" src="js/util/HttpUtil.js"></script>
+	<script type="text/javascript" src="js/util/date.js"></script>
+	<script type="text/javascript" src="js/util/DateUtil.js"></script>
 
 	<!--Models-->
 	<script type="text/javascript" src="js/model/StubHubEventModel.js"></script>
@@ -61,24 +63,24 @@
 			var fbUserModel = new FacebookUserModel();
 		};
 
-		// (function() {
-		// 	var e = document.createElement('script'); e.async = true;
-		// 	e.src = document.location.protocol 
-		// 		+ '//connect.facebook.net/en_US/all.js';
-		// 	document.getElementById('fb-root').appendChild(e);
-		// }());
+		(function() {
+			var e = document.createElement('script'); e.async = true;
+			e.src = document.location.protocol 
+				+ '//connect.facebook.net/en_US/all.js';
+			document.getElementById('fb-root').appendChild(e);
+		}());
 
 		//async loading Hunch Javascript SDK
 		window.hnAsyncInit = function() {
 			console.log('hninit');
 		};
 		
-		// (function() {
-		// 	var e = document.createElement('script'); e.async = true;
-		// 	e.src = document.location.protocol 
-		// 		+ '//hunch.com/media/js/hunch-api.js';
-		// 	document.getElementById('hn-root').appendChild(e);
-		// }());
+		(function() {
+			var e = document.createElement('script'); e.async = true;
+			e.src = document.location.protocol 
+				+ '//hunch.com/media/js/hunch-api.js';
+			document.getElementById('hn-root').appendChild(e);
+		}());
 	</script>
 
 	<div id="wrapper">       

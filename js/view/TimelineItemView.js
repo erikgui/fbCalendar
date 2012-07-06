@@ -3,7 +3,6 @@ window.TimelineItemView = Backbone.View.extend({
 
 	className: 'timelineitem-container',
 
-	model: StubHubEventModel,
 	meta: function(property, value) {
 		if (typeof value === "undefined") {
 			return this._meta[property];
@@ -12,32 +11,34 @@ window.TimelineItemView = Backbone.View.extend({
 		}
 	},
 
-	initialize: function(eventInfo) {
+	initialize: function() {
 		_.bindAll(this, 'render');
 		this._meta = {};
-		this.render(eventInfo);
 	},
 
 	render: function(eventInfo) {
-		var eventDate = eventInfo.eventDate;
-		var eventMonth = eventInfo.eventMonth;
-		var eventYear = eventInfo.eventYear;
+		var eventDate = eventInfo.get('eventDate');
+		var eventMonth = eventInfo.get('eventMonth');
+		var eventYear = eventInfo.get('eventYear');
 		var dateObj = new Date(eventYear, eventMonth, eventDate);
 		
 		var data = {'dateNumber': eventDate, 'dateName': this.getDayOfWeek(dateObj.getDay())};
 		this.meta('dateNumber', eventDate);
 		$(this.el).append(this.template(data));
 		
-		var tempEventView = new TimelineEventView(eventInfo);
+		var tempEventView = new TimelineEventView();
+		tempEventView.render(eventInfo);
 	    this.meta('timelineEventViews', [tempEventView]);
 	    $(this.el).find('.eventInfos').append(tempEventView.el);
 		return this.el;
 	},
 
 	addEvent: function(eventInfo) {
-		//TODO: WRITE THIS
 		var tempEventView = new TimelineEventView(eventInfo);
-	    this.meta('timelineEventViews', [tempEventView]);
+		tempEventView.render(eventInfo);
+		var timelineEventViews = this.meta('timelineEventViews');
+		timelineEventViews.push(tempEventView);
+	    this.meta('timelineEventViews', timelineEventViews);
 	    $(this.el).find('.eventInfos').append(tempEventView.el);
 		return this.el;
 	},

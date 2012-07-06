@@ -48,10 +48,12 @@ var DateUtil = new function() {
       
     },
     this.convertToDateObject = function(dateString) {
-		dateString = dateString.replace('T', ' ');
-		dateString = dateString.replace('Z', '');
-		var d = Date.parse(dateString);
-		return d;
+        if (typeof dateString != 'undefined') {
+            dateString = dateString.replace('T', ' ');
+            dateString = dateString.replace('Z', '');
+            var d = Date.parse(dateString);
+            return d; 
+        }
 	},
 	
     this.convertZventsDateToStubDate = function(zventsDate) {

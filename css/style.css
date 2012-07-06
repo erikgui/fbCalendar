@@ -16,7 +16,7 @@ html, body {
 	position: relative;
 	width: 760px;
 	margin: 0 auto; 
-	background-color: #C9E6FF;
+	/*background-color: #C9E6FF;*/
 }
 
 #header_container {
@@ -72,7 +72,7 @@ ul.timeline li {
 	position: relative;
 	width: 760px;
 	height: 150px;
-	background-color: #e0effa;
+	/*background-color: #e0effa;*/
 }
 
 .dateNumber {
