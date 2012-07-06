@@ -8,6 +8,18 @@ window.AppRouter = Backbone.Router.extend({
 
 	initialize: function() {
 		this.view = new TimelineView();
+
+		this.view.addEvent({
+			eventYear: 2012,
+			eventMonth: 7,
+			eventDate: 18,
+			eventName: 'Surprise Event',
+			eventDescription: 'Surprise event for those who are not surprised!'
+		});
+
+
+
+
 		this.collection = new StubHubEventCollection();
 		this.hunch = new HunchRecCollection();
 		window.CONFIG = new MdlConfig();

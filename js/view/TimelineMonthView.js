@@ -1,18 +1,83 @@
 window.TimelineMonthView = Backbone.View.extend({
 	tagName: 'li',
 	className: 'timeline-month',
-	model: StubHubEventModel,
-	
-	initialize: function() {
-		_.bindAll(this, 'render');
+
+	meta: function(property, value) {
+		if (typeof value === "undefined") {
+			return this._meta[property];
+		} else {
+			this._meta[property] = value;
+		}
 	},
 
-	render: function() {
-		var data = {'month_number': 'July, 2012'};
+	initialize: function(eventInfo) {
+		_.bindAll(this, 'render');
+		this._meta = {};
+		this.render(eventInfo);
+	},
+
+	render: function(eventInfo) {
+		var eventYear = eventInfo.eventYear;
+		var month_number = this.getMonthName(eventInfo.eventMonth) + ', ' + eventYear;
+		
+		var data = {'month_number': month_number};
+		this.meta('month_number', month_number);
 		$(this.el).append(this.template(data));
-	    $(this.el).append(new TimelineItemView().render());
-	    $(this.el).append(new TimelineItemView().render());
-	    $(this.el).append(new TimelineItemView().render());
+		
+		var tempItemView = new TimelineItemView(eventInfo);
+	    this.meta('timelineItemViews', [tempItemView]);
+	    $(this.el).append(tempItemView.el);
+	    
 	    return this;
+	}, 
+
+	addEvent: function(eventInfo) {
+		var timelineItemViews = this.meta('timelineItemViews');
+
+		var tempItemView = new TimelineItemView(eventInfo);
+	    this.meta('timelineItemViews', timelineItemViews.push(tempItemView));
+	    $(this.el).append(tempItemView);
+	},
+
+	getMonthName: function(number) {
+		switch(number) {
+			case 0:
+				return 'January';
+				break;
+			case 1:
+				return 'February';
+				break;
+			case 2:
+				return 'March';
+				break;
+			case 3:
+				return 'April';
+				break;
+			case 4:
+				return 'May';
+				break;
+			case 5:
+				return 'June';
+				break;
+			case 6:
+				return 'July';
+				break;
+			case 7:
+				return 'August';
+				break;
+			case 8:
+				return 'September';
+				break;
+			case 9:
+				return 'October';
+				break;
+			case 10:
+				return 'November';
+				break;
+			case 11:
+				return 'December';
+				break;
+		}
+
 	}
 });
