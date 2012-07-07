@@ -24,10 +24,20 @@ window.HunchRecCollection = Backbone.Collection.extend({
 
 	url: function() {
 
-		//get-recommendations
-		//http://hunch.com/developers/v1/resources/console/#get-recommendations
-		var URL = 'http://api.hunch.com/api/v1/get-recommendations?'
-		
+		var URL; 
+		if(this.meta('API-method') === 'get-recommendations') {
+			//get-recommendations
+			//http://hunch.com/developers/v1/resources/console/#get-recommendations
+			URL = 'http://api.hunch.com/api/v1/get-recommendations?';
+		} else {
+			//get-results
+			//http://hunch.com/developers/v1/docs/reference/#result-methods
+			URL = 'http://api.hunch.com/api/v1/get-results/?';			
+		} else {
+			console.log('HunchRecCollection: Did not specify API-method in meta');
+			return '';
+		}
+				
 		//query variables
 		
 		//An authorization token, authenticating your app on behalf of the user.

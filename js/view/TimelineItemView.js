@@ -2,6 +2,10 @@ window.TimelineItemView = Backbone.View.extend({
 	tagName: 'li',
 
 	className: 'timelineitem-container',
+	events: {
+		'click .arrow-left' : 'leftArrowClick',
+		'click .arrow-right': 'rightArrowClick',
+	},
 
 	meta: function(property, value) {
 		if (typeof value === "undefined") {
@@ -14,6 +18,7 @@ window.TimelineItemView = Backbone.View.extend({
 	initialize: function() {
 		_.bindAll(this, 'render');
 		this._meta = {};
+		this.meta('carouselPos', 0);
 	},
 
 	render: function(eventInfo) {
@@ -40,6 +45,9 @@ window.TimelineItemView = Backbone.View.extend({
 		timelineEventViews.push(tempEventView);
 	    this.meta('timelineEventViews', timelineEventViews);
 	    $(this.el).find('.eventInfos').append(tempEventView.el);
+	    if (timelineEventViews.length > 3) {
+	    	this.activateCarousel();
+	    }
 		return this.el;
 	},
 
@@ -66,6 +74,44 @@ window.TimelineItemView = Backbone.View.extend({
 			case 6:
 				return 'S<br/>U<br/>N<br/>';
 				break;
+		}
+	},
+
+	activateCarousel: function() {
+		$(this.el).find('.arrow-right').css('display', 'block');
+		$(this.el).find('.arrow-left').css('display', 'block');
+	},
+
+	deactivateCarouse: function() {
+		$(this.el).find('.arrow-right').css('display', 'none');
+		$(this.el).find('.arrow-left').css('display', 'none');		
+	},
+
+	leftArrowClick: function() {
+		var timelineEventViews = this.meta('timelineEventViews');
+		var TEMNum = timelineEventViews.length;
+		var carouselPos = this.meta('carouselPos');
+		if (TEMNum > 3) {
+			if (carouselPos > 0) {
+				$(this.el).find('.eventInfos').animate({
+					left: '+=197'
+				});
+				this.meta('carouselPos', carouselPos-1);
+			}
+		}
+	},
+
+	rightArrowClick: function() {
+		var timelineEventViews = this.meta('timelineEventViews');
+		var TEMNum = timelineEventViews.length;
+		var carouselPos = this.meta('carouselPos');
+		if (TEMNum > 3) {
+			if (carouselPos < (TEMNum - 3)) {
+				$(this.el).find('.eventInfos').animate({
+					left: '-=197'
+				});
+				this.meta('carouselPos', carouselPos+1);
+			}
 		}
 	},
 });

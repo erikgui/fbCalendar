@@ -126,19 +126,37 @@ window.FacebookUserModel = Backbone.Model.extend({
 				}
 
 			}
-
-
+			
 			console.log(DisplayedCollection);
+			for (var idx = 0; idx < DisplayedCollection.length; idx++) {
+				var eventInstance = DisplayedCollection.at(idx);
+				var eventYear = eventInstance.get('eventYear');
+				var eventMonth = eventInstance.get('eventMonth');
+				var eventDate = eventInstance.get('eventDate');
+				var eventName = eventInstance.get('eventName');
+
+				var counter = 0;
+				for (var idx2 = 0; idx2 < collection.length; idx2++) {
+					var ei = collection.at(idx2);
+					if (counter < 3) {
+						if (ei.get('eventYear') === eventYear &&
+							ei.get('eventMonth') === eventMonth &&
+							ei.get('eventDate') === eventDate &&
+							ei.get('eventName') !== eventName) {
+							window.app.view.addEvent(ei);
+							counter++;
+						}
+					} else {
+						break;
+					}
+				}
+			}
 		}});
-
-		
-
-
 
 		window.app.hunch.meta('topic_ids', 'list_musician');
 		window.app.hunch.meta('likes', musicianIDs);
 		window.app.hunch.meta('blocked_result_ids', musicianIDs);
-
+		window.app.hunch.meta('API-method', 'get-recommendations');
 		console.log(window.app.hunch.url());
 		window.app.hunch.fetch();
 	}

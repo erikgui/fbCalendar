@@ -9,13 +9,54 @@ window.AppRouter = Backbone.Router.extend({
 	initialize: function() {
 		window.CONFIG = new MdlConfig();
 		this.view = new TimelineView();
-		// this.view.addEvent(new StubHubEventModel({
-		// 	eventYear: 2012,
-		// 	eventMonth: 7,
-		// 	eventDate: 18,
-		// 	eventName: 'Surprise Event',
-		// 	eventDescription: 'Surprise event for those who are not surprised!'
-		// }));
+		this.view.addEvent(new StubHubEventModel({
+			eventYear: 2012,
+			eventMonth: 5,
+			eventDate: 18,
+			eventName: 'Surprise Event',
+			eventDescription: 'Surprise event for those who are not surprised!'
+		}));
+
+		this.view.addEvent(new StubHubEventModel({
+			eventYear: 2012,
+			eventMonth: 5,
+			eventDate: 18,
+			eventName: 'Surprise Event 2',
+			eventDescription: 'Surprise event for those who are not surprised!'
+		}));
+
+		this.view.addEvent(new StubHubEventModel({
+			eventYear: 2012,
+			eventMonth: 5,
+			eventDate: 18,
+			eventName: 'Surprise Event 3',
+			eventDescription: 'Surprise event for those who are not surprised!'
+		}));
+
+		this.view.addEvent(new StubHubEventModel({
+			eventYear: 2012,
+			eventMonth: 5,
+			eventDate: 18,
+			eventName: 'Surprise Event 4',
+			eventDescription: 'Surprise event for those who are not surprised!'
+		}));
+
+		this.view.addEvent(new StubHubEventModel({
+			eventYear: 2012,
+			eventMonth: 5,
+			eventDate: 18,
+			eventName: 'Surprise Event 5',
+			eventDescription: 'Surprise event for those who are not surprised!'
+		}));
+		
+		this.view.addEvent(new StubHubEventModel({
+			eventYear: 2012,
+			eventMonth: 5,
+			eventDate: 18,
+			eventName: 'Surprise Event 6',
+			eventDescription: 'Surprise event for those who are not surprised!'
+		}));
+
 
 /*		this.view.addEvent({
 			eventYear: 2012,
