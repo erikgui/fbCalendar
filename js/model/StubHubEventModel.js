@@ -25,8 +25,46 @@ window.StubHubEventModel = Backbone.Model.extend({
 					eventDescription: 'No Description',
 				});
 			}
-			
+			this.setThumbnail();
 		}
 	},
 
+	setThumbnail: function() {
+		var act_primary = this.get('act_primary');
+		if (act_primary === 'Bank Of The West Classic') {
+			this.set('thumbnail', 'Bank_of_the_West_Classic.gif');
+		} else if (act_primary === 'San Francisco Giants') {
+			this.set('thumbnail', 'san_francisco_giants.jpg');
+		} else if (act_primary === 'Les Miserables') {
+			this.set('thumbnail', 'les_miserables.jpg');
+		} else if (act_primary === 'Sheryl Crow') {
+			this.set('thumbnail', 'sheryl_crow.png');
+		} else if (act_primary === 'Reel Big Fish') {
+			this.set('thumbnail', 'reel_big_fish.jpg');
+ 		} else if (act_primary === 'Kelly Clarkson') {
+			this.set('thumbnail', 'kelly_clarkson.jpg');
+ 		} else if (act_primary === 'Earth, Wind and Fire') {
+			this.set('thumbnail', 'earth_wind_and_fire.jpg');
+ 		} else if (act_primary === 'Kaskade') {
+			this.set('thumbnail', 'Kaskade.jpg');
+ 		} else if (act_primary === '2012 U.S. Grand Prix 2-Day Pass') {
+			this.set('thumbnail', 'US_grand_prix.jpg');
+ 		} else if (act_primary === 'NHRA Sonoma Nationals') {
+			this.set('thumbnail', 'nhra_sonoma_natls.png');
+ 		} else if (act_primary === '2012 Red Bull U.S. Grand Prix Sunday Only Pass') {
+			this.set('thumbnail', 'nhra_sonoma_natls.png');
+ 		} else if (act_primary === 'Barenaked Ladies') {
+			this.set('thumbnail', 'barenaked_ladies.jpg');
+ 		} else if (act_primary === 'San Jose Giants') {
+			this.set('thumbnail', 'san_jose_giants.gif');
+ 		} else if (act_primary === 'Oakland Athletics') {
+			this.set('thumbnail', 'oakland_athletics.gif');
+ 		} else if (act_primary === 'John Mellencamp') {
+			this.set('thumbnail', 'john_mellencamp.jpg');
+ 		} else if (act_primary === 'Yanni') {
+			this.set('thumbnail', 'yanni.jpg');
+ 		} else {
+ 			this.set('thumbnail', 'san_francisco_giants.jpg');
+ 		}
+	}
 });

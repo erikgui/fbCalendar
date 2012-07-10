@@ -22,6 +22,10 @@ window.HunchRecCollection = Backbone.Collection.extend({
 		}
 	},
 
+	clearMeta: function() {
+		this._meta = {};
+	},
+
 	url: function() {
 
 		var URL; 
@@ -29,7 +33,7 @@ window.HunchRecCollection = Backbone.Collection.extend({
 			//get-recommendations
 			//http://hunch.com/developers/v1/resources/console/#get-recommendations
 			URL = 'http://api.hunch.com/api/v1/get-recommendations?';
-		} else {
+		} else if(this.meta('API-method') === 'get-results') {
 			//get-results
 			//http://hunch.com/developers/v1/docs/reference/#result-methods
 			URL = 'http://api.hunch.com/api/v1/get-results/?';			
@@ -151,6 +155,10 @@ window.HunchRecCollection = Backbone.Collection.extend({
 		//A boolean, defaulting to false. If true, even error responses will have an HTTP response code of 200.
 		if(typeof this.meta('suppress_http_errors') !== 'undefined') {
 			URL += '&suppress_http_errors=' + this.meta('suppress_http_errors');
+		}
+
+		if(typeof this.meta('fields') != 'undefined') {
+			URL += '&fields=' + this.meta('fields');
 		}
 
 		return HttpUtil.prependProxyUrl(URL);

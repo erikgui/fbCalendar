@@ -180,10 +180,17 @@ ul.eventInfos li {
 	-webkit-box-shadow:  1px 2px 5px 2px #666;
 	border: 1px black solid;
 	background-color: #e0effa;
+	cursor: pointer; 
+	cursor: hand;
 }
 
-.thumbnails {
-	position: absolute;
+.thumbnail {
+	/*background-image: url(../img/test.jpg);*/
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	width: 180px;
+	height: 150px;
 }
 
 .info-overlay {
@@ -192,5 +199,5 @@ ul.eventInfos li {
 	height: 70px;
 	width: 180px;
 	background-color: #FFF;
-	opacity: 0.6;
+	opacity: 0.8;
 }

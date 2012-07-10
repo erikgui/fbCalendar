@@ -73,7 +73,22 @@ window.FacebookUserModel = Backbone.Model.extend({
 			self.set('teamIDs', teamIDs);
 
 			self.customizeEvents();
+			self.getRecommendations();
 		});
+	},
+
+	getRecommendations: function() {
+		var musicianIDs = this.get('musicianIDs');
+		window.app.hunch.meta('topic_ids', 'list_musician');
+		window.app.hunch.meta('likes', musicianIDs);
+		window.app.hunch.meta('blocked_result_ids', musicianIDs);
+		window.app.hunch.meta('API-method', 'get-recommendations');
+		console.log(window.app.hunch.url());
+		window.app.hunch.fetch(success: this.hunchRecCallback(response));
+	},
+
+	hunchRecCallback: function(response) {
+		
 	},
 
 	customizeEvents: function() {
@@ -126,6 +141,11 @@ window.FacebookUserModel = Backbone.Model.extend({
 				}
 
 			}
+
+			window.app.hunch.meta('API-method', 'get-results');
+			window.app.hunch.meta('result_ids', musicianIDs[j]);
+			window.app.hunch.meta('fields', 'name,image_urls');
+						
 			
 			console.log(DisplayedCollection);
 			for (var idx = 0; idx < DisplayedCollection.length; idx++) {
@@ -153,11 +173,10 @@ window.FacebookUserModel = Backbone.Model.extend({
 			}
 		}});
 
-		window.app.hunch.meta('topic_ids', 'list_musician');
-		window.app.hunch.meta('likes', musicianIDs);
-		window.app.hunch.meta('blocked_result_ids', musicianIDs);
-		window.app.hunch.meta('API-method', 'get-recommendations');
-		console.log(window.app.hunch.url());
-		window.app.hunch.fetch();
-	}
+		
+
+
+	},
+
+
 });

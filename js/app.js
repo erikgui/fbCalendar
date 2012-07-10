@@ -9,7 +9,7 @@ window.AppRouter = Backbone.Router.extend({
 	initialize: function() {
 		window.CONFIG = new MdlConfig();
 		this.view = new TimelineView();
-		this.view.addEvent(new StubHubEventModel({
+/*		this.view.addEvent(new StubHubEventModel({
 			eventYear: 2012,
 			eventMonth: 5,
 			eventDate: 18,
@@ -55,7 +55,7 @@ window.AppRouter = Backbone.Router.extend({
 			eventDate: 18,
 			eventName: 'Surprise Event 6',
 			eventDescription: 'Surprise event for those who are not surprised!'
-		}));
+		}));*/
 
 
 /*		this.view.addEvent({

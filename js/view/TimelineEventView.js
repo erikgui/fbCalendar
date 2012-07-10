@@ -21,6 +21,7 @@ window.TimelineEventView = Backbone.View.extend({
 		var act_primary = eventInfo.get('act_primary');
 		var data = {'info': eventName + ' act_primary: ' + act_primary};
 		$(this.el).append(this.template(data));
+		$(this.el).find('.thumbnail').css('background-image', 'url(event_img/' + eventInfo.get('thumbnail') + ')');
 /*		var data = {'info': 'concert name here!'};
 		$(this.el).append(this.template(data));*/
 		return this.el;
