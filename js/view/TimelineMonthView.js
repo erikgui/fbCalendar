@@ -44,6 +44,18 @@ window.TimelineMonthView = Backbone.View.extend({
 	    $(this.el).append(tempItemView.el);
 	},
 
+	hasEvent: function(eventInfo) {
+		var timelineItemViews = this.meta('timelineItemViews');
+		if (typeof timelineItemViews != 'undefined') {
+			for (var i = 0; i < timelineItemViews.length; i++) {
+				var tiv = timelineItemViews[i];
+				tiv.hasEvent(eventInfo);
+			}
+		} else {
+			return false;
+		}
+	},
+
 	getMonthName: function(number) {
 		switch(number) {
 			case 0:

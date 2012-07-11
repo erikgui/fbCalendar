@@ -22,6 +22,7 @@ window.StubHubEventModel = Backbone.Model.extend({
 					eventMonth: eventDateObj.getMonth(),
 					eventDate: eventDateObj.getDate(),
 					eventName: LCSeventInfo.name_primary,
+					eventDateObj: eventDateObj,
 					eventDescription: 'No Description',
 				});
 			}
@@ -63,6 +64,14 @@ window.StubHubEventModel = Backbone.Model.extend({
 			this.set('thumbnail', 'john_mellencamp.jpg');
  		} else if (act_primary === 'Yanni') {
 			this.set('thumbnail', 'yanni.jpg');
+		} else if (act_primary ==='Club America') {
+			this.set('thumbnail', 'club_america.png');
+		} else if (act_primary ==='Tangerine Dream') {
+			this.set('thumbnail', 'tangerine_dream.jpg');
+		} else if (act_primary ==='Kenny Chesney') {
+			this.set('thumbnail', 'kenny_chesney.jpg');
+		} else if (act_primary ==='Alberta Cross') {
+			this.set('thumbnail', 'alberta_cross.jpg');
  		} else {
  			this.set('thumbnail', 'san_francisco_giants.jpg');
  		}

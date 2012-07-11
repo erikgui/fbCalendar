@@ -56,64 +56,6 @@ window.AppRouter = Backbone.Router.extend({
 			eventName: 'Surprise Event 6',
 			eventDescription: 'Surprise event for those who are not surprised!'
 		}));*/
-
-
-/*		this.view.addEvent({
-			eventYear: 2012,
-			eventMonth: 7,
-			eventDate: 18,
-			eventName: 'Surprise Event',
-			eventDescription: 'Surprise event for those who are not surprised!'
-		});
-
-		this.view.addEvent({
-			eventYear: 2012,
-			eventMonth: 7,
-			eventDate: 18,
-			eventName: 'Surprise Event #2',
-			eventDescription: 'Surprise event for those who are not surprised!'
-		});
-
-		this.view.addEvent({
-			eventYear: 2012,
-			eventMonth: 7,
-			eventDate: 18,
-			eventName: 'Surprise Event #7',
-			eventDescription: 'Surprise event for those who are not surprised!'
-		});
-
-		this.view.addEvent({
-			eventYear: 2012,
-			eventMonth: 7,
-			eventDate: 19,
-			eventName: 'Surprise Event #3',
-			eventDescription: 'Surprise event for those who are not surprised!'
-		});
-
-		this.view.addEvent({
-			eventYear: 2012,
-			eventMonth: 8,
-			eventDate: 31,
-			eventName: 'Surprise Event #4',
-			eventDescription: 'Surprise event for those who are not surprised!'
-		});
-		this.view.addEvent({
-			eventYear: 2012,
-			eventMonth: 9,
-			eventDate: 19,
-			eventName: 'Surprise Event #5',
-			eventDescription: 'Surprise event for those who are not surprised!'
-		});
-		this.view.addEvent({
-			eventYear: 2012,
-			eventMonth: 10,
-			eventDate: 1,
-			eventName: 'Surprise Event #6',
-			eventDescription: 'Surprise event for those who are not surprised!'
-		});*/
-
-
-		this.collection = new StubHubEventCollection();	
 		this.hunch = new HunchRecCollection();
 		//this.collection.fetch({success: function(){}});
 
@@ -123,11 +65,75 @@ window.AppRouter = Backbone.Router.extend({
 		this.HunchRecCollection.meta('blocked_result_ids', 'hn_3570964');
 		console.log(this.HunchRecCollection.url());
 		this.HunchRecCollection.fetch();*/
+		window.appHeight = 1200;
+		window.cascadeTimeout = 0;
+		
+		setInterval(function(){
+			FB.Canvas.getPageInfo(
+		        function(info) {
+		        	if (info.clientHeight + info.offsetTop + info.scrollTop > window.appHeight) {
+		        		console.log('infinite scrolling!');
+		        		window.cascadeTimeout = 0;
+		        		FB.Canvas.setSize({height: window.appHeight+1200});
+		        		window.appHeight = window.appHeight+1200;
+						
+						//for (var idx = 0; idx < collection.length; idx++) {
+							//var counter = 0;
+						if (typeof d1 != 'undefined' &&
+							typeof d2 != 'undefined' &&
+							typeof limit != 'undefined') {
+							while (!d1.equals(limit)) {
+								for (var i = 0; i < window.app.collection.length; i++) {			
+									var eventInstance = window.app.collection.at(i);
+									var act_primary = eventInstance.get('act_primary');
+									// var musicianMatch = false;
+									// var teamMatch = false;
+									// for (var j = 0; j < musicianNames.length; j++) {
+									// 	if ((new RegExp(musicianNames[j])).test(act_primary)) {
+									// 		musicianMatch = true;
+									// 		break;
+									// 	}
+									// }
+
+									// for (var k = 0; k < teamNames.length; k++) {
+									// 	if ((new RegExp(teamNames[k])).test(act_primary)) {
+									// 		teamMatch = true;
+									// 		break;
+									// 	}
+									// }
+
+									// if (musicianMatch || teamMatch) {
+									// 	DisplayedCollection.add(eventInstance);
+									// 	window.app.view.addEvent(eventInstance);
+
+									// }
+
+									var eventDateObj = eventInstance.get('eventDateObj');
+									if (eventDateObj.between(d1, d2)) {
+										DisplayedCollection.add(eventInstance);
+										window.app.view.addEvent(eventInstance);
+									}
+								}
+								d1 = d2.clone();
+								d2 = d2.addDays(1);
+							}
+							console.log('d1: ' + d1);
+							console.log('d2: ' + d2);
+							console.log('limit: ' + limit);
+				        	d1 = limit.clone();
+							d2 = d1.addDays(1);
+							limit = limit.addDays(8);
+						}
+		        	}	
+		        }
+    		);
+		}, 1000);
+
 	},
 
 });
 
-
+/*Loading Templates using a util function and initializing application via AppRouter*/
 (function($){
 	utils.loadTemplate(['TimelineMonthView','TimelineItemView', 'TimelineEventView'], function(){
 		console.log('finish loading templates');
@@ -136,138 +142,3 @@ window.AppRouter = Backbone.Router.extend({
 	});
 	
 })(jQuery);
-
-/*---------------------Facebook Stuff---------------------*/
-var accessToken;
-
-/*function login(response, info){
-	if (response.authResponse) {
-		accessToken                                 =   response.authResponse.accessToken;
-		
-		userInfo.innerHTML                             = '<img src="https://graph.facebook.com/' + info.id + '/picture">' + info.name
-														 + "<br /> Your Access Token: " + accessToken;
-		
-		userInfo.innerHTML = "Hello, " + info.name + "!";
-		button.innerHTML                               = 'Logout';
-	}
-}*/
-/*
-function logout(response){
-	userInfo.innerHTML                             =   "";
-	document.getElementById('debug').innerHTML     =   "";
-	document.getElementById('other').style.display =   "none";
-}*/
-/*
-function updateButton(response) {
-	button       =   document.getElementById('fb-auth');
-	userInfo     =   document.getElementById('user-info');
-	if (response.authResponse) {
-		//user is already logged in and connected
-		FB.api('/me', function(info) {
-			login(response, info);
-			customizeURL();
-		});
-		
-		button.onclick = function() {
-			FB.logout(function(response) {
-				logout(response);
-			});
-		};
-	} else {
-		//user is not connected to your app or logged out
-		button.innerHTML = 'Login';
-		button.onclick = function() {
-			FB.login(function(response) {
-				if (response.authResponse) {
-					FB.api('/me', function(info) {
-						login(response, info);
-					});	   
-				} else {
-					//user cancelled login or did not grant authorization
-				}
-			}, {scope:'status_update,publish_stream,user_about_me,user_likes,user_events,user_location'});  	
-		}
-	}
-}
-*/
-/*var rsp;
-var likes;
-
-var musicians = [];
-var musiciansID = '';
-var sportsTeams = [];
-var sportsTeamsID = '';
-
-function customizeURL() {
-	var location;
-	console.log('customizing URL');
-	FB.api('/me?access_token=' + accessToken, function(response) {
-		
-		console.log('response' + response);
-		rsp = response;
-		location = response.location.name;
-		
-		console.log('user_location: ' + location);
-		//if (typeof location !== 'undefined' || location !== '') {
-		//	colEvents.meta('description', location);	
-		//}
-		
-	});
-	
-	FB.api('/me/likes?access_token=' + accessToken, function(response) {
-		
-		likes = response;
-//		console.log('going inside for-loop');
-		for (var i = 0 ; i < likes.data.length; i++) {
-			var like = likes.data[i];
-			if (like.category === 'Musician/band') {
-				console.log(like.name);
-				musicians.push(like.name);
-				musiciansID = musiciansID + like.id + ',';
-			} else if (like.category === 'Professional sports team') {
-				console.log(like.name);
-				sportsTeams.push(like.name);
-				sportsTeamsID = sportsTeamsID + like.id + ',';
-			}
-		}
-		
-		musiciansID = musiciansID.slice(0, -1);
-		sportsTeamsID = sportsTeamsID.slice(0, -1);
-
-		var hunchURL = 'http://api.hunch.com/api/v1/get-recommendations/?topic_ids=list_musician&blocked_result_ids=' + musiciansID
-					+ '&likes=' + musiciansID;
-
-		$.ajax({
-	  		url: hunchURL,
-	  		dataType: 'json',
-	  		success: function(data) {
-	  			var hnRecs = data;
-
-	  		}
-		});
-
-	});
-
-
-	
-
-}
-
-
-function getLCSURL(data) {
-
-	var theUrl = 'http://www.stubhub.com/listingCatalog/select?';
-
-		theUrl +='q=stubhubDocumentType:event';
-		
-		// theUrl += ' AND event_date_local:'+ this.meta('timeRange') +'';
-		theUrl += ' AND event_date_time_local:[NOW-8HOURS TO *]';
-		
-		theUrl += ' AND active:1 ';
-		
-		theUrl+='&version=2.2&start=0&rows=10&indent=on&wt=json';
-		console.log('returning url', theUrl);
-
-		return HttpUtil.prependProxyUrl(theUrl);
-
-}*/

@@ -17,9 +17,18 @@ window.TimelineEventView = Backbone.View.extend({
 	},
 
 	render: function(eventInfo) {
+		this.meta('eventName', eventInfo.get('eventName'));
+		this.meta('act_primary', eventInfo.get('act_primary'));
+		this.meta('eventDate', eventInfo.get('eventDate'));
+		this.meta('eventMonth', eventInfo.get('eventMonth'));
+		this.meta('eventYear', eventInfo.get('eventYear'));
 		var eventName = eventInfo.get('eventName');
 		var act_primary = eventInfo.get('act_primary');
-		var data = {'info': eventName + ' act_primary: ' + act_primary};
+		var dataStr = eventName + '<br />' + act_primary;
+		if (dataStr.length > 40) {
+			dataStr = eventName;
+		}
+		var data = {'info': dataStr};
 		$(this.el).append(this.template(data));
 		$(this.el).find('.thumbnail').css('background-image', 'url(event_img/' + eventInfo.get('thumbnail') + ')');
 /*		var data = {'info': 'concert name here!'};

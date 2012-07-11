@@ -5,6 +5,7 @@ html, body {
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
+	text-align: center;
 
 	/*Disable Drag Selection!*/
 	-webkit-touch-callout: none;
@@ -19,6 +20,10 @@ html, body {
 #wrapper {
 	position: relative;
 	height: 100%;
+	text-align: center;
+}
+
+#ajax-loader {
 }
 
 #content_container{
@@ -81,6 +86,7 @@ ul.timeline li {
 	position: relative;
 	width: 760px;
 	height: 150px;
+	display: none;
 	/*background-color: #e0effa;*/
 }
 
@@ -121,7 +127,7 @@ ul.timeline li {
 }
 
 .eventInfos {
-	width: 3000px;
+	width: 5000px;
 	position: absolute;
 }
 
@@ -137,13 +143,12 @@ ul.timeline-items li {
 	height: 0px;
 	border-top: 10px solid transparent;
 	border-bottom: 10px solid transparent;
-	border-right: 10px solid #666;
+	border-right: 10px solid #AAA;
 	position: absolute;
 	top: 65px;
 	left: 35px;
 	cursor: pointer; 
 	cursor: hand;
-	display: none;
 }
 
 .arrow-right {
@@ -151,13 +156,12 @@ ul.timeline-items li {
 	height: 0px;
 	border-top: 10px solid transparent;
 	border-bottom: 10px solid transparent;
-	border-left: 10px solid #666;
+	border-left: 10px solid #AAA;
 	position: absolute;
 	top: 65px;
 	left: 650px;
 	cursor: pointer; 
 	cursor: hand;
-	display: none;
 }
 
 /*---------------------TimelineEventView---------------------*/
@@ -195,9 +199,11 @@ ul.eventInfos li {
 
 .info-overlay {
 	position: absolute;
-	top: 80px;
-	height: 70px;
-	width: 180px;
+	top: 100px;
+	font-weight: bold;
 	background-color: #FFF;
-	opacity: 0.8;
+	opacity: 0.7;
+	width: 170px;
+	height: 40px;
+	padding: 5px;
 }

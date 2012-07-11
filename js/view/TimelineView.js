@@ -19,6 +19,7 @@ window.TimelineView = Backbone.View.extend({
 	},
 	
 	render: function() {
+		//$(this.el).append(this.template);
 	},
 
 
@@ -78,6 +79,22 @@ window.TimelineView = Backbone.View.extend({
 			this.meta('timelineMonthViews', [tempMonth]);
 		}
 
+	},
+
+
+	/*===================================================*/
+	/*Use this function to check if events exists in view*/
+	/*===================================================*/
+	hasEvent: function(eventInfo) {
+		var monthViews = this.meta('timelineMonthViews');
+		if (typeof monthViews != 'undefined') {
+			for (var i = 0; i < monthViews.length; i++) {
+				var mv = monthViews[i];
+				mv.hasEvent(eventInfo);
+			};
+		} else {
+			return false;
+		}
 	},
 
 });
