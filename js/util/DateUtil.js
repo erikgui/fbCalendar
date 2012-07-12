@@ -46,7 +46,8 @@ var DateUtil = new function() {
             return 'error';
         }
       
-    },
+    };
+
     this.convertToDateObject = function(dateString) {
         if (typeof dateString != 'undefined') {
             dateString = dateString.replace('T', ' ');
@@ -54,7 +55,16 @@ var DateUtil = new function() {
             var d = Date.parse(dateString);
             return d; 
         }
-	},
+	};
+
+    this.convertToStubDate = function(dateObj) {
+        if (typeof dateObj != 'undefined') {
+            var year = dateObj.getFullYear();
+            var month = dateObj.getMonth()+1;
+            var date = dateObj.getDate()+1;
+            return year + '-' + month + '-' + date + 'T00:00:00Z';
+        }
+    };
 	
     this.convertZventsDateToStubDate = function(zventsDate) {
 	var months = {'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05', 'Jun': '06', 'Jul': '07', 'Aug': '08', 'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'};
@@ -67,5 +77,5 @@ var DateUtil = new function() {
 	var yyyy = comps[5];
 	var dd = comps[2];
 	return yyyy+'-'+mm+'-'+dd;
-    }
+    };
 }

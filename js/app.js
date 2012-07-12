@@ -123,6 +123,10 @@ window.AppRouter = Backbone.Router.extend({
 				        	d1 = limit.clone();
 							d2 = d1.addDays(1);
 							limit = limit.addDays(8);
+							if (limit.isAfter(window.app.collection.at(window.app.collection.length-1).eventDateObj)) {
+								window.app.collection.meta('event_date_time_local', '[' + DateUtil.convertToStubDate(limit) + ' TO *]');
+								window.app.collection.fetch();
+							}
 						}
 		        	}	
 		        }
