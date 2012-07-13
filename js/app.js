@@ -9,6 +9,7 @@ window.AppRouter = Backbone.Router.extend({
 	initialize: function() {
 		window.CONFIG = new MdlConfig();
 		this.view = new TimelineView();
+		this.modal = new TimelineDetailView();
 /*		this.view.addEvent(new StubHubEventModel({
 			eventYear: 2012,
 			eventMonth: 5,
@@ -128,10 +129,12 @@ window.AppRouter = Backbone.Router.extend({
 								window.app.collection.fetch();
 							}
 						}
-		        	}	
+		        	}
+
+					$('.modal').css('top', info.clientHeight + info.scrollTop - 200 + 'px');
 		        }
     		);
-		}, 1000);
+		}, 500);
 
 	},
 
@@ -139,10 +142,11 @@ window.AppRouter = Backbone.Router.extend({
 
 /*Loading Templates using a util function and initializing application via AppRouter*/
 (function($){
-	utils.loadTemplate(['TimelineMonthView','TimelineItemView', 'TimelineEventView'], function(){
+	utils.loadTemplate(['TimelineMonthView','TimelineItemView', 'TimelineEventView', 'TimelineDetailView'], function(){
 		console.log('finish loading templates');
 		window.app = new AppRouter();
 		Backbone.history.start();
 	});
+
 	
 })(jQuery);

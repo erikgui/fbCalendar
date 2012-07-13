@@ -67,11 +67,11 @@ ul.timeline li {
 }
 
 .month-number {
-	position: relative;
 	font-size: 2em;
 	left: 10px;
 	top: 5px;
 	width: 200px;
+	margin-top: 10px;
 }
 
 .timeline-items {
@@ -188,7 +188,7 @@ ul.eventInfos li {
 	cursor: hand;
 }
 
-.thumbnail {
+.event-img {
 	/*background-image: url(../img/test.jpg);*/
 	background-position: center;
 	background-repeat: no-repeat;

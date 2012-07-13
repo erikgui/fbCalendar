@@ -3,6 +3,10 @@ window.TimelineEventView = Backbone.View.extend({
 
 	className: 'timelineevent-container',
 
+	events: {
+		'click' : 'showDetails',
+	},
+
 	meta: function(property, value) {
 		if (typeof value === "undefined") {
 			return this._meta[property];
@@ -22,6 +26,7 @@ window.TimelineEventView = Backbone.View.extend({
 		this.meta('eventDate', eventInfo.get('eventDate'));
 		this.meta('eventMonth', eventInfo.get('eventMonth'));
 		this.meta('eventYear', eventInfo.get('eventYear'));
+
 		var eventName = eventInfo.get('eventName');
 		var act_primary = eventInfo.get('act_primary');
 		var dataStr = eventName + '<br />' + act_primary;
@@ -30,9 +35,14 @@ window.TimelineEventView = Backbone.View.extend({
 		}
 		var data = {'info': dataStr};
 		$(this.el).append(this.template(data));
-		$(this.el).find('.thumbnail').css('background-image', 'url(event_img/' + eventInfo.get('thumbnail') + ')');
+		$(this.el).find('.event-img').css('background-image', 'url(event_img/' + eventInfo.get('thumbnail') + ')');
 /*		var data = {'info': 'concert name here!'};
 		$(this.el).append(this.template(data));*/
 		return this.el;
+	},
+
+	showDetails: function() {
+		//this.meta('timelineDetailView')
+		window.app.modal.show();
 	}
 });

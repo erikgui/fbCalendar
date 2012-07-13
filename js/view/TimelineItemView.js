@@ -45,7 +45,7 @@ window.TimelineItemView = Backbone.View.extend({
 	},
 
 	addEvent: function(eventInfo) {
-		var tempEventView = new TimelineEventView(eventInfo);
+		var tempEventView = new TimelineEventView();
 		tempEventView.render(eventInfo);
 		var timelineEventViews = this.meta('timelineEventViews');
 		timelineEventViews.push(tempEventView);

@@ -2,14 +2,17 @@
 <html>
 <head>
 
-	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<!--Loading stylesheets-->
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 
 	<!--Loading libraries-->
 	<script type='text/javascript' src='js/libs/jquery/jquery-1.7.2.min.js'></script>
 	<script type="text/javascript" src="js/libs/underscore-min.js"></script>
 	<script type="text/javascript" src="js/libs/backbone-min.js"></script>
 	<script type="text/javascript" src="js/libs/jquery.masonry.min.js"></script>
-	
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 
 	<!---MVC loaded based on dependencies-->
 	<script type="text/javaScript" src="http://j.maxmind.com/app/geoip.js"></script>
@@ -31,8 +34,7 @@
 	<script type="text/javascript" src="js/view/TimelineMonthView.js"></script>
 	<script type="text/javascript" src="js/view/TimelineItemView.js"></script>
 	<script type="text/javascript" src="js/view/TimelineEventView.js"></script>
-
-
+	<script type="text/javascript" src="js/view/TimelineDetailView.js"></script>
 
 </head>
 
@@ -87,21 +89,28 @@
 
 		<div id="content_container">
 
+<!-- 			<a class="btn" data-toggle="modal" href="#myModal" >Launch Modal</a>
+			<div class="modal hide" id="myModal">
+			  <div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal">×</button>
+			    <h3>Modal header</h3>
+			  </div>
+			  <div class="modal-body">
+			    <p>One fine body…</p>
+			  </div>
+			  <div class="modal-footer">
+			    <a href="#" class="btn" data-dismiss="modal">Close</a>
+			    <a href="#" class="btn btn-primary">Save changes</a>
+			  </div>
+			</div> -->
+
 			<div id="header_container"></div>
 
 			<div id='view-container'>
 				<ul class="timeline"></ul>	
-
+				<div id='timelinedetail-container'></div>
 				<div id='ajax-loader'><img src='img/ajax-loader.gif'/></div>
-
-
-<!-- 				<select class='dropdown'>
-			  		<option>Next 7 Days</option>
-			  		<option>Next 10 Days</option>
-			  		<option>Next 100 Days</option>
-				</select> -->
 			</div>
-			 
 		</div><!-- content_container -->
 
 	</div><!-- wrapper -->
