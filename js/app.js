@@ -10,53 +10,7 @@ window.AppRouter = Backbone.Router.extend({
 		window.CONFIG = new MdlConfig();
 		this.view = new TimelineView();
 		this.modal = new TimelineDetailView();
-/*		this.view.addEvent(new StubHubEventModel({
-			eventYear: 2012,
-			eventMonth: 5,
-			eventDate: 18,
-			eventName: 'Surprise Event',
-			eventDescription: 'Surprise event for those who are not surprised!'
-		}));
 
-		this.view.addEvent(new StubHubEventModel({
-			eventYear: 2012,
-			eventMonth: 5,
-			eventDate: 18,
-			eventName: 'Surprise Event 2',
-			eventDescription: 'Surprise event for those who are not surprised!'
-		}));
-
-		this.view.addEvent(new StubHubEventModel({
-			eventYear: 2012,
-			eventMonth: 5,
-			eventDate: 18,
-			eventName: 'Surprise Event 3',
-			eventDescription: 'Surprise event for those who are not surprised!'
-		}));
-
-		this.view.addEvent(new StubHubEventModel({
-			eventYear: 2012,
-			eventMonth: 5,
-			eventDate: 18,
-			eventName: 'Surprise Event 4',
-			eventDescription: 'Surprise event for those who are not surprised!'
-		}));
-
-		this.view.addEvent(new StubHubEventModel({
-			eventYear: 2012,
-			eventMonth: 5,
-			eventDate: 18,
-			eventName: 'Surprise Event 5',
-			eventDescription: 'Surprise event for those who are not surprised!'
-		}));
-		
-		this.view.addEvent(new StubHubEventModel({
-			eventYear: 2012,
-			eventMonth: 5,
-			eventDate: 18,
-			eventName: 'Surprise Event 6',
-			eventDescription: 'Surprise event for those who are not surprised!'
-		}));*/
 		this.hunch = new HunchRecCollection();
 		//this.collection.fetch({success: function(){}});
 
@@ -131,7 +85,7 @@ window.AppRouter = Backbone.Router.extend({
 						}
 		        	}
 
-					$('.modal').css('top', info.clientHeight + info.scrollTop - 200 + 'px');
+					$('.modal').css('top', info.clientHeight + info.scrollTop - 300 + 'px');
 		        }
     		);
 		}, 500);
