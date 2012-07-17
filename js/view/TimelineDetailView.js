@@ -16,12 +16,26 @@ window.TimelineDetailView = Backbone.View.extend({
 		this.render();
 	},
 
-	initializeInfo: function(eventInfo) {
-
-	},
+	changeInfo: function(eventInfo) {
+		var data = {
+			'eventName': eventInfo.get('eventName'), 
+			'venueName': eventInfo.get('venue_name'), 
+			'venueLocation': 'Venue Location', 
+			'eventTime' : eventInfo.get('eventDateObj'),
+		};
+		$(this.el).html(this.template(data));
+		$(this.el).find('.event-img-large').css('background-image', 'url(' + eventInfo.get('thumbnail') + ')');
+		},
 
 	render: function() {
-		$(this.el).append(this.template());
+		var data = {
+			'eventName': 'Event Name', 
+			'venueName': 'Venue Name', 
+			'venueLocation': 'Venue Location', 
+			'eventTime' : '10:00AM PDT'
+		};
+
+		$(this.el).html(this.template(data));
 		$('#details-modal').modal({show: false});
 		return this.el;
 	},

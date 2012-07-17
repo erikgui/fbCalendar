@@ -12,7 +12,8 @@
 	<script type="text/javascript" src="js/libs/underscore-min.js"></script>
 	<script type="text/javascript" src="js/libs/backbone-min.js"></script>
 	<script type="text/javascript" src="js/libs/jquery.masonry.min.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/libs/geoCalculation.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 
 	<!---MVC loaded based on dependencies-->
 	<script type="text/javaScript" src="http://j.maxmind.com/app/geoip.js"></script>
@@ -26,6 +27,7 @@
 	<script type="text/javascript" src="js/model/StubHubEventModel.js"></script>
 	<script type="text/javascript" src="js/model/FacebookUserModel.js"></script>
 	<script type="text/javascript" src="js/model/HunchRecModel.js"></script>
+	<script type="text/javascript" src="js/model/GeoLocationModel.js"></script>
 	<!--Collections-->
 	<script type="text/javascript" src="js/collection/StubHubEventCollection.js"></script>
 	<script type="text/javascript" src="js/collection/HunchRecCollection.js"></script>
@@ -89,22 +91,22 @@
 
 		<div id="content_container">
 
-<!-- 			<a class="btn" data-toggle="modal" href="#myModal" >Launch Modal</a>
-			<div class="modal hide" id="myModal">
-			  <div class="modal-header">
-			    <button type="button" class="close" data-dismiss="modal">×</button>
-			    <h3>Modal header</h3>
-			  </div>
-			  <div class="modal-body">
-			    <p>One fine body…</p>
-			  </div>
-			  <div class="modal-footer">
-			    <a href="#" class="btn" data-dismiss="modal">Close</a>
-			    <a href="#" class="btn btn-primary">Save changes</a>
-			  </div>
-			</div> -->
-
-			<div id="header_container"></div>
+			<div id="header_container">
+				<ul class="nav nav-pills">
+				    <li class="active" id='my-calendar-btn'><a>My Calendar</a></li>
+				    <li class="inactive" id='upcoming-events-btn'><a>All Upcoming Events</a></li>
+				    <li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown">+ Invite friends to StubHub Calendar <b class="caret"></b></a>
+						<ul id="menu1" class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+		            </li>
+			    </ul>
+			</div>
 
 			<div id='view-container'>
 				<ul class="timeline"></ul>	

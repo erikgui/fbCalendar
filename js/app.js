@@ -12,7 +12,8 @@ window.AppRouter = Backbone.Router.extend({
 		this.modal = new TimelineDetailView();
 
 		this.hunch = new HunchRecCollection();
-		//this.collection.fetch({success: function(){}});
+
+		this.geo = new GeoLocationModel();
 
 /*		this.HunchRecCollection = new HunchRecCollection();
 		this.HunchRecCollection.meta('topic_ids', 'list_musician');
@@ -86,6 +87,7 @@ window.AppRouter = Backbone.Router.extend({
 		        	}
 
 					$('.modal').css('top', info.clientHeight + info.scrollTop - 300 + 'px');
+					$('#header-container').css('top', info.scrollTop + 'px');
 		        }
     		);
 		}, 500);
@@ -102,5 +104,18 @@ window.AppRouter = Backbone.Router.extend({
 		Backbone.history.start();
 	});
 
-	
+	/*Eventlisteners for navigation buttons in the header container*/
+	$('#my-calendar-btn').click(function(){
+		$('#my-calendar-btn').addClass('inactive');
+		$('#my-calendar-btn').addClass('active');
+		$('#upcoming-events-btn').removeClass('active');
+		$('#upcoming-events-btn').addClass('inactive');
+	});
+
+	$('#upcoming-events-btn').click(function(){
+		$('#upcoming-events-btn').removeClass('inactive');
+		$('#upcoming-events-btn').addClass('active');
+		$('#my-calendar-btn').removeClass('active');
+		$('#my-calendar-btn').addClass('inactive');
+	});
 })(jQuery);

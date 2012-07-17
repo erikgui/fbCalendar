@@ -17,6 +17,11 @@ html, body {
 
 }
 
+a:hover {
+	cursor: pointer; 
+	cursor: hand;
+}
+
 #wrapper {
 	position: relative;
 	height: 100%;
@@ -34,18 +39,11 @@ html, body {
 }
 
 #header_container {
-
 }
 
 #view-container {
 	position: relative;
 	height: 100%;
-}
-
-.dropdown {
-	position: absolute;
-	left: 620px;
-	top: 15px;
 }
 
 /*---------------------TimelineView---------------------*/
@@ -127,7 +125,7 @@ ul.timeline li {
 }
 
 .eventInfos {
-	width: 5000px;
+	width: 10000px;
 	position: absolute;
 }
 
@@ -183,13 +181,12 @@ ul.eventInfos li {
 	box-shadow:  1px 2px 5px 2px #666;
 	-webkit-box-shadow:  1px 2px 5px 2px #666;
 	border: 1px black solid;
-	background-color: #e0effa;
+	background-color: #FFF;
 	cursor: pointer; 
 	cursor: hand;
 }
 
 .event-img {
-	/*background-image: url(../img/test.jpg);*/
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: 100%;
@@ -224,13 +221,17 @@ ul.eventInfos li {
 
 .event-img-large {
 	border: 1px red dotted;
+	float: left;
 	width: 250px;
 	height: 180px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100%;
 }
 
 .event-desc {
 	border: 1px green dotted;
-	position: absolute;
+	float: left;
 	left: 280px;
 	top: 60px;
 }

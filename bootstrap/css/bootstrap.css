@@ -2397,7 +2397,7 @@ table .span24 {
   z-index: 1000;
   display: none;
   float: left;
-  min-width: 160px;
+  min-width: 100%;
   padding: 4px 0;
   margin: 1px 0 0;
   list-style: none;
@@ -4190,12 +4190,12 @@ input[type="submit"].btn.btn-mini {
 }
 
 .modal.fade {
-  top: -25%;
-  -webkit-transition: opacity 0.1s linear, top 0.1s ease-out;
-     -moz-transition: opacity 0.1s linear, top 0.1s ease-out;
-      -ms-transition: opacity 0.1s linear, top 0.1s ease-out;
-       -o-transition: opacity 0.1s linear, top 0.1s ease-out;
-          transition: opacity 0.1s linear, top 0.1s ease-out;
+  /*top: -25%;*/
+  -webkit-transition: opacity 0.1s linear;
+     -moz-transition: opacity 0.1s linear;
+      -ms-transition: opacity 0.1s linear;
+       -o-transition: opacity 0.1s linear;
+          transition: opacity 0.1s linear;
 }
 
 .modal.fade.in {
