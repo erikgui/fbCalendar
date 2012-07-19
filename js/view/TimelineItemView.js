@@ -28,6 +28,56 @@ window.TimelineItemView = Backbone.View.extend({
 		var eventYear = eventInfo.get('eventYear');
 		var dateObj = new Date(eventYear, eventMonth, eventDate);
 		
+		if (eventDate < 10) {
+			eventDate = '0' + eventDate;
+		}
+
+		var data = {'dateNumber': eventDate, 'dateName': this.getDayOfWeek(dateObj.getDay())};
+		this.meta('dateNumber', eventDate);
+		$(this.el).append(this.template(data));
+
+		setTimeout(function(){$(self.el).fadeIn('slow');}, window.cascadeTimeout);
+		window.cascadeTimeout = window.cascadeTimeout + 200;
+
+		var tempEventView = new TimelineEventView();
+		tempEventView.render(eventInfo);
+	    this.meta('timelineEventViews', [tempEventView]);
+	    $(this.el).find('.eventInfos').append(tempEventView.el);
+
+
+		var today = new Date();
+		if (eventYear === today.getFullYear()) {
+			if (eventMonth === today.getMonth()) {
+				if (eventDate === today.getDate()) {
+					$(this.el).find('.dateNumber').addClass('today');
+					$(this.el).find('.dateSlateBackground').addClass('today');
+					$(this.el).find('.dateName').addClass('today');
+				}
+			}
+		}
+		return this.el;
+	},
+
+	renderForInsert: function(eventInfo) {
+		var self = this;
+		var eventDate = eventInfo.get('eventDate');
+		var eventMonth = eventInfo.get('eventMonth');
+		var eventYear = eventInfo.get('eventYear');
+		var dateObj = new Date(eventYear, eventMonth, eventDate);
+		
+		if (eventDate < 10) {
+			eventDate = '0' + eventDate;
+		}
+		
+		var today = new Date();
+		if (eventYear === today.getFullYear()) {
+			if (eventMonth === today.getMonth()) {
+				if (eventDate === today.getDate()) {
+					console.log('today is: ' + eventMonth + eventDate + eventYear);
+				}
+			}
+		}
+
 		var data = {'dateNumber': eventDate, 'dateName': this.getDayOfWeek(dateObj.getDay())};
 		this.meta('dateNumber', eventDate);
 		$(this.el).append(this.template(data));
@@ -36,11 +86,7 @@ window.TimelineItemView = Backbone.View.extend({
 		window.cascadeTimeout = window.cascadeTimeout + 200;
 		//setTimeout(function(){}, 1000);
 		//window.cascadeTimeout = window.cascadeTimeout + 1000;
-
-		var tempEventView = new TimelineEventView();
-		tempEventView.render(eventInfo);
-	    this.meta('timelineEventViews', [tempEventView]);
-	    $(this.el).find('.eventInfos').append(tempEventView.el);
+		console.log("returning el");
 		return this.el;
 	},
 
@@ -84,25 +130,25 @@ window.TimelineItemView = Backbone.View.extend({
 	getDayOfWeek: function(number) {
 		switch(number) {
 			case 0:
-				return 'M<br/>O<br/>N<br/>';
+				return 'MONDAY';
 				break;
 			case 1:
-				return 'T<br/>U<br/>E<br/>';
+				return 'TUESDAY';
 				break;
 			case 2:
-				return 'W<br/>E<br/>D<br/>';
+				return 'WEDNESDAY';
 				break;
 			case 3:
-				return 'T<br/>H<br/>U<br/>';
+				return 'THURSDAY';
 				break;
 			case 4:
-				return 'F<br/>R<br/>I<br/>';
+				return 'FRIDAY';
 				break;
 			case 5:
-				return 'S<br/>A<br/>T<br/>';
+				return 'SATURDAY';
 				break;
 			case 6:
-				return 'S<br/>U<br/>N<br/>';
+				return 'SUNDAY';
 				break;
 		}
 	},
@@ -112,7 +158,7 @@ window.TimelineItemView = Backbone.View.extend({
 		if (typeof carouselActive == 'undefined' || carouselActive === false) {
 			$(this.el).find('.arrow-right').css('display', 'block');
 			$(this.el).find('.arrow-left').css('display', 'block');
-			$(this.el).find('.arrow-right').css('border-left', '10px solid #666');
+			$(this.el).find('.arrow-right').css('border-left', '15px solid #f97506');
 			//this.enableAutoPlay();
 			//this.meta('carouselActive', true);
 		}
@@ -181,16 +227,16 @@ window.TimelineItemView = Backbone.View.extend({
 		if (TEMNum > 3) {
 			if (carouselPos > 0) {
 				$(this.el).find('.eventInfos').animate({
-					left: '+=197'
+					left: '+=202'
 				}, 300, 'swing');
 				carouselPos = carouselPos-1;
 				this.meta('carouselPos', carouselPos);
 				if (carouselPos == 0) {
-					$(this.el).find('.arrow-left').css('border-right', '10px solid #AAA');
-					$(this.el).find('.arrow-right').css('border-left', '10px solid #666');
+					$(this.el).find('.arrow-left').css('border-right', '15px solid #b5b5b5');
+					$(this.el).find('.arrow-right').css('border-left', '15px solid #f97506');
 				} else {
-					$(this.el).find('.arrow-left').css('border-right', '10px solid #666');
-					$(this.el).find('.arrow-right').css('border-left', '10px solid #666');
+					$(this.el).find('.arrow-left').css('border-right', '15px solid #f97506');
+					$(this.el).find('.arrow-right').css('border-left', '15px solid #f97506');
 				}
 			}
 		}
@@ -204,16 +250,16 @@ window.TimelineItemView = Backbone.View.extend({
 		if (TEMNum > 3) {
 			if (carouselPos < (TEMNum - 3)) {
 				$(this.el).find('.eventInfos').animate({
-					left: '-=197'
+					left: '-=202'
 				}, 300, 'swing');
 				carouselPos = carouselPos+1;
 				this.meta('carouselPos', carouselPos);
 				if (carouselPos == (TEMNum - 3)) {
-					$(this.el).find('.arrow-left').css('border-right', '10px solid #666');
-					$(this.el).find('.arrow-right').css('border-left', '10px solid #AAA');
+					$(this.el).find('.arrow-left').css('border-right', '15px solid #f97506');
+					$(this.el).find('.arrow-right').css('border-left', '15px solid #b5b5b5');
 				} else {
-					$(this.el).find('.arrow-left').css('border-right', '10px solid #666');
-					$(this.el).find('.arrow-right').css('border-left', '10px solid #666');
+					$(this.el).find('.arrow-left').css('border-right', '15px solid #f97506');
+					$(this.el).find('.arrow-right').css('border-left', '15px solid #f97506');
 				}
 			}
 		}

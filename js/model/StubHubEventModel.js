@@ -34,6 +34,14 @@ window.StubHubEventModel = Backbone.Model.extend({
 		}
 	},
 
+	setEventTime: function(eventDateObj) {
+		this.set({
+			eventYear: eventDateObj.getFullYear(),
+			eventMonth: eventDateObj.getMonth(),
+			eventDate: eventDateObj.getDate(),
+		});
+	},
+
 	setThumbnail: function() {
 		if (this.get('eventNickName') != '') {
 			this.set('thumbnail', 'http://cache1.stubhubstatic.com/promotions/scratch/genre_136px/' + this.get('eventNickName') + '-136px.gif');	

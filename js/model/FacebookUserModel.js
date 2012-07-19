@@ -97,8 +97,12 @@ window.FacebookUserModel = Backbone.Model.extend({
 		var musicianIDs = self.get('musicianIDs');
 		var teamNames = self.get('teamNames');
 		var teamIDs = self.get('teamIDs');
-
-		window.app.collection = new StubHubEventCollection();	
+		while (typeof window.app.collection == 'undefined') {
+			//ugly while loop to while for app to initialize
+		}
+		if (typeof window.app.collection == 'undefined') {
+			window.app.collection = new StubHubEventCollection();
+		}
 		var collection = window.app.collection;
 
 		// _.each(musicianNames, function(name) {
@@ -120,15 +124,13 @@ window.FacebookUserModel = Backbone.Model.extend({
 			window.d1 = new Date();
 			window.d2 = new Date().addDays(1);
 			window.limit = new Date().addDays(8);
-
-
 			
 			//for (var idx = 0; idx < collection.length; idx++) {
 				//var counter = 0;
 			while (!d1.equals(limit)) {
 				for (var i = 0; i < collection.length; i++) {			
 					var eventInstance = collection.at(i);
-					var act_primary = eventInstance.get('act_primary');
+					// var act_primary = eventInstance.get('act_primary');
 					// var musicianMatch = false;
 					// var teamMatch = false;
 					// for (var j = 0; j < musicianNames.length; j++) {
@@ -161,10 +163,56 @@ window.FacebookUserModel = Backbone.Model.extend({
 				d2 = d2.addDays(1);
 			}
 
-			d2 = d1.addDays(1);
+			var temp = new Date();
+			temp = d1.clone();
+			d2 = temp.addDays(1);
 			limit = limit.addDays(8);	
 
-				
+			console.log('d1: ' + d1);
+			console.log('d2: ' + d2);
+			console.log('limit: ' + limit);
+
+			//Checking for no event dates
+			var dateObj = new Date();
+			while (dateObj.isBefore(d2)) {
+				var containsDate = false;
+				for (var j = 0; j < window.DisplayedCollection.length; j++) {
+					var eventInstance = DisplayedCollection.at(j);
+					if (eventInstance.get('eventMonth') === dateObj.getMonth()) {
+						if (dateObj.getDate() === eventInstance.get('eventDate')) {
+							containsDate = true;
+							break;
+						}
+					}
+				}
+				if (!containsDate) {
+					var mdl = new StubHubEventModel();
+					mdl.setEventTime(dateObj);
+					var monthViews = window.app.view.meta('timelineMonthViews');
+					for (var k = 0; k < monthViews.length; k++) {
+						var mv = monthViews[k];
+						if (mv.meta('eventMonth') === dateObj.getMonth()) {
+							var dateViews = mv.meta('timelineItemViews');
+							for (var l = 0; l < dateViews.length; l++) {
+								var dv = dateViews[l];
+								console.log('dv.meta("dateNumber"): ' + dv.meta('dateNumber'));
+								console.log('dateObj.getDate(): ' + dateObj.getDate());
+								if (dv.meta('dateNumber')-1 === dateObj.getDate()) {
+									console.log(dv.el);
+									DisplayedCollection.add(mdl);
+									window.app.view.insertEvent(mdl, dv);
+								}
+							}
+						}
+					}
+					console.log('making eventMdl for date: ' + dateObj);
+				}
+				// if (!window.app.view.hasDate(dateObj)) {
+				// 	console.log('missing date: ' + dateObj);
+				// }
+				dateObj = dateObj.addDays(1);
+			}
+			
 			
 
 /*			window.app.hunch.meta('API-method', 'get-results');

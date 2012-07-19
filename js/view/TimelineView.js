@@ -47,7 +47,7 @@ window.TimelineView = Backbone.View.extend({
 					var dates = mv.meta('timelineItemViews');
 					for (var j = 0; j < dates.length; j++) {
 						var date = dates[j];
-						if (date.meta('dateNumber') === eventDate) {
+						if (parseInt(date.meta('dateNumber'), 10) === eventDate) {
 							containsDate = true;
 							dateView = date;
 							break;
@@ -81,6 +81,15 @@ window.TimelineView = Backbone.View.extend({
 
 	},
 
+	insertEvent: function(eventInfo, itemView) {
+		var tempDate = new TimelineItemView();
+		tempDate.renderForInsert(eventInfo);
+		var el = tempDate.el;
+		console.log(el);
+		window.itemView = itemView;
+		$(itemView).before(el);
+	},
+
 
 	/*===================================================*/
 	/*Use this function to check if events exists in view*/
@@ -92,6 +101,30 @@ window.TimelineView = Backbone.View.extend({
 				var mv = monthViews[i];
 				mv.hasEvent(eventInfo);
 			};
+		} else {
+			return false;
+		}
+	},
+
+	hasDate: function(eventDateObj) {
+		var monthViews = this.meta('timelineMonthViews'); 
+		if (typeof monthViews != 'undefined') {
+			for (var i = 0; i < monthViews.length; i++) {
+				var mv = monthViews[i];
+				if (mv.meta('eventMonth') === eventDateObj.getMonth()) {
+					var itemViews = mv.meta('timelineItemViews');
+					for (var j = 0; j < itemViews.length; j++) {
+						var iv = itemViews[j];
+						console.log(iv.meta('eventDate'));
+						if (iv.meta('eventDate') === eventDateObj.getDate()) {
+							return true;
+						}
+					}
+					return false;
+				}
+				return false;
+			};
+			return false;;
 		} else {
 			return false;
 		}

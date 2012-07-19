@@ -31,7 +31,6 @@ window.StubHubEventCollection = Backbone.Collection.extend({
 				URL +='fq={!geofilt pt='+lat+','+lon+' sfield=lat_lon d='+radiusInKm+'}&';
 			}
 		}
-		console.log(window.app.geo);
 
 		URL +='q=stubhubDocumentType:event';
 		
