@@ -5,6 +5,8 @@
 	<!--Loading stylesheets-->
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.css"/>
+	<link rel="stylesheet" type="text/css" href="jquery-ui/css/jquery.ui.slider.css"/>
+	<link rel="stylesheet" type="text/css" href="jquery-ui/css/jquery.ui.theme.css"/>
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 
 	<!--Loading libraries-->
@@ -14,6 +16,10 @@
 	<script type="text/javascript" src="js/libs/jquery.masonry.min.js"></script>
 	<script type="text/javascript" src="js/libs/geoCalculation.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" src="jquery-ui/js/jquery.ui.core.js"></script>
+	<script type="text/javascript" src="jquery-ui/js/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="jquery-ui/js/jquery.ui.mouse.js"></script>
+	<script type="text/javascript" src="jquery-ui/js/jquery.ui.slider.js"></script>
 
 	<!---MVC loaded based on dependencies-->
 	<script type="text/javaScript" src="http://j.maxmind.com/app/geoip.js"></script>
@@ -92,12 +98,13 @@
 		<div id="content_container">
 
 			<div id="header_container">
+				<div id="header-image"></div>
 				<ul class="nav nav-pills">
 				    <li class="active" id='my-calendar-btn'><a>My Calendar</a></li>
 				    <li class="inactive" id='upcoming-events-btn'><a>All Upcoming Events</a></li>
-				    <li class="dropdown">
+				    <li id="invite-friends-dropdown" class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown">+ Invite friends to StubHub Calendar <b class="caret"></b></a>
-						<ul id="menu1" class="dropdown-menu">
+						<ul id="menu1" class="dropdown-menu" >
 							<li><a href="#">Action</a></li>
 							<li><a href="#">Another action</a></li>
 							<li><a href="#">Something else here</a></li>
@@ -106,6 +113,28 @@
 						</ul>
 		            </li>
 			    </ul>
+			    <div id="firstRow">
+			    	<div id="change-loc-link">San Francisco, CA <br/>
+			    		<a>Change Location</a>
+			    	</div>
+			    	<input type="text" class="input inline" id="search-input" placeholder="Enter: Team, artist, event, venue">
+			    	<a class="btn inline" id="search-btn" href="#">Search</a>
+			    	<a class="btn inline" id="add-event-btn" href="#">Add Your Event</a>
+			    </div>
+			    <div id="secondRow">
+			    	<div id="secondRowTitle">Display</div> 
+			    	<div id="checkboxes">
+				    	<input checked="checked" class="checkboxes" type="checkbox" name="Sports" value="Sports" />Sports
+						<input checked="checked" class="checkboxes" type="checkbox" name="Concerts" value="Concerts" />Concerts
+						<input checked="checked" class="checkboxes" type="checkbox" name="Concerts" value="Theatre" />Theatre
+						<input checked="checked" class="checkboxes" type="checkbox" name="Concerts" value="FriendsEvent" />Friends' Events
+					</div>
+			    </div>
+			    <div id="thirdRow">
+			    	<div id="thirdRowTitle">Month</div> 
+					<div id="slider"></div>
+			    </div>
+
 			</div>
 
 			<div id='view-container'>

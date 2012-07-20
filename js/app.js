@@ -87,6 +87,9 @@ window.AppRouter = Backbone.Router.extend({
 										temp = d1.clone();
 										d2 = temp.addDays(1);
 										limit = limit.addDays(8);
+
+
+										loadingMore = false;
 									}});
 								} else {
 									while (!d1.equals(limit)) {
@@ -101,12 +104,14 @@ window.AppRouter = Backbone.Router.extend({
 										
 										d1 = d2.clone();
 										d2 = d2.addDays(1);
-								}
+									}
 
 						        	var temp = new Date();
 									temp = d1.clone();
 									d2 = temp.addDays(1);
 									limit = limit.addDays(8);	
+
+									loadingMore = false;
 								}
 								
 
@@ -115,7 +120,7 @@ window.AppRouter = Backbone.Router.extend({
 								console.log('limit: ' + limit);
 							}
 
-							loadingMore = false;
+							loadingMore = false;	
 		        		}
 		        		
 		        	}
@@ -152,4 +157,5 @@ window.AppRouter = Backbone.Router.extend({
 		$('#my-calendar-btn').removeClass('active');
 		$('#my-calendar-btn').addClass('inactive');
 	});
+	$( "#slider" ).slider();
 })(jQuery);
