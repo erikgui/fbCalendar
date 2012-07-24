@@ -14,7 +14,6 @@ html, body {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-
 }
 
 a:hover {
@@ -81,6 +80,27 @@ a:hover {
 	position: absolute;
 }
 
+#change-loc-d {
+	position: absolute;
+	width: 720px;
+	left: -30px;
+	height: 500px;
+	border: 1px #C7C7C7 solid;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
+	background-color: white;
+	z-index: 11;
+	text-align: left;
+	padding: 10px;
+}
+
 #secondRow {
 	height: 20px;
 	margin: 8px;
@@ -95,7 +115,7 @@ a:hover {
 
 #add-event-btn {
 	position: absolute;
-	right: 0px;
+	right: 10px;
 	margin-top: 5px;
 }
 
@@ -152,6 +172,7 @@ ul.timeline li {
 	font-weight: bold;
 	margin-top: 10px;
 	margin-left: 10px;
+	margin-bottom: 10px;
 	color: #f97506;
 }
 
@@ -353,18 +374,30 @@ ul.eventInfos li {
 }
 
 .event-img-large {
-	border: 1px red dotted;
 	float: left;
 	width: 250px;
-	height: 180px;
+	height: 163px;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: 100%;
+	position: relative;
+}
+
+.event-img-large-default {
+	float: left;
+	width: 250px;
+	height: 163px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-image: url('../img/no-image.png');
+	position: absolute;
 }
 
 .event-desc {
-	border: 1px green dotted;
 	float: left;
 	left: 280px;
+	width: 250px;
 	top: 60px;
+	margin-left: 19px;
 }

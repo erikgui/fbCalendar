@@ -28,15 +28,22 @@ window.TimelineEventView = Backbone.View.extend({
 		this.meta('eventYear', eventInfo.get('eventYear'));
 		this.meta('eventInfo', eventInfo);
 
-		var dataStr = eventInfo.get('eventSEODesc');
-		if (typeof dataStr == 'undefined') {
-			dataStr = eventInfo.get('eventName');
-		} 
-		if (typeof dataStr == 'undefined') {
-			dataStr = eventInfo.get('act_primary');
-		}
-		if (typeof dataStr == 'undefined') {
-			dataStr = 'What\'s my name?';
+		var dataStr;
+		if (typeof eventInfo.get('eventSEODesc') == 'undefined') {
+			console.log('eventSEODesc undef');
+			if (typeof eventInfo.get('eventName') == 'undefined') {
+				console.log('eventName undef');
+				if (typeof eventInfo.get('venue_name') == 'undefined') {
+					console.log('act_primary undef');
+					dataStr = 'Name here!';
+				} else {
+					dataStr = eventInfo.get('venue_name');
+				}
+			} else {
+				dataStr = eventInfo.get('eventName');
+			}
+		} else {
+			dataStr = eventInfo.get('eventSEODesc');
 		}
 
 		if (dataStr.length > 44) {

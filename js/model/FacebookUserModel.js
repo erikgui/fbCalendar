@@ -32,7 +32,7 @@ window.FacebookUserModel = Backbone.Model.extend({
 					} else {
 						//user cancelled login or did not grant authorization
 					}
-				}, {scope:'status_update,publish_stream,user_about_me,user_likes,user_events,user_location'});  
+				}, {scope:'status_update,publish_stream,user_about_me,user_likes,user_events,user_location,rsvp_event'});  
 			}
 		});
 	},
@@ -154,7 +154,7 @@ window.FacebookUserModel = Backbone.Model.extend({
 					// }
 
 					var eventDateObj = eventInstance.get('eventDateObj');
-					if (eventDateObj.between(d1, d2)) {
+					if (eventDateObj.between(d1, d2) && eventInstance.get('eventTotalTickets') > 0) {
 						DisplayedCollection.add(eventInstance);
 						window.app.view.addEvent(eventInstance);
 					}
@@ -195,8 +195,8 @@ window.FacebookUserModel = Backbone.Model.extend({
 							var dateViews = mv.meta('timelineItemViews');
 							for (var l = 0; l < dateViews.length; l++) {
 								var dv = dateViews[l];
-								console.log('dv.meta("dateNumber"): ' + dv.meta('dateNumber'));
-								console.log('dateObj.getDate(): ' + dateObj.getDate());
+								// console.log('dv.meta("dateNumber"): ' + dv.meta('dateNumber'));
+								// console.log('dateObj.getDate(): ' + dateObj.getDate());
 								if (dv.meta('dateNumber')-1 === dateObj.getDate()) {
 									console.log(dv.el);
 									DisplayedCollection.add(mdl);
@@ -212,9 +212,17 @@ window.FacebookUserModel = Backbone.Model.extend({
 				// }
 				dateObj = dateObj.addDays(1);
 			}
-			
-			
 
+			
+			// FB.api('/404913136233483', {fields: 'access_token'}, function(response) {
+			// 	console.log(response);
+			// 	var at = response.access_token;
+			// 	console.log(new Date().addDays(2).getTime());
+			// 	FB.api('/404913136233483/events', 'post', {access_token: at, name: 'Get more food', start_time: Math.round(new Date().addDays(2).getTime()/1000)}, function(response){
+			// 		console.log(response);
+			// 	});
+			// });
+			
 /*			window.app.hunch.meta('API-method', 'get-results');
 			window.app.hunch.meta('result_ids', musicianIDs[j]);
 			window.app.hunch.meta('fields', 'name,image_urls');*/

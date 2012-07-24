@@ -4987,3 +4987,5 @@ a.badge:hover {
 .invisible {
   visibility: hidden;
 }
+
+.btn-custom1 { background-color: hsl(30, 100%, 51%) !important; background-repeat: repeat-x; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffe2c6", endColorstr="#ff8205"); background-image: -khtml-gradient(linear, left top, left bottom, from(#ffe2c6), to(#ff8205)); background-image: -moz-linear-gradient(top, #ffe2c6, #ff8205); background-image: -ms-linear-gradient(top, #ffe2c6, #ff8205); background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffe2c6), color-stop(100%, #ff8205)); background-image: -webkit-linear-gradient(top, #ffe2c6, #ff8205); background-image: -o-linear-gradient(top, #ffe2c6, #ff8205); background-image: linear-gradient(#ffe2c6, #ff8205); border-color: #ff8205 #ff8205 hsl(30, 100%, 41.5%); color: #333 !important; text-shadow: 0 1px 1px rgba(255, 255, 255, 0.62); -webkit-font-smoothing: antialiased; }

@@ -27,7 +27,8 @@ window.StubHubEventModel = Backbone.Model.extend({
 					eventNickname: LCSeventInfo.nickname,
 					eventDescription: 'No Description',
 					eventSEODesc: LCSeventInfo.seo_description,
-					eventNickName: LCSeventInfo.nickname,
+					eventTotalTickets: LCSeventInfo.totalTickets,
+					eventMinPrice: LCSeventInfo.minPrice,
 				});
 			}
 			this.setThumbnail();
@@ -43,8 +44,8 @@ window.StubHubEventModel = Backbone.Model.extend({
 	},
 
 	setThumbnail: function() {
-		if (this.get('eventNickName') != '') {
-			this.set('thumbnail', 'http://cache1.stubhubstatic.com/promotions/scratch/genre_136px/' + this.get('eventNickName') + '-136px.gif');	
+		if (this.get('eventNickname') != '') {
+			this.set('thumbnail', 'http://cache1.stubhubstatic.com/promotions/scratch/genre_136px/' + this.get('eventNickname') + '-136px.gif');	
 		} else {
 			this.set('thumbnail', '');
 		}

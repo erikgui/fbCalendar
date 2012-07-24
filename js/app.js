@@ -157,5 +157,20 @@ window.AppRouter = Backbone.Router.extend({
 		$('#my-calendar-btn').removeClass('active');
 		$('#my-calendar-btn').addClass('inactive');
 	});
+
 	$( "#slider" ).slider();
+
+	$('#change-loc-link a').click(function() {
+		console.log('clicked change loc');
+		var dialog = $('#change-loc-d-template').clone();
+		dialog.attr('id', 'change-loc-d');
+		dialog.find('#change-loc-dialog-dismiss-template').attr('id' ,'change-loc-dialog-dismiss');
+		$('#change-loc-link').append(dialog);
+		dialog.css('display', 'block');
+	});
+	$('#change-loc-dialog-dismiss').live('click', function(){
+		console.log('hiding');
+		$('#change-loc-d').remove();
+	});
+
 })(jQuery);
