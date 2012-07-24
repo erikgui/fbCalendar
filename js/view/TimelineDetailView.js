@@ -46,7 +46,9 @@ window.TimelineDetailView = Backbone.View.extend({
 		};
 		$(this.el).html(this.template(data));
 		$(this.el).find('.event-img-large').css('background-image', 'url(' + eventInfo.get('thumbnail') + ')');
-		},
+		this.meta('attending', false);
+		this.meta('maybe', false);
+	},
 
 	render: function() {
 		var data = {
@@ -67,31 +69,102 @@ window.TimelineDetailView = Backbone.View.extend({
 
 	rsvpAttending: function() {
 		console.log('rsvp attending!');
-		FB.api('/404913136233483', {fields: 'access_token'}, function(response) {
-			console.log(response);
-			var at = response.access_token;
-			FB.api('/404913136233483/events', {access_token: at}, function(response){
+		if (!this.meta('attending')) {
+			var eventInfo = this.meta('eventInfo');
+			$('.rsvp-attending').html("<img src='img/ajax-loader2.gif'/>");
+			FB.api('/404913136233483', {fields: 'access_token'}, function(response) {
 				console.log(response);
-				FB.api('/404913136233483/events', 'post', {access_token: at, name: 'EventTest4', start_time: Math.round(new Date().addDays(2).getTime()/1000)}, function(response){
+				var at = response.access_token;
+				FB.api('/404913136233483/events', {access_token: at}, function(response){
 					console.log(response);
-					var event_id = response.id;
-					FB.api(event_id+'/attending', 'post', function(response) {
-						console.log(response);
-					});
+					var events = response.data;
+					var eventExists = false;
+					for (var i = 0; i < events.length; i++) {
+						var evt = events[i];
+						if (evt.name === eventInfo.get('eventSEODesc')) {
+							eventExists = true;
+							FB.api(evt.id+'/attending', 'post', function(response) {
+								console.log(response);
+								$('.rsvp-attending').html('<i class="icon-ok"></i><span>Attending</span>');
+								$('.rsvp-attending').addClass('btn-custom2');
+							});
+							break;
+						}
+					}
+					if (!eventExists) {
+						FB.api('/404913136233483/events', 'post', {
+							access_token: at, 
+							name: eventInfo.get('eventSEODesc'), 
+							start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000)
+						}, function(response){
+							console.log(response);
+							var event_id = response.id;
+							FB.api(event_id+'/attending', 'post', function(response) {
+								console.log(response);
+								$('.rsvp-attending').html('<i class="icon-ok"></i><span>Attending</span>');
+								$('.rsvp-attending').addClass('btn-custom2');
+							});
+						});
+					}
 				});
 			});
-		});
+			this.meta('attending', true);
+		}
+		if (this.meta('maybe')) {
+			$('.rsvp-maybe').html('<span>Maybe</span>');
+			$('.rsvp-maybe').removeClass('btn-custom2');
+			this.meta('maybe', false);
+		}
 	},
 
 	rsvpMaybe: function() {
 		console.log('rsvp maybe!');
-		// FB.api('/404913136233483', {fields: 'access_token'}, function(response) {
-		// 	console.log(response);
-		// 	var at = response.access_token;
-		// 	console.log(new Date().addDays(2).getTime());
-		// 	FB.api('/404913136233483/events', 'post', {access_token: at, name: 'Get more food', start_time: Math.round(new Date().addDays(2).getTime()/1000)}, function(response){
-		// 		console.log(response);
-		// 	});
-		// });
+		if (!this.meta('maybe')) {
+			var eventInfo = this.meta('eventInfo');
+			$('.rsvp-maybe').html("<img src='img/ajax-loader2.gif'/>");
+			FB.api('/404913136233483', {fields: 'access_token'}, function(response) {
+				console.log(response);
+				var at = response.access_token;
+				FB.api('/404913136233483/events', {access_token: at}, function(response){
+					console.log(response);
+					var events = response.data;
+					var eventExists = false;
+					for (var i = 0; i < events.length; i++) {
+						var evt = events[i];
+						if (evt.name === eventInfo.get('eventSEODesc')) {
+							eventExists = true;
+							FB.api(evt.id+'/maybe', 'post', function(response) {
+								console.log(response);
+								$('.rsvp-maybe').html('<i class="icon-ok"></i><span>Maybe</span>');
+								$('.rsvp-maybe').addClass('btn-custom2');
+							});
+							break;
+						}
+					}
+					if (!eventExists) {
+						FB.api('/404913136233483/events', 'post', {
+							access_token: at, 
+							name: eventInfo.get('eventSEODesc'), 
+							start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000)
+						}, function(response){
+							console.log(response);
+							var event_id = response.id;
+							FB.api(event_id+'/maybe', 'post', function(response) {
+								console.log(response);
+								$('.rsvp-maybe').html('<i class="icon-ok"></i><span>Maybe</span>');
+								$('.rsvp-maybe').addClass('btn-custom2');
+							});
+						});
+					}
+				});
+			});
+			this.meta('maybe', true);
+		}
+		if (this.meta('attending')) {
+			$('.rsvp-attending').html('<span>Attending</span>');
+			$('.rsvp-attending').removeClass('btn-custom2');
+			this.meta('attending', false);
+		}
+		
 	},
 });

@@ -70,7 +70,7 @@
 			
 			console.log('fbinit');	
 
-			var fbUserModel = new FacebookUserModel();
+			window.FBUserModel = new FacebookUserModel();
 		};
 
 		(function() {
@@ -114,7 +114,8 @@
 		            </li>
 			    </ul>
 			    <div id="firstRow">
-			    	<div id="change-loc-link">San Francisco, CA <br/>
+			    	<div id="change-loc-link">
+			    		<span>San Francisco, CA</span><br/>
 			    		<a>Change Location</a>
 			    		
 			    	</div>
@@ -146,9 +147,197 @@
 		</div><!-- content_container -->
 
 	</div><!-- wrapper -->
+
 <div id='change-loc-d-template' style='display: none'>
 	By telling us where you are, we'll feature events in your area on StubHub
 	<a id='change-loc-dialog-dismiss-template'><i class='icon-remove'></i></a>
+	<div id='loc-wrapper'>
+		<ul class="tdp1" style="float:left;width:120px;margin:0;list-style-type:none;">
+			<li><p>Alabama</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('4945','Birmingham, Alabama',this);return false;">Birmingham</a>
+			</li>
+			<li><br></li>
+			<li><p>Alaska</p>
+			</li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('8765','Anchorage, Alaska',this);return false;">Anchorage</a>
+			</li>
+			<li><br></li>
+			<li><p>Arizona</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('226','Phoenix, Arizona',this);return false;">Phoenix</a></li>
+			<li><br></li>
+			<li><p>Arkansas</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('3864','Little Rock, Arkansas',this);return false;">Little Rock</a></li>
+			<li><br></li>
+			<li><p>California</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('81','SF Bay Area, California',this);return false;">SF Bay Area</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('10','Los Angeles Metro, California',this);return false;">Los Angeles Metro</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('81690','Sacramento, California',this);return false;">Sacramento</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('81689','San Diego, California',this);return false;">San Diego</a></li>
+			<li><br></li>
+			<li><p>Colorado</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('678','Denver, Colorado',this);return false;">Denver</a></li>
+			<li><br></li>
+			<li><p>Connecticut</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('1869','Hartford, Connecticut',this);return false;">Hartford</a></li>
+			<li><br></li>
+			<li><p>Delaware</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('110102','Wilmington, Delaware',this);return false;">Wilmington</a></li>
+			<li><br></li>
+			<li><p>Dist. of Columbia</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('525','Washington D.C., Dist. of Columbia',this);return false;">Washington D.C.</a></li>
+			<li><br></li>
+			<li><p>Florida</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('708','Jacksonville, Florida',this);return false;">Jacksonville</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('663','Orlando, Florida',this);return false;">Orlando</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('6750','Tallahassee, Florida',this);return false;">Tallahassee</a></li>
+		</ul>
+		<ul class="tdp2" style="float:left;width:120px;margin:0;list-style-type:none;">
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('404','Tampa / St. Petersburg, Florida',this);return false;">Tampa / St. Petersburg</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('669','Miami / S. Florida, Florida',this);return false;">Miami / S. Florida</a></li>
+			<li><br></li>
+			<li><p>Georgia</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('670','Atlanta, Georgia',this);return false;">Atlanta</a></li>
+			<li><br></li>
+			<li><p>Hawaii</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('422','Honolulu, Hawaii',this);return false;">Honolulu</a></li>
+			<li><br></li>
+			<li><p>Idaho</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('4921','Boise, Idaho',this);return false;">Boise</a></li>
+			<li><br></li>
+			<li><p>Illinois</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('666','Chicago, Illinois',this);return false;">Chicago</a></li>
+			<li><br></li>
+			<li><p>Indiana</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('697','Indianapolis, Indiana',this);return false;">Indianapolis</a></li>
+			<li><br></li>
+			<li><p>Iowa</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('5637','Des Moines, Iowa',this);return false;">Des Moines</a></li>
+			<li><br></li>
+			<li><p>Kansas</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('79282','Wichita, Kansas',this);return false;">Wichita</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('9545','Topeka, Kansas',this);return false;">Topeka</a></li>
+			<li><br></li>
+			<li><p>Kentucky</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('4421','Louisville, Kentucky',this);return false;">Louisville</a></li>
+			<li><br></li>
+			<li><p>Louisiana</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('242','New Orleans, Louisiana',this);return false;">New Orleans</a></li>
+			<li><br></li>
+			<li><p>Maryland</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('81691','Baltimore, Maryland',this);return false;">Baltimore</a></li>
+			<li><br></li>
+		</ul>
+		<ul class="tdp3" style="float:left;width:120px;margin:0;list-style-type:none;">
+			<li><p>Massachusetts</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('674','Boston, Massachusetts',this);return false;">Boston</a></li>
+			<li><br></li>
+			<li><p>Michigan</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('676','Detroit, Michigan',this);return false;">Detroit</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('4204','Grand Rapids, Michigan',this);return false;">Grand Rapids</a></li>
+			<li><br></li>
+			<li><p>Minnesota</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('680','Minneapolis, Minnesota',this);return false;">Minneapolis</a></li>
+			<li><br></li>
+			<li><p>Mississippi</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('5543','Jackson, Mississippi',this);return false;">Jackson</a></li>
+			<li><br></li>
+			<li><p>Missouri</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('702','Kansas City, Missouri',this);return false;">Kansas City</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('683','St. Louis, Missouri',this);return false;">St. Louis</a></li>
+			<li><br></li>
+			<li><p>Montana</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('5924','Missoula, Montana',this);return false;">Missoula</a></li>
+			<li><br></li>
+			<li><p>Nebraska</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('5530','Lincoln, Nebraska',this);return false;">Lincoln</a></li>
+			<li><br></li>
+			<li><p>Nevada</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('689','Las Vegas, Nevada',this);return false;">Las Vegas</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('5627','Reno, Nevada',this);return false;">Reno</a></li>
+			<li><br></li>
+			<li><p>New Hampshire</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('76587','Manchester, New Hampshire',this);return false;">Manchester</a></li>
+			<li><br></li>
+			<li><p>New Jersey</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('78083','Atlantic City, New Jersey',this);return false;">Atlantic City</a></li>
+			<li><br></li>
+			<li><p>New Mexico</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('5647','Albuquerque, New Mexico',this);return false;">Albuquerque</a></li>
+			<li><br></li>
+		</ul>
+		<ul class="tdp4" style="float:left;width:120px;margin:0;list-style-type:none;">
+			<li><p>New York</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('1868','Albany, New York',this);return false;">Albany</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('6472','Syracuse, New York',this);return false;">Syracuse</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('664','New York Metro, New York',this);return false;">New York Metro</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('695','Buffalo, New York',this);return false;">Buffalo</a></li>
+			<li><br></li>
+			<li><p>North Carolina</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('685','Raleigh-Durham, North Carolina',this);return false;">Raleigh-Durham</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('684','Charlotte, North Carolina',this);return false;">Charlotte</a></li>
+			<li><br></li>
+			<li><p>North Dakota</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('4423','Fargo, North Dakota',this);return false;">Fargo</a></li>
+			<li><br></li>
+			<li><p>Ohio</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('3261','Cleveland, Ohio',this);return false;">Cleveland</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('11863','Cincinnati, Ohio',this);return false;">Cincinnati</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('11883','Columbus, Ohio',this);return false;">Columbus</a></li>
+			<li><br></li>
+			<li><p>Oklahoma</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('3863','Oklahoma City, Oklahoma',this);return false;">Oklahoma City</a></li>
+			<li><br></li>
+			<li><p>Oregon</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('704','Portland, Oregon',this);return false;">Portland</a></li>
+			<li><br></li>
+			<li><p>Pennsylvania</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('681','Pittsburgh, Pennsylvania',this);return false;">Pittsburgh</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('522','Philadelphia, Pennsylvania',this);return false;">Philadelphia</a></li>
+			<li><br></li>
+			<li><p>Rhode Island</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('92294','Providence, Rhode Island',this);return false;">Providence</a></li>
+			<li><br></li>
+			<li><p>South Carolina</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('4481','Charleston, South Carolina',this);return false;">Charleston</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('5630','Columbia, South Carolina',this);return false;">Columbia</a></li>
+			<li><br></li>
+		</ul>
+		<ul class="tdp5" style="float:left;width:120px;margin:0;list-style-type:none;">
+			<li><p>South Dakota</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('6743','Sioux Falls, South Dakota',this);return false;">Sioux Falls</a></li>
+			<li><br></li>
+			<li><p>Tennessee</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('5528','Knoxville, Tennessee',this);return false;">Knoxville</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('701','Memphis, Tennessee',this);return false;">Memphis</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('700','Nashville, Tennessee',this);return false;">Nashville</a></li>
+			<li><br></li>
+			<li><p>Texas</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('694','Houston, Texas',this);return false;">Houston</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('3861','Lubbock, Texas',this);return false;">Lubbock</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('707','Austin / San Antonio, Texas',this);return false;">Austin / San Antonio</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('672','Dallas, Texas',this);return false;">Dallas</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('4426','El Paso, Texas',this);return false;">El Paso</a></li>
+			<li><br></li>
+			<li><p>Utah</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('706','Salt Lake City, Utah',this);return false;">Salt Lake City</a></li>
+			<li><br></li>
+			<li><p>Virginia</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('4425','Richmond, Virginia',this);return false;">Richmond</a></li>
+			<li><br></li>
+			<li><p>Washington</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('693','Seattle, Washington',this);return false;">Seattle</a></li>
+			<li><br></li>
+			<li><p>West Virginia</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('4541','Charleston, West Virginia',this);return false;">Charleston</a></li>
+			<li><br></li>
+			<li><p>Wisconsin</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('4422','Green Bay, Wisconsin',this);return false;">Green Bay</a></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('691','Milwaukee, Wisconsin',this);return false;">Milwaukee</a></li>
+			<li><br></li>
+			<li><p>Wyoming</p></li>
+			<li><a style="color:#2075C2;" href="#" onclick="setpgeo('9465','Casper, Wyoming',this);return false;">Casper</a></li>
+		</ul>
+	</div>
 </div>
 </body>
 

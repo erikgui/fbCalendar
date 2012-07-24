@@ -572,6 +572,20 @@ window.GeoLocationModel = Backbone.Model.extend({
 		// console.log('Matched Loc Lat/Long: ' + locs[minDistIdx].lat + ',' + locs[minDistIdx].lng);
 		// console.log('setting loc property');
 		this.set('loc', locs[minDistIdx].city);
+		$('#change-loc-link span').html(locs[minDistIdx].city + ', ' + locs[minDistIdx].stateAbbrev);
 	},
 
+	replaceLocation: function(location) {
+		this.set('loc', location);
+		var locs = this.get('locations');
+		var idx;
+		for (var i = 0; i < locs.length; i++) {
+			var loc = locs[i];
+			if (loc.city === location) {
+				idx = i;
+				break;
+			}
+		}
+		$('#change-loc-link span').html(location + ', ' + locs[idx].stateAbbrev);
+	}
 });

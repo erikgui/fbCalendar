@@ -51,6 +51,9 @@ a:hover {
 	position: absolute;
 	right: 0px;
 	background-color: white;
+	border-radius: 5px 0px 0px 0px; 
+	-moz-border-radius: 5px 0px 0px 0px; 
+	-webkit-border-radius: 5px 0px 0px 0px; 
 }
 
 #my-calendar-btn {
@@ -59,6 +62,9 @@ a:hover {
 
 #upcoming-events-btn {
 	background-color: #FFF;
+	border-radius: 0px 5px 0px 0px; 
+	-moz-border-radius: 0px 5px 0px 0px; 
+	-webkit-border-radius: 0px 5px 0px 0px;
 }
 
 #view-container {
@@ -75,16 +81,15 @@ a:hover {
 #change-loc-link {
 	font-size: 0.9em;
 	font-weight: bold;
-	margin-left: 40px;
 	text-align: right;
 	position: absolute;
+	width: 146px;
+	height: 40px;
 }
 
 #change-loc-d {
 	position: absolute;
-	width: 720px;
-	left: -30px;
-	height: 500px;
+	height: 760px;
 	border: 1px #C7C7C7 solid;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -99,6 +104,19 @@ a:hover {
 	z-index: 11;
 	text-align: left;
 	padding: 10px;
+}
+
+#change-loc-dialog-dismiss {
+	position: absolute;
+	right: 10px;
+}
+
+#loc-wrapper {
+	font-weight: normal;
+	width: 600px;
+	height: 100%;
+	margin: 0 auto;
+	padding-top: 10px;
 }
 
 #secondRow {
@@ -400,4 +418,12 @@ ul.eventInfos li {
 	width: 250px;
 	top: 60px;
 	margin-left: 19px;
+}
+
+.rsvp-attending {
+	width: 70px;
+}
+
+.rsvp-maybe {
+	width: 70px;
 }

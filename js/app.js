@@ -160,17 +160,46 @@ window.AppRouter = Backbone.Router.extend({
 
 	$( "#slider" ).slider();
 
+	window.changeLocActive = false;
 	$('#change-loc-link a').click(function() {
-		console.log('clicked change loc');
-		var dialog = $('#change-loc-d-template').clone();
-		dialog.attr('id', 'change-loc-d');
-		dialog.find('#change-loc-dialog-dismiss-template').attr('id' ,'change-loc-dialog-dismiss');
-		$('#change-loc-link').append(dialog);
-		dialog.css('display', 'block');
+		if (!window.changeLocActive) {
+			console.log('clicked change loc');
+			var dialog = $('#change-loc-d-template').clone();
+			dialog.attr('id', 'change-loc-d');
+			dialog.find('#change-loc-dialog-dismiss-template').attr('id' ,'change-loc-dialog-dismiss');
+			$('#change-loc-link').append(dialog);
+			dialog.css('display', 'block');
+			window.changeLocActive = true;
+		} 
 	});
 	$('#change-loc-dialog-dismiss').live('click', function(){
 		console.log('hiding');
 		$('#change-loc-d').remove();
+		window.changeLocActive = false;
 	});
 
 })(jQuery);
+
+function setpgeo(geoID, location, element) {
+	console.log('clicked: ', location);
+	var loc = location.slice(0, location.indexOf(','));
+	if (typeof window.app.geo != 'undefined') {
+		window.app.geo.replaceLocation(loc);
+		$('.timeline').html('');
+		window.app.view = new TimelineView();
+
+
+		window.app.collection = new StubHubEventCollection();
+		window.FBUserModel.customizeEvents();
+
+		FB.Canvas.setSize({height: 1200});
+		window.appHeight = 1200;
+		window.cascadeTimeout = 0;
+		window.loadingMore = false;
+	}
+	console.log('hiding');
+	$('#change-loc-d').remove();
+	window.changeLocActive = false;
+}
+
+//1200
