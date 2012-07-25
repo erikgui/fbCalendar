@@ -43,9 +43,13 @@ window.TimelineDetailView = Backbone.View.extend({
 			'eventName': dataStr, 
 			'venueName': eventInfo.get('venue_name'),
 			'eventTime' : eventInfo.get('eventDateObj').toLocaleString(),
+			'minPrice': '  From $'+ eventInfo.get('eventMinPrice') + ' USD',
 		};
+
 		$(this.el).html(this.template(data));
 		$(this.el).find('.event-img-large').css('background-image', 'url(' + eventInfo.get('thumbnail') + ')');
+
+		$(this.el).find('.btn-custom1').attr('href', 'https://www.stubhub.com/' + eventInfo.get('urlpath'));
 		this.meta('attending', false);
 		this.meta('maybe', false);
 	},
@@ -55,7 +59,8 @@ window.TimelineDetailView = Backbone.View.extend({
 			'eventName': 'Event Name', 
 			'venueName': 'Venue Name', 
 			'venueLocation': 'Venue Location', 
-			'eventTime' : '10:00AM PDT'
+			'eventTime' : '10:00AM PDT',
+			'minPrice': '  From $1000 USD'
 		};
 
 		$(this.el).html(this.template(data));

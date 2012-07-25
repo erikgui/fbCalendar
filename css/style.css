@@ -395,27 +395,27 @@ ul.eventInfos li {
 	float: left;
 	width: 250px;
 	height: 163px;
-	background-position: center;
 	background-repeat: no-repeat;
 	background-size: 100%;
 	position: relative;
+	border: 1px #dadada solid;
 }
 
 .event-img-large-default {
 	float: left;
 	width: 250px;
 	height: 163px;
-	background-position: center;
 	background-repeat: no-repeat;
 	background-size: 100%;
-	background-image: url('../img/no-image.png');
+	background-image: url('../img/no-image-large.png');
 	position: absolute;
+	border: 1px #dadada solid;
 }
 
 .event-desc {
 	float: left;
 	left: 280px;
-	width: 250px;
+	width: 315px;
 	top: 60px;
 	margin-left: 19px;
 }
@@ -426,4 +426,13 @@ ul.eventInfos li {
 
 .rsvp-maybe {
 	width: 70px;
+}
+
+.divider {
+	width: 315px;
+	height: 1px;
+	position: relative;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background-color: #dadada;
 }

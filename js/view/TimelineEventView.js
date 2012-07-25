@@ -62,5 +62,10 @@ window.TimelineEventView = Backbone.View.extend({
 		//this.meta('timelineDetailView')
 		window.app.modal.changeInfo(this.meta('eventInfo'));
 		window.app.modal.show();
+		FB.Canvas.getPageInfo(
+		        function(info) {
+					$('.modal').css('top', info.clientHeight + info.scrollTop - (info.clientHeight-450) + 'px');
+		        }
+		);
 	}
 });

@@ -9,10 +9,12 @@
 		<div class='event-desc'>
 			<p><%= venueName %></p>
 			<p><%= eventTime %></p>
-			<a href="#" class="btn btn-primary btn-custom1">Find Tickets</a>
+			<a href="#" class="btn btn-primary btn-custom1" target="_blank">Find Tickets</a><span style="color:#AAA"><%= minPrice %></span>
+			<div class='divider'></div>
 			<p>Are you going?</p>
 			<a href="#" class="btn btn-primary inline rsvp-attending">Attending</a>
-			<a href="#" class="btn btn-primary inline rsvp-maybe">Maybe</a>
+			<a href="#" class="btn btn-primary inline rsvp-maybe">Maybe</a> | 
+			<a href="#" class="inline remove-event">Remove Event</a>
 		</div>
 	</div>
 <!-- 	<div class="modal-footer">

@@ -7,6 +7,7 @@ window.AppRouter = Backbone.Router.extend({
 	},
 
 	initialize: function() {
+		console.log('creating new app router');
 		window.CONFIG = new MdlConfig();
 		this.view = new TimelineView();
 		this.modal = new TimelineDetailView();
@@ -25,7 +26,7 @@ window.AppRouter = Backbone.Router.extend({
 		window.cascadeTimeout = 0;
 		window.loadingMore = false;
 		
-		setInterval(function(){
+		window.autoUpdateInterval = setInterval(function(){
 			FB.Canvas.getPageInfo(
 		        function(info) {
 		        	if (info.clientHeight + info.offsetTop + info.scrollTop > window.appHeight) {
@@ -124,8 +125,7 @@ window.AppRouter = Backbone.Router.extend({
 		        		}
 		        		
 		        	}
-
-					$('.modal').css('top', info.clientHeight + info.scrollTop - 300 + 'px');
+					$('.modal').css('top', info.clientHeight + info.scrollTop - (info.clientHeight-450) + 'px');
 					$('#header-container').css('top', info.scrollTop + 'px');
 		        }
     		);
@@ -182,11 +182,14 @@ window.AppRouter = Backbone.Router.extend({
 
 function setpgeo(geoID, location, element) {
 	console.log('clicked: ', location);
+	//clearInterval(window.autoUpdateInterval);
 	var loc = location.slice(0, location.indexOf(','));
 	if (typeof window.app.geo != 'undefined') {
 		window.app.geo.replaceLocation(loc);
 		$('.timeline').html('');
 		window.app.view = new TimelineView();
+		
+		//$('.timeline').html('');
 
 
 		window.app.collection = new StubHubEventCollection();
@@ -196,6 +199,10 @@ function setpgeo(geoID, location, element) {
 		window.appHeight = 1200;
 		window.cascadeTimeout = 0;
 		window.loadingMore = false;
+		
+		// window.app = new AppRouter();
+		// window.app.geo.replaceLocation(loc);
+		// window.FBUserModel.customizeEvents();
 	}
 	console.log('hiding');
 	$('#change-loc-d').remove();
