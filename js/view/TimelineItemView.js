@@ -40,7 +40,7 @@ window.TimelineItemView = Backbone.View.extend({
 		window.cascadeTimeout = window.cascadeTimeout + 200;
 
 		var tempEventView = new TimelineEventView();
-		tempEventView.render(eventInfo);
+		tempEventView.render(eventInfo, this);
 	    this.meta('timelineEventViews', [tempEventView]);
 	    $(this.el).find('.eventInfos').append(tempEventView.el);
 
@@ -63,7 +63,7 @@ window.TimelineItemView = Backbone.View.extend({
 		var eventDate = eventInfo.get('eventDate');
 		var eventMonth = eventInfo.get('eventMonth');
 		var eventYear = eventInfo.get('eventYear');
-		var dateObj = new Date(eventYear, eventMonth, eventDate);
+		var dateObj = eventInfo.get('eventDateObj');
 		
 		if (eventDate < 10) {
 			eventDate = '0' + eventDate;
@@ -92,7 +92,7 @@ window.TimelineItemView = Backbone.View.extend({
 
 	addEvent: function(eventInfo) {
 		var tempEventView = new TimelineEventView();
-		tempEventView.render(eventInfo);
+		tempEventView.render(eventInfo, this);
 		var timelineEventViews = this.meta('timelineEventViews');
 		timelineEventViews.push(tempEventView);
 	    this.meta('timelineEventViews', timelineEventViews);
@@ -130,25 +130,25 @@ window.TimelineItemView = Backbone.View.extend({
 	getDayOfWeek: function(number) {
 		switch(number) {
 			case 0:
-				return 'MONDAY';
+				return 'SUNDAY';
 				break;
 			case 1:
-				return 'TUESDAY';
+				return 'MONDAY';
 				break;
 			case 2:
-				return 'WEDNESDAY';
+				return 'TUESDAY';
 				break;
 			case 3:
-				return 'THURSDAY';
+				return 'WEDNESDAY';
 				break;
 			case 4:
-				return 'FRIDAY';
+				return 'THURSDAY';
 				break;
 			case 5:
-				return 'SATURDAY';
+				return 'FRIDAY';
 				break;
 			case 6:
-				return 'SUNDAY';
+				return 'SATURDAY';
 				break;
 		}
 	},

@@ -1,5 +1,10 @@
 console.log('app.js started')
-
+/*****************************************************************/
+/*This is the starting point of the application including calls  */
+/*to initialize the AppRouter, which ideally provides routing    */
+/*for this application. However, routing features are not implem-*/
+/*ented, as it seemed unnessary for the current functionalities. */
+/*****************************************************************/
 window.AppRouter = Backbone.Router.extend({
 
 	routes: {
@@ -9,40 +14,50 @@ window.AppRouter = Backbone.Router.extend({
 	initialize: function() {
 		console.log('creating new app router');
 		window.CONFIG = new MdlConfig();
-		this.view = new TimelineView();
-		this.modal = new TimelineDetailView();
-		this.collection = new StubHubEventCollection();
-		this.hunch = new HunchRecCollection();
 
+		/*The main Timeline view of the application*/
+		this.view = new TimelineView();
+		/*Modal for displaying specific event details*/
+		this.modal = new TimelineDetailView();
+		/*Collection for storing all LCS events as StubHubEventModel*/
+		this.collection = new StubHubEventCollection();
+		/*Hunch API model used to retrieve reccomendations for users based on facebook likes*/
+		this.hunch = new HunchRecCollection();
+		/*Geolocation functionality to map the user location to the nearest StubHub location based on IP address*/
 		this.geo = new GeoLocationModel();
 
+		/*Hunch API calls are currently disabled*/
 /*		this.HunchRecCollection = new HunchRecCollection();
 		this.HunchRecCollection.meta('topic_ids', 'list_musician');
 		this.HunchRecCollection.meta('likes', 'hn_3570964');
 		this.HunchRecCollection.meta('blocked_result_ids', 'hn_3570964');
 		console.log(this.HunchRecCollection.url());
 		this.HunchRecCollection.fetch();*/
+
+		/*Manually set the height of the application for infinite scrolling*/
 		window.appHeight = 1200;
+		/*cascadeTimeout is used for the animation effect of fading in the itemView tiles one by one*/
 		window.cascadeTimeout = 0;
+		/*some rudimentary way of preventing application to perform LCS call when it is already doing so*/
 		window.loadingMore = false;
 		
+		/*This interval periodically queries facebook for the user's browser window information.*/
+		/*When the user scrolls to the end of the page, infinite scrolling is triggered as the app*/
+		/*loads more data onto the webpage. A facebook API call is also performed to lengthen the*/
+		/*height of the application.*/
 		window.autoUpdateInterval = setInterval(function(){
 			FB.Canvas.getPageInfo(
 		        function(info) {
 		        	if (info.clientHeight + info.offsetTop + info.scrollTop > window.appHeight) {
 		        		if (!loadingMore) {
-		        			loadingMore = true;
 
 		        			console.log('infinite scrolling!');
+		        			loadingMore = true;
 			        		window.cascadeTimeout = 0;
 			        		FB.Canvas.setSize({height: window.appHeight+1200});
 			        		window.appHeight = window.appHeight+1200;
 							
-							//for (var idx = 0; idx < collection.length; idx++) {
-								//var counter = 0;
-							console.log('d1: ' + d1);
-							console.log('d2: ' + d2);
-							console.log('limit: ' + limit);
+
 							if (typeof d1 != 'undefined' &&
 								typeof d2 != 'undefined' &&
 								typeof limit != 'undefined') {
@@ -115,18 +130,17 @@ window.AppRouter = Backbone.Router.extend({
 									loadingMore = false;
 								}
 								
-
-								console.log('d1: ' + d1);
-								console.log('d2: ' + d2);
-								console.log('limit: ' + limit);
+								// console.log('d1: ' + d1);
+								// console.log('d2: ' + d2);
+								// console.log('limit: ' + limit);
 							}
 
 							loadingMore = false;	
 		        		}
 		        		
 		        	}
+		        	/*Shift modal position to be always centered on the viewport*/
 					$('.modal').css('top', info.clientHeight + info.scrollTop - (info.clientHeight-450) + 'px');
-					$('#header-container').css('top', info.scrollTop + 'px');
 		        }
     		);
 		}, 500);
@@ -136,6 +150,8 @@ window.AppRouter = Backbone.Router.extend({
 });
 
 /*Loading Templates using a util function and initializing application via AppRouter*/
+/*Note the two event handlers here are just for display purposes and does not actually*/
+/*switch the application between "My Calendar" and "All Upcoming Events". */
 (function($){
 	utils.loadTemplate(['TimelineMonthView','TimelineItemView', 'TimelineEventView', 'TimelineDetailView'], function(){
 		console.log('finish loading templates');
@@ -178,20 +194,26 @@ window.AppRouter = Backbone.Router.extend({
 		window.changeLocActive = false;
 	});
 
+	$('#search-btn').click(function() {
+		searchClicked();
+	});
+
+	$('#search-input').keyup(function() {
+		searchKeyup();
+	});
+
 })(jQuery);
 
+/*This function is called when the user specifies a new location.*/
+/*The entire timeline is reconstructed again from the bottom up.*/
 function setpgeo(geoID, location, element) {
 	console.log('clicked: ', location);
-	//clearInterval(window.autoUpdateInterval);
 	var loc = location.slice(0, location.indexOf(','));
 	if (typeof window.app.geo != 'undefined') {
 		window.app.geo.replaceLocation(loc);
 		$('.timeline').html('');
 		window.app.view = new TimelineView();
 		
-		//$('.timeline').html('');
-
-
 		window.app.collection = new StubHubEventCollection();
 		window.FBUserModel.customizeEvents();
 
@@ -199,14 +221,114 @@ function setpgeo(geoID, location, element) {
 		window.appHeight = 1200;
 		window.cascadeTimeout = 0;
 		window.loadingMore = false;
-		
-		// window.app = new AppRouter();
-		// window.app.geo.replaceLocation(loc);
-		// window.FBUserModel.customizeEvents();
 	}
 	console.log('hiding');
 	$('#change-loc-d').remove();
 	window.changeLocActive = false;
 }
 
-//1200
+function searchClicked() {
+	var queryVal = $('#search-input').val();
+	queryVal = $.trim(queryVal);
+	if (queryVal !== '') {
+		console.log(searchVal);
+		$('.timeline').html('');
+		//new view specifically for displaying search results
+		window.app.searchView = new TimelineView();
+		//new collection storing models of search results
+		window.app.searchCollection = new StubHubEventCollection();
+
+		//customizing query
+
+		//fetch from LCS
+		window.app.searchCollection.fetch({success: function() {
+			for (var i = 0; i < collection.length; i++) {			
+				var eventInstance = searchCollection.at(i);
+				var eventDateObj = eventInstance.get('eventDateObj');
+				if (eventInstance.get('eventTotalTickets') > 0) {
+					window.app.searchView.addEvent(eventInstance);
+				}
+			}
+		}});
+
+	}
+}
+
+function searchKeyup() {
+	EVENT_URL = '/listingCatalog/select/?fq=stubhubDocumentType:event AND ancestorGenreIds:(28 OR 174 OR 1) AND book_of_business_id:1 ' + area + ' active:1 &start=0&rows=5&fl=channelId,act_primary,seo_description_en_US,eventGeoDescription,city,lat_lon,event_time_local,event_date_local,event_date_time_local,urlpath&wt=json&q=(';
+  	GENRE_URL = '/listingCatalog/select/?fq=stubhubDocumentType:event AND active:1 &start=0&rows=5&fl=act_primary_en_US,genre_parent_name,genreUrlPath&wt=json&sfield=lat_lon&pt=' + geoLatLon + '&group=true&group.field=eventGenreParentDescription_facet_str&group.main=true&sort=geodist() asc&q=(act_primary_en_US:"';
+  	var queryraw = $('#search-input').val();
+  	querytrim = jQuery.trim(queryraw);
+  	var eventquerypre = querytrim.replace(/ /g," AND "); 
+	var genrequerypre = querytrim.replace(/ /g," AND ");
+	var eventquery = eventquerypre + '*) OR ("' + querytrim + '"~1000000^10)';
+	var genrequery = genrequerypre + '")';
+	// if (querytrim.length > 1) {
+	// 	$.getJSON(EVENT_URL + eventquery, null, eventCallback);
+	// 	$.getJSON(GENRE_URL + genrequery, null, genreCallback);$('#searchall').empty().show();
+	// 	$('#searchall').append('<li class="result searchall" style="color:#0088cc;font-weight:bold;"><a href="/search/doSearch?searchStr=' + querytrim + '&pageNumber=1&resultsPerPage=50&searchMode=event&start=0&rows=50&geo_exp=1">Search StubHub for "'+ querytrim + '" tickets</a></li>');
+	// 	$('#close').show();        
+	// } else {
+	// 	$('#eventresults').hide();
+	// 	$('#genreresults').hide();
+	// 	$('#searchall').hide();
+	// 	$('#close').hide();
+	// }
+}
+
+// function eventCallback(data, textStatus) {
+// var list = data.response.docs;
+// var results = $('#eventresults').empty().show();
+// if (list.length > 0) {
+// <!-- Show the search results in the results list -->
+// results.append('<li class="resulttype">Upcoming events</li>');
+
+// $.each(list, function(s) {
+
+// if (list[s].channelId == 28) {
+// var title = list[s].seo_description_en_US;
+// } else {
+// var title = list[s].act_primary;
+// }
+
+// var hour = list[s].event_time_local.slice(0,2);
+// var minute = list[s].event_time_local.slice(3,5);
+// if (hour > 12) {
+// time = hour - 12 + ':' + minute + ' PM';
+// } else if (hour = 12) {
+// time = 12 + ':' + minute + ' PM';
+// } else {
+// time = hour + ':' + minute + ' AM';
+// }
+
+// var date = dateFormat(list[s].event_date_time_local, "dddd, mmmm d, yyyy");
+
+// html = '<div class="emoji"></div><div class="title"><a href="/' + list[s].urlpath + '">' + title + '</div>' + 
+// '<div class="venuedate">' + list[s].eventGeoDescription + '<span>, ' +list[s].city + '<span> on ' + date + '<span> at ' + time + '</a></div>';
+// results.append('<li class="result">' + html + '</li>');
+// });
+// } else {
+// <!-- Show that no results exist -->
+// $('#eventresults').empty().show();
+// }
+// }
+  
+  
+// function genreCallback(data, textStatus) {
+// <!-- Do stuff with the data -->
+// <!-- See if there are search results -->
+// var list = data.response.docs;
+// var results = $('#genreresults').empty().show();
+// if (list.length > 0) {
+// <!-- Show the search results in the results list -->
+// results.append('<li class="resulttype">Teams, artists and performers</li>');
+// $.each(list, function(s) {
+
+// html = '<div class="title genretitle"><a href="/' + list[s].genreUrlPath + '">' + list[s].genre_parent_name + '</div>';
+// results.append('<li class="result">' + html + '</li>');
+// });
+// } else {
+// <!-- Show that no results exist -->
+// $('#genreresults').empty().show();
+// }
+// }

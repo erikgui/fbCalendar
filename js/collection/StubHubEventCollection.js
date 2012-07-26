@@ -55,13 +55,13 @@ window.StubHubEventCollection = Backbone.Collection.extend({
 			URL += ' AND ancestorGeoDescriptions:%22' + window.app.geo.get('loc') + '%22';
 		}
 
-		URL += ' AND active:1 ' + '&sort=event_date_time_local%20asc&rows=200'
+		URL += ' AND active:1 &sort=event_date_time_local%20asc&rows=200'
 		
 		if( typeof this.meta('query') != 'undefined') {
 			URL +=' AND '+ this.meta('query');
 		}
 
-		URL +='&fl=event_date_time_local+nickname+seo_description+description+name_primary+act_primary+venue_name+urlpath+totalTickets+minPrice'
+		URL +='&fl=event_date_time_local+nickname+seo_description+description+name_primary+act_primary+venue_name++genreUrlPath+urlpath+totalTickets+minPrice'
 		
 		URL +='&version=2.2&start=0&rows=10&indent=on&wt=json';
 		

@@ -89,7 +89,7 @@ a:hover {
 
 #change-loc-d {
 	position: absolute;
-	height: 760px;
+	height: 670px;
 	border: 1px #C7C7C7 solid;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -104,6 +104,10 @@ a:hover {
 	z-index: 11;
 	text-align: left;
 	padding: 10px;
+}
+
+#change-loc-d p {
+	margin: 0px;
 }
 
 #change-loc-dialog-dismiss {
@@ -349,8 +353,9 @@ ul.eventInfos li {
 	background-repeat: no-repeat;
 	background-size: cover;
 	width: 180px;
+	top: -86px;
 	height: 125px;
-	position: absolute;
+	position: relative;
 	z-index: 2;
 }
 
@@ -360,14 +365,15 @@ ul.eventInfos li {
 	background-size: cover;
 	width: 180px;
 	height: 125px;
-	position: absolute;
+	top: -211px;
+	position: relative;
 }
 
 .info-overlay {
-	position: absolute;
-	top: 86px;
+	position: relative;
+	top: 39px;
 	font-weight: bold;
-	background-color: #000;
+	background-color: black;
 	width: 170px;
 	height: 33px;
 	padding: 5px;
@@ -376,9 +382,9 @@ ul.eventInfos li {
 }
 
 .info-text {
-	position: absolute;
-	top: 86px;
-	color: #FFF;
+	position: relative;
+	top: 82px;
+	color: white;
 	font-weight: bold;
 	width: 170px;
 	height: 33px;
@@ -416,6 +422,7 @@ ul.eventInfos li {
 	float: left;
 	left: 280px;
 	width: 315px;
+	height: 165px;
 	top: 60px;
 	margin-left: 19px;
 }
@@ -435,4 +442,38 @@ ul.eventInfos li {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	background-color: #dadada;
+}
+
+.event-func {
+	margin-left: 15px;
+	margin-top: 7px;
+	position: relative;
+	float: left;
+}
+
+.event-post {
+	background-image: url('../img/post.gif');
+	width: 72px;
+	height: 28px;
+	float: left;
+	margin-right: 2px;
+	cursor: pointer;
+}
+
+.event-invite {
+	background-image: url('../img/invite.gif');
+	width: 72px;
+	height: 28px;
+	float: left;
+	margin-right: 2px;
+	cursor: pointer;
+}
+
+.event-fbpage {
+	background-image: url('../img/event.gif');
+	width: 72px;
+	height: 28px;
+	float: left;
+	margin-right: 2px;
+	cursor: pointer;
 }

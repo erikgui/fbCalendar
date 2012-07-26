@@ -18,6 +18,7 @@ window.StubHubEventModel = Backbone.Model.extend({
 					act_primary: LCSeventInfo.act_primary,
 					venue_name: LCSeventInfo.venue_name,
 					urlpath: LCSeventInfo.urlpath,
+					genreUrlPath: LCSeventInfo.genreUrlPath,
 					eventYear: eventDateObj.getFullYear(),
 					eventMonth: eventDateObj.getMonth(),
 					eventDate: eventDateObj.getDate(),

@@ -20,13 +20,14 @@ window.TimelineEventView = Backbone.View.extend({
 		this._meta = {};
 	},
 
-	render: function(eventInfo) {
+	render: function(eventInfo, itemView) {
 		this.meta('eventName', eventInfo.get('eventName'));
 		this.meta('act_primary', eventInfo.get('act_primary'));
 		this.meta('eventDate', eventInfo.get('eventDate'));
 		this.meta('eventMonth', eventInfo.get('eventMonth'));
 		this.meta('eventYear', eventInfo.get('eventYear'));
 		this.meta('eventInfo', eventInfo);
+		this.meta('itemView', itemView);
 
 		var dataStr;
 		if (typeof eventInfo.get('eventSEODesc') == 'undefined') {
@@ -60,12 +61,12 @@ window.TimelineEventView = Backbone.View.extend({
 
 	showDetails: function() {
 		//this.meta('timelineDetailView')
-		window.app.modal.changeInfo(this.meta('eventInfo'));
+		window.app.modal.changeInfo(this.meta('eventInfo'), this);
 		window.app.modal.show();
 		FB.Canvas.getPageInfo(
-		        function(info) {
-					$('.modal').css('top', info.clientHeight + info.scrollTop - (info.clientHeight-450) + 'px');
-		        }
+	        function(info) {
+				$('.modal').css('top', info.clientHeight + info.scrollTop - (info.clientHeight-450) + 'px');
+	        }
 		);
 	}
 });

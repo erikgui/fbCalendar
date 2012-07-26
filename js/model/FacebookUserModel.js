@@ -173,45 +173,45 @@ window.FacebookUserModel = Backbone.Model.extend({
 			console.log('limit: ' + limit);
 
 			//Checking for no event dates
-			var dateObj = new Date();
-			while (dateObj.isBefore(d2)) {
-				var containsDate = false;
-				for (var j = 0; j < window.DisplayedCollection.length; j++) {
-					var eventInstance = DisplayedCollection.at(j);
-					if (eventInstance.get('eventMonth') === dateObj.getMonth()) {
-						if (dateObj.getDate() === eventInstance.get('eventDate')) {
-							containsDate = true;
-							break;
-						}
-					}
-				}
-				if (!containsDate) {
-					var mdl = new StubHubEventModel();
-					mdl.setEventTime(dateObj);
-					var monthViews = window.app.view.meta('timelineMonthViews');
-					for (var k = 0; k < monthViews.length; k++) {
-						var mv = monthViews[k];
-						if (mv.meta('eventMonth') === dateObj.getMonth()) {
-							var dateViews = mv.meta('timelineItemViews');
-							for (var l = 0; l < dateViews.length; l++) {
-								var dv = dateViews[l];
-								// console.log('dv.meta("dateNumber"): ' + dv.meta('dateNumber'));
-								// console.log('dateObj.getDate(): ' + dateObj.getDate());
-								if (dv.meta('dateNumber')-1 === dateObj.getDate()) {
-									console.log(dv.el);
-									DisplayedCollection.add(mdl);
-									window.app.view.insertEvent(mdl, dv);
-								}
-							}
-						}
-					}
-					console.log('making eventMdl for date: ' + dateObj);
-				}
-				// if (!window.app.view.hasDate(dateObj)) {
-				// 	console.log('missing date: ' + dateObj);
-				// }
-				dateObj = dateObj.addDays(1);
-			}
+			// var dateObj = new Date();
+			// while (dateObj.isBefore(d2)) {
+			// 	var containsDate = false;
+			// 	for (var j = 0; j < window.DisplayedCollection.length; j++) {
+			// 		var eventInstance = DisplayedCollection.at(j);
+			// 		if (eventInstance.get('eventMonth') === dateObj.getMonth()) {
+			// 			if (dateObj.getDate() === eventInstance.get('eventDate')) {
+			// 				containsDate = true;
+			// 				break;
+			// 			}
+			// 		}
+			// 	}
+			// 	if (!containsDate) {
+			// 		var mdl = new StubHubEventModel();
+			// 		mdl.setEventTime(dateObj);
+			// 		var monthViews = window.app.view.meta('timelineMonthViews');
+			// 		for (var k = 0; k < monthViews.length; k++) {
+			// 			var mv = monthViews[k];
+			// 			if (mv.meta('eventMonth') === dateObj.getMonth()) {
+			// 				var dateViews = mv.meta('timelineItemViews');
+			// 				for (var l = 0; l < dateViews.length; l++) {
+			// 					var dv = dateViews[l];
+			// 					// console.log('dv.meta("dateNumber"): ' + dv.meta('dateNumber'));
+			// 					// console.log('dateObj.getDate(): ' + dateObj.getDate());
+			// 					if (dv.meta('dateNumber')-1 === dateObj.getDate()) {
+			// 						console.log(dv.el);
+			// 						DisplayedCollection.add(mdl);
+			// 						window.app.view.insertEvent(mdl, dv);
+			// 					}
+			// 				}
+			// 			}
+			// 		}
+			// 		console.log('making eventMdl for date: ' + dateObj);
+			// 	}
+			// 	// if (!window.app.view.hasDate(dateObj)) {
+			// 	// 	console.log('missing date: ' + dateObj);
+			// 	// }
+			// 	dateObj = dateObj.addDays(1);
+			// }
 
 			
 			// FB.api('/404913136233483', {fields: 'access_token'}, function(response) {
