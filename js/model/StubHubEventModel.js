@@ -30,6 +30,7 @@ window.StubHubEventModel = Backbone.Model.extend({
 					eventSEODesc: LCSeventInfo.seo_description,
 					eventTotalTickets: LCSeventInfo.totalTickets,
 					eventMinPrice: LCSeventInfo.minPrice,
+					eventLatLon: LCSeventInfo.lat_lon,
 				});
 			}
 			this.setThumbnail();

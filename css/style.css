@@ -169,6 +169,70 @@ a:hover {
 	left: 166px;
 }
 
+#search-results {
+	position: absolute;
+	background-color: white;
+	text-align: left;
+	left: 166px;
+	border: 1px #C7C7C7 solid;
+	z-index: 11;
+	padding: 5px;
+	width: 348px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+#eventresults {
+	display: block;
+	list-style: none;
+	margin: 0px;
+}
+
+#genreresults {
+	display: block;
+	list-style: none;
+	margin: 0px;
+}
+
+#searchall {
+	margin: 0px;
+	list-style: none;
+}
+
+.resulttype {font-weight:bold; color: #fb8500; padding: 0px 3px 0px 3px; margin-top: 5px; }
+.result { border: 1px solid #f8f8f8; display:block; z-index: 1000; }
+.result a, .result a:visited { text-decoration: none; display: block; }
+.result:hover { background-color: #0060a4; }
+.result .title a { font-weight: bold; color: #333; padding: 5px 5px 2px 5px; }
+.result:hover .title a { color: #fff; }
+.result .venuedate a {font-size: 11px; font-weight: normal; color: #5d5d5d; padding: 0px 5px 5px 5px; }
+.result:hover .venuedate a { color: #ddd; }
+.result .genretitle a { padding: 5px; }
+.searchall { padding: 8px 4px; }
+.searchall:hover a { color: #fff; }
+
+#search-close { 
+	background: url(../img/close.gif) top left no-repeat;
+	cursor: pointer;
+	position: absolute;
+	top: 189px;
+	right: 240px;
+	z-index: 11;
+	height: 15px;
+	width: 15px;
+}
+
+#search-close:hover { 
+	background:url(../img/close_hover.gif) top left no-repeat; 
+}
+
+#search-close:active { 
+	background:url(../img/close_down.gif) top left no-repeat;
+}
 
 /*---------------------TimelineView---------------------*/
 ul.timeline {

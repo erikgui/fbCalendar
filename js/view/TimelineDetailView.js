@@ -124,12 +124,14 @@ window.TimelineDetailView = Backbone.View.extend({
 			FB.api('/404913136233483', {fields: 'access_token'}, function(response) {
 				console.log(response);
 				var at = response.access_token;
+				console.log(at);
 				FB.api('/404913136233483/events', {access_token: at}, function(response){
 					console.log(response);
 					var events = response.data;
 					var eventExists = false;
 					for (var i = 0; i < events.length; i++) {
 						var evt = events[i];
+						console.log(evt.name)
 						if (evt.name === eventInfo.get('eventSEODesc')) {
 							eventExists = true;
 							self.meta('eventID', evt.id);
@@ -141,20 +143,35 @@ window.TimelineDetailView = Backbone.View.extend({
 							break;
 						}
 					}
-					if (!eventExists && typeof self.meta('eventID') == 'undefined') {
-						FB.api('/404913136233483/events', 'post', {
-							access_token: at, 
-							name: eventInfo.get('eventSEODesc'), 
-							start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000)
-						}, function(response){
-							console.log(response);
-							var event_id = response.id;
-							self.meta('eventID', event_id);
-							FB.api(event_id+'/attending', 'post', function(response) {
+					if (!eventExists) {
+						var eventLocId;
+						$.ajax({
+							url: 'https://graph.facebook.com/search?q=' + eventInfo.get('venue_name') + 
+							'&type=place&center=' + eventInfo.get('eventLatLon') + '&distance=200&access_token=' + at,
+							dataType: 'json',
+							success: function(response) {
 								console.log(response);
-								$('.rsvp-attending').html('<i class="icon-ok"></i><span>Attending</span>');
-								$('.rsvp-attending').addClass('btn-custom2');
-							});
+								eventLocId = eventInfo.get('venue_name');
+								if (typeof response.data[0] != 'undefined') {
+									eventLocId = response.data[0].id;
+								}
+								FB.api('/404913136233483/events', 'post', {
+									access_token: at, 
+									name: eventInfo.get('eventSEODesc'), 
+									start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000),
+									location_id: eventLocId,
+									picture: eventInfo.get('thumbnail'),
+								}, function(response){
+									console.log(response);
+									var event_id = response.id;
+									self.meta('eventID', event_id);
+									FB.api(event_id+'/attending', 'post', function(response) {
+										console.log(response);
+										$('.rsvp-attending').html('<i class="icon-ok"></i><span>Attending</span>');
+										$('.rsvp-attending').addClass('btn-custom2');
+									});
+								});
+							}
 						});
 					}
 				});
@@ -203,21 +220,37 @@ window.TimelineDetailView = Backbone.View.extend({
 							break;
 						}
 					}
-					if (!eventExists && typeof self.meta('eventID') == 'undefined') {
-						FB.api('/404913136233483/events', 'post', {
-							access_token: at, 
-							name: eventInfo.get('eventSEODesc'), 
-							start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000)
-						}, function(response){
-							console.log(response);
-							var event_id = response.id;
-							self.meta('eventID', event_id);
-							FB.api(event_id+'/maybe', 'post', function(response) {
+					if (!eventExists) {
+						var eventLocId;
+						$.ajax({
+							url: 'https://graph.facebook.com/search?q=' + eventInfo.get('venue_name') + 
+							'&type=place&center=' + eventInfo.get('eventLatLon') + '&distance=200&access_token=' + at,
+							dataType: 'json',
+							success: function(response) {
 								console.log(response);
-								$('.rsvp-maybe').html('<i class="icon-ok"></i><span> Maybe</span>');
-								$('.rsvp-maybe').addClass('btn-custom2');
-							});
+								eventLocId = eventInfo.get('venue_name');
+								if (typeof response.data[0] != 'undefined') {
+									eventLocId = response.data[0].id;
+								}
+								FB.api('/404913136233483/events', 'post', {
+									access_token: at, 
+									name: eventInfo.get('eventSEODesc'), 
+									start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000),
+									location_id: eventLocId,
+									picture: eventInfo.get('thumbnail'),
+								}, function(response){
+									console.log(response);
+									var event_id = response.id;
+									self.meta('eventID', event_id);
+									FB.api(event_id+'/maybe', 'post', function(response) {
+										console.log(response);
+										$('.rsvp-maybe').html('<i class="icon-ok"></i><span> Maybe</span>');
+										$('.rsvp-maybe').addClass('btn-custom2');
+									});
+								});
+							}
 						});
+						
 					}
 				});
 			});
@@ -323,11 +356,12 @@ window.TimelineDetailView = Backbone.View.extend({
 	eventFBPage: function() {
 		var self = this;
 		var eventInfo = self.meta('eventInfo');
-		if (typeof self.meta('eventID') != 'undefined' && self.meta('eventID') !== '') {
+		if (typeof self.meta('eventID') != 'undefined' && $.trim(self.meta('eventID')) !== '') {
 			$('.event-fbpage-link').attr('href', 'https://www.facebook.com/events/' + self.meta('eventID') + '/');
 			//window.open('https://www.facebook.com/events/' + self.meta('eventID') + '/','_blank');
 			//console.log('https://www.facebook.com/events/' + self.meta('eventID') + '/');
 			// $('.event-fbpage-link').target = "_blank";
+			console.log('eventID: ' + self.meta('eventID'));
 	        window.open($('.event-fbpage-link').prop('href'));
 		} else {
 			FB.api('/404913136233483', {fields: 'access_token'}, function(response) {
@@ -342,22 +376,45 @@ window.TimelineDetailView = Backbone.View.extend({
 							self.meta('eventID', evt.id);
 							$('.event-fbpage-link').attr('href', 'https://www.facebook.com/events/' + self.meta('eventID') + '/');
 							//console.log('https://www.facebook.com/events/' + self.meta('eventID') + '/');
+							console.log('eventID: ' + self.meta('eventID'));
 							window.open($('.event-fbpage-link').prop('href'));
 							break;
 						}
 					}
 					if (!eventExists && (typeof self.meta('eventID') == 'undefined' || self.meta('eventID') === '')) {
-						FB.api('/404913136233483/events', 'post', {
-							access_token: at, 
-							name: eventInfo.get('eventSEODesc'), 
-							start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000)
-						}, function(response){
-							var event_id = response.id;
-							self.meta('eventID', event_id);
-							$('.event-fbpage-link').attr('href', 'https://www.facebook.com/events/' + self.meta('eventID') + '/');
-							//console.log('https://www.facebook.com/events/' + self.meta('eventID') + '/');
-							window.open($('.event-fbpage-link').prop('href'));
+						eventLocId = eventInfo.get('venue_name');
+						$.ajax({
+							url: 'https://graph.facebook.com/search?q=' + eventInfo.get('venue_name') + 
+							'&type=place&center=' + eventInfo.get('eventLatLon') + '&distance=200&access_token=' + at,
+							dataType: 'json',
+							success: function(response) {
+								console.log(response);
+								if (typeof response.data[0] != 'undefined') {
+									eventLocId = response.data[0].id;
+								}
+
+								FB.api('/404913136233483/events', 'post', {
+									access_token: at, 
+									name: eventInfo.get('eventSEODesc'), 
+									start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000),
+									location_id: eventLocId,
+									picture: eventInfo.get('thumbnail'),
+								}, function(response){
+									console.log(response);
+									var event_id = response.id;
+									console.log(event_id);
+									self.meta('eventID', event_id);
+									FB.api(event_id+'/declined', 'post', function(response) {
+										$('.event-fbpage-link').attr('href', 'https://www.facebook.com/events/' + self.meta('eventID') + '/');
+										//console.log('https://www.facebook.com/events/' + self.meta('eventID') + '/');
+										console.log('eventID: ' + self.meta('eventID'));
+										window.open($('.event-fbpage-link').prop('href'));
+									});
+									
+								});
+							}
 						});
+						
 					}
 					
 				});

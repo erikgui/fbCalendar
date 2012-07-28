@@ -176,6 +176,15 @@ window.AppRouter = Backbone.Router.extend({
 
 	$( "#slider" ).slider();
 
+	$("#search-results").hide();
+	$("#search-close").hide();
+
+	$("#search-close").click(function () {
+      $("#search-input").val("");
+      $('#search-results').hide();
+      $("#search-close").hide();
+    });
+
 	window.changeLocActive = false;
 	$('#change-loc-link a').click(function() {
 		if (!window.changeLocActive) {
@@ -198,9 +207,10 @@ window.AppRouter = Backbone.Router.extend({
 		searchClicked();
 	});
 
-	$('#search-input').keyup(function() {
-		searchKeyup();
+	$('#search-input').keyup(function(e) {
+		searchKeyup(e);
 	});
+
 
 })(jQuery);
 
@@ -227,6 +237,7 @@ function setpgeo(geoID, location, element) {
 	window.changeLocActive = false;
 }
 
+/*Search Bar Event Handlers*/
 function searchClicked() {
 	var queryVal = $('#search-input').val();
 	queryVal = $.trim(queryVal);
@@ -254,81 +265,106 @@ function searchClicked() {
 	}
 }
 
-function searchKeyup() {
-	EVENT_URL = '/listingCatalog/select/?fq=stubhubDocumentType:event AND ancestorGenreIds:(28 OR 174 OR 1) AND book_of_business_id:1 ' + area + ' active:1 &start=0&rows=5&fl=channelId,act_primary,seo_description_en_US,eventGeoDescription,city,lat_lon,event_time_local,event_date_local,event_date_time_local,urlpath&wt=json&q=(';
-  	GENRE_URL = '/listingCatalog/select/?fq=stubhubDocumentType:event AND active:1 &start=0&rows=5&fl=act_primary_en_US,genre_parent_name,genreUrlPath&wt=json&sfield=lat_lon&pt=' + geoLatLon + '&group=true&group.field=eventGenreParentDescription_facet_str&group.main=true&sort=geodist() asc&q=(act_primary_en_US:"';
+function searchKeyup(e) {
+	var area = 'AND ancestorGeoDescriptions:SF Bay Area AND';
+	if (typeof window.app.geo != 'undefined') {
+		area = 'AND ancestorGeoDescriptions:' + window.app.geo.get('loc') + ' AND';
+	}
+	EVENT_URL = 'http://www.stubhub.com/listingCatalog/select/?fq=stubhubDocumentType:event AND ancestorGenreIds:(28 OR 174 OR 1) AND book_of_business_id:1 ' + area + ' active:1 &start=0&rows=5&fl=channelId,act_primary,seo_description_en_US,eventGeoDescription,city,lat_lon,event_time_local,event_date_local,event_date_time_local,genreUrlPath,urlpath&wt=json&q=(';
+  	GENRE_URL = 'http://www.stubhub.com/listingCatalog/select/?fq=stubhubDocumentType:event AND active:1 &start=0&rows=5&fl=act_primary_en_US,genre_parent_name,genreUrlPath&wt=json&sfield=lat_lon&pt=' + geoip_latitude() + ',' + geoip_longitude() + '&group=true&group.field=eventGenreParentDescription_facet_str&group.main=true&sort=geodist() asc&q=(act_primary_en_US:"';
   	var queryraw = $('#search-input').val();
   	querytrim = jQuery.trim(queryraw);
   	var eventquerypre = querytrim.replace(/ /g," AND "); 
 	var genrequerypre = querytrim.replace(/ /g," AND ");
 	var eventquery = eventquerypre + '*) OR ("' + querytrim + '"~1000000^10)';
 	var genrequery = genrequerypre + '")';
-	// if (querytrim.length > 1) {
-	// 	$.getJSON(EVENT_URL + eventquery, null, eventCallback);
-	// 	$.getJSON(GENRE_URL + genrequery, null, genreCallback);$('#searchall').empty().show();
-	// 	$('#searchall').append('<li class="result searchall" style="color:#0088cc;font-weight:bold;"><a href="/search/doSearch?searchStr=' + querytrim + '&pageNumber=1&resultsPerPage=50&searchMode=event&start=0&rows=50&geo_exp=1">Search StubHub for "'+ querytrim + '" tickets</a></li>');
-	// 	$('#close').show();        
-	// } else {
-	// 	$('#eventresults').hide();
-	// 	$('#genreresults').hide();
-	// 	$('#searchall').hide();
-	// 	$('#close').hide();
-	// }
+
+	//Check if enter key is pressed 
+	var code = (e.keyCode ? e.keyCode : e.which);
+	if (code == 13) {
+		console.log('enter key was pressed');
+	} else {
+		if (querytrim.length > 1) {
+			$.ajax({
+				url: EVENT_URL + eventquery,
+				dataType: 'jsonp',
+				jsonp: 'json.wrf',
+				success: function(response) {
+					eventCallback(response);
+				}
+			});
+			$.ajax({
+				url: GENRE_URL + genrequery,
+				dataType: 'jsonp',
+				jsonp: 'json.wrf',
+				success: function(response) {
+					genreCallback(response);
+				}
+			});
+			$('#search-close').show();
+			$('#searchall').empty().show();
+			$('#searchall').append('<li class="result searchall" style="color:#0088cc;font-weight:bold;"><a href="http://www.stubhub.com/search/doSearch?searchStr=' + querytrim + '&pageNumber=1&resultsPerPage=50&searchMode=event&start=0&rows=50&geo_exp=1">Search StubHub for "'+ querytrim + '" tickets</a></li>');
+		} else {
+			$('#eventresults').hide();
+			$('#genreresults').hide();
+			$('#searchall').hide();
+			$("#search-results").hide();
+			$('#hide').show();
+			$('#search-close').hide();
+		}
+	}
 }
 
-// function eventCallback(data, textStatus) {
-// var list = data.response.docs;
-// var results = $('#eventresults').empty().show();
-// if (list.length > 0) {
-// <!-- Show the search results in the results list -->
-// results.append('<li class="resulttype">Upcoming events</li>');
+function eventCallback(data, textStatus) {
+	var list = data.response.docs;
+	var results = $('#eventresults').empty().show();
+	if (list.length > 0) {
+		$("#search-results").show();
+		results.append('<li class="resulttype">Upcoming events</li>');
 
-// $.each(list, function(s) {
+		$.each(list, function(s) {
 
-// if (list[s].channelId == 28) {
-// var title = list[s].seo_description_en_US;
-// } else {
-// var title = list[s].act_primary;
-// }
+			if (list[s].channelId == 28) {
+				var title = list[s].seo_description_en_US;
+			} else {
+				var title = list[s].act_primary;
+			}
 
-// var hour = list[s].event_time_local.slice(0,2);
-// var minute = list[s].event_time_local.slice(3,5);
-// if (hour > 12) {
-// time = hour - 12 + ':' + minute + ' PM';
-// } else if (hour = 12) {
-// time = 12 + ':' + minute + ' PM';
-// } else {
-// time = hour + ':' + minute + ' AM';
-// }
+			var hour = list[s].event_time_local.slice(0,2);
+			var minute = list[s].event_time_local.slice(3,5);
+			if (hour > 12) {
+				time = hour - 12 + ':' + minute + ' PM';
+			} else if (hour = 12) {
+				time = 12 + ':' + minute + ' PM';
+			} else {
+				time = hour + ':' + minute + ' AM';
+			}
 
-// var date = dateFormat(list[s].event_date_time_local, "dddd, mmmm d, yyyy");
+			var date = dateFormat(list[s].event_date_time_local, "dddd, mmmm d, yyyy");
 
-// html = '<div class="emoji"></div><div class="title"><a href="/' + list[s].urlpath + '">' + title + '</div>' + 
-// '<div class="venuedate">' + list[s].eventGeoDescription + '<span>, ' +list[s].city + '<span> on ' + date + '<span> at ' + time + '</a></div>';
-// results.append('<li class="result">' + html + '</li>');
-// });
-// } else {
-// <!-- Show that no results exist -->
-// $('#eventresults').empty().show();
-// }
-// }
+			html = '<div class="title"><a target="_blank" href="http://www.stubhub.com/' + list[s].genreUrlPath + '/' + list[s].urlpath + '">' + title + '</div>' + 
+			'<div class="venuedate">' + list[s].eventGeoDescription + '<span>, ' +list[s].city + '<span> on ' + date + '<span> at ' + time + '</a></div>';
+			results.append('<li class="result">' + html + '</li>');
+		
+		});
+	} else {
+		$('#eventresults').empty().show();
+	}
+}
   
   
-// function genreCallback(data, textStatus) {
-// <!-- Do stuff with the data -->
-// <!-- See if there are search results -->
-// var list = data.response.docs;
-// var results = $('#genreresults').empty().show();
-// if (list.length > 0) {
-// <!-- Show the search results in the results list -->
-// results.append('<li class="resulttype">Teams, artists and performers</li>');
-// $.each(list, function(s) {
+function genreCallback(data, textStatus) {
+	var list = data.response.docs;
+	var results = $('#genreresults').empty().show();
+	if (list.length > 0) {
+		results.append('<li class="resulttype">Teams, artists and performers</li>');
+		$.each(list, function(s) {
 
-// html = '<div class="title genretitle"><a href="/' + list[s].genreUrlPath + '">' + list[s].genre_parent_name + '</div>';
-// results.append('<li class="result">' + html + '</li>');
-// });
-// } else {
-// <!-- Show that no results exist -->
-// $('#genreresults').empty().show();
-// }
-// }
+			html = '<div class="title genretitle"><a target="_blank" href="http://www.stubhub.com/' + list[s].genreUrlPath + '">' + list[s].genre_parent_name + '</div>';
+			results.append('<li class="result">' + html + '</li>');
+		});
+
+	} else {
+		$('#genreresults').empty().show();
+	}
+}

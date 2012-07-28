@@ -27,6 +27,7 @@
 	<script type="text/javascript" src="js/model/MdlConfig.js"></script>
 	<script type="text/javascript" src="js/util/HttpUtil.js"></script>
 	<script type="text/javascript" src="js/util/date.js"></script>
+	<script type="text/javascript" src="js/util/date.format.js"></script>
 	<script type="text/javascript" src="js/util/DateUtil.js"></script>
 
 	<!--Models-->
@@ -121,6 +122,13 @@
 			    	</div>
 			    	<input type="text" class="input inline" id="search-input" placeholder="Enter: Team, artist, event, venue">
 			    	<a class="btn btn-custom1 inline" id="search-btn" href="#">Search</a>
+			    	<div id="search-close"></div>
+			    	<div id='search-results'>
+			    		<ul id='eventresults'></ul>
+			    		<ul id='genreresults'></ul>
+			    		<ul id='searchall'></ul>
+			    	</div>
+			    	
 			    	<a class="btn inline" id="add-event-btn" href="#">Add Your Event</a>
 			    </div>
 			    <div id="secondRow">
