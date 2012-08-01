@@ -44,11 +44,10 @@ window.TimelineItemView = Backbone.View.extend({
 	    this.meta('timelineEventViews', [tempEventView]);
 	    $(this.el).find('.eventInfos').append(tempEventView.el);
 
-
 		var today = new Date();
 		if (eventYear === today.getFullYear()) {
 			if (eventMonth === today.getMonth()) {
-				if (eventDate === today.getDate()) {
+				if (parseInt(eventDate, 10) === today.getDate()) {
 					$(this.el).find('.dateNumber').addClass('today');
 					$(this.el).find('.dateSlateBackground').addClass('today');
 					$(this.el).find('.dateName').addClass('today');
@@ -100,6 +99,12 @@ window.TimelineItemView = Backbone.View.extend({
 	    if (timelineEventViews.length > 3) {
 	    	this.activateCarousel();
 	    }
+	    var dispEvents = parseInt($(this.el).find('.dispEvents').html(), 10);
+	    var totalEvents = parseInt($(this.el).find('.totalEvents').html(), 10);
+	    if (dispEvents < 3) {
+	    	$(this.el).find('.dispEvents').html(dispEvents+1);
+	    }
+	    $(this.el).find('.totalEvents').html(totalEvents+1);
 		return this.el;
 	},
 

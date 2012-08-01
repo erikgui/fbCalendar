@@ -390,6 +390,12 @@ ul.timeline-items li {
 	cursor: pointer;
 }
 
+.eventNumbers {
+	position: relative;
+	margin-top: 140px;
+	margin-left: 20px;
+}
+
 /*---------------------TimelineEventView---------------------*/
 
 ul.eventInfos {
@@ -456,6 +462,10 @@ ul.eventInfos li {
 	z-index: 4;
 }
 
+.info-text span {
+	font-weight: normal;
+}
+
 /*---------------------TimelineDetailView---------------------*/
 #details-modal {
 	text-align: left;
@@ -509,15 +519,17 @@ ul.eventInfos li {
 }
 
 .event-func {
-	margin-left: 15px;
 	margin-top: 7px;
+	margin-right: 330px;
 	position: relative;
 	float: left;
 }
 
 .event-post {
 	background-image: url('../img/post.gif');
-	width: 72px;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 83px;
 	height: 28px;
 	float: left;
 	margin-right: 2px;
@@ -526,7 +538,9 @@ ul.eventInfos li {
 
 .event-invite {
 	background-image: url('../img/invite.gif');
-	width: 72px;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 82px;
 	height: 28px;
 	float: left;
 	margin-right: 2px;
@@ -535,9 +549,75 @@ ul.eventInfos li {
 
 .event-fbpage {
 	background-image: url('../img/event.gif');
-	width: 72px;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 82px;
 	height: 28px;
 	float: left;
 	margin-right: 2px;
 	cursor: pointer;
+}
+
+.ticket-info {
+	font-size: 0.9em;
+	position: absolute;
+	left: 390px;
+	top: 110px;
+}
+
+.event-facepile {
+	float: left;
+	margin-top: 10px;
+	width: 570px;
+	height: 54px;
+	outline: 1px #C7C7C7 solid;
+	border: 10px #FFFFFF solid;
+}
+
+.facepile-mask {
+	height: 56px;
+	width: 538px;
+	padding: 1px;
+	overflow: hidden;
+	margin-left: 15px;
+}
+
+.facepile-container {
+	width: 100000px;
+	position: relative;
+}
+
+.faces {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.faces li {
+	display: inline;
+	margin-right: 15px;
+}
+
+.faces li img {
+	outline: 1px #C7C7C7 solid;
+	border: 2px white solid;
+}
+
+.facepile-arrows {
+	position: absolute;
+	font-size: 2.5em;
+	z-index: 15;
+	top: 297px;
+	cursor: pointer;
+	color: #B5B5B5;
+}
+
+.facepile-arrows.left {
+	left: 22px;
+	display: none;
+}
+
+.facepile-arrows.right {
+	left: 587px;
+	display: none;
 }

@@ -47,13 +47,16 @@ window.TimelineEventView = Backbone.View.extend({
 			dataStr = eventInfo.get('eventSEODesc');
 		}
 
-		if (dataStr.length > 44) {
-			dataStr = dataStr.slice(0, 44);
-			dataStr = dataStr + '...';
+		if (dataStr.length > 30) {
+			dataStr = dataStr.slice(0, 30);
+			dataStr = dataStr + '... ';
+		} else {
+			dataStr = dataStr + ' ';
 		}
 		var data = {'info': dataStr};
 		$(this.el).append(this.template(data));
 		$(this.el).find('.event-img').css('background-image', 'url(' + eventInfo.get('thumbnail') + ')');
+		$(this.el).find('.info-text span').html('From $' + eventInfo.get('eventMinPrice'));
 /*		var data = {'info': 'concert name here!'};
 		$(this.el).append(this.template(data));*/
 		return this.el;
@@ -65,7 +68,7 @@ window.TimelineEventView = Backbone.View.extend({
 		window.app.modal.show();
 		FB.Canvas.getPageInfo(
 	        function(info) {
-				$('.modal').css('top', info.clientHeight + info.scrollTop - (info.clientHeight-450) + 'px');
+				$('.modal').css('top', info.clientHeight + info.scrollTop - (info.clientHeight-400) + 'px');
 	        }
 		);
 	}

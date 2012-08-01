@@ -8,6 +8,8 @@ window.TimelineDetailView = Backbone.View.extend({
 		'click .event-post': 'eventPost',
 		'click .event-invite': 'eventInvite',
 		'click .event-fbpage': 'eventFBPage',
+		'click .facepile-arrows.left': 'fplClick',
+		'click .facepile-arrows.right': 'fprClick',
 	},
 
 	meta: function(property, value) {
@@ -26,6 +28,7 @@ window.TimelineDetailView = Backbone.View.extend({
 
 	changeInfo: function(eventInfo, timelineEventView) {
 		var dataStr;
+		var self = this;
 		this.meta('eventID', '');
 		this.meta('eventInfo', eventInfo);
 		this.meta('timelineEventView', timelineEventView);
@@ -54,6 +57,7 @@ window.TimelineDetailView = Backbone.View.extend({
           ', ' + DateUtil.getMonthName(dateObj.getMonth()) + 
           ' ' + dateObj.getDate() + ' ' + dateObj.getFullYear(),
 			'minPrice': '  From $'+ eventInfo.get('eventMinPrice') + ' USD',
+			'totalTickets': eventInfo.get('eventTotalTickets') + ' tickets left',
 		};
 
 		$(this.el).html(this.template(data));
@@ -63,37 +67,62 @@ window.TimelineDetailView = Backbone.View.extend({
 		this.meta('attending', false);
 		this.meta('maybe', false);
 
-		// FB.api('/404913136233483', {fields: 'access_token'}, function(response) {
-		// 	var at = response.access_token;
-		// 	FB.api('/404913136233483/events', {access_token: at}, function(response){
-		// 		var events = response.data;
-		// 		var eventExists = false;
-		// 		for (var i = 0; i < events.length; i++) {
-		// 			var evt = events[i];
-		// 			if (evt.name === eventInfo.get('eventSEODesc')) {
-		// 				eventExists = true;
-		// 				self.meta('eventID', evt.id);
-		// 				break;
-		// 			}
-		// 		}
-		// 		if (!eventExists && typeof self.meta('eventID') == 'undefined') {
-		// 			FB.api('/404913136233483/events', 'post', {
-		// 				access_token: at, 
-		// 				name: eventInfo.get('eventSEODesc'), 
-		// 				start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000)
-		// 			}, function(response){
-		// 				console.log(response);
-		// 				var event_id = response.id;
-		// 				self.meta('eventID', event_id);
-		// 				FB.api(event_id+'/attending', 'post', function(response) {
-		// 					console.log(response);
-		// 					$('.rsvp-attending').html('<i class="icon-ok"></i><span>Attending</span>');
-		// 					$('.rsvp-attending').addClass('btn-custom2');
-		// 				});
-		// 			});
-		// 		}
-		// 	});
-		// });
+		FB.api('/404913136233483', {fields: 'access_token'}, function(response) {
+			var at = response.access_token;
+			FB.api('/404913136233483/events', {access_token: at}, function(response){
+				var events = response.data;
+				var eventExists = false;
+				for (var i = 0; i < events.length; i++) {
+					var evt = events[i];
+					if (evt.name === eventInfo.get('eventSEODesc')) {
+						eventExists = true;
+						self.meta('eventID', evt.id);
+						break;
+					}
+				}
+				FB.api(self.meta('eventID') + '/attending', function(response) {
+					console.log(response);
+					var data = response.data;
+					if (data.length > 0) {
+						for (var i = 0; i < data.length; i++) {
+							var user = data[i];
+							$(self.el).find('.faces').append('<li><img src="' + 'http://graph.facebook.com/' + user.id + '/picture' + '"/></li>');
+							$(self.el).find('.faces').append('<li><img src="' + 'http://graph.facebook.com/' + user.id + '/picture' + '"/></li>');
+							$(self.el).find('.faces').append('<li><img src="' + 'http://graph.facebook.com/' + user.id + '/picture' + '"/></li>');
+							$(self.el).find('.faces').append('<li><img src="' + 'http://graph.facebook.com/' + user.id + '/picture' + '"/></li>');
+							$(self.el).find('.faces').append('<li><img src="' + 'http://graph.facebook.com/' + user.id + '/picture' + '"/></li>');
+							$(self.el).find('.faces').append('<li><img src="' + 'http://graph.facebook.com/' + user.id + '/picture' + '"/></li>');
+							$(self.el).find('.faces').append('<li><img src="' + 'http://graph.facebook.com/' + user.id + '/picture' + '"/></li>');
+							$(self.el).find('.faces').append('<li><img src="' + 'http://graph.facebook.com/' + user.id + '/picture' + '"/></li>');
+						}
+						/*=================WARNING!!!====================*/
+						/*===FOR TESTING PURPOSES ONLY, FIX THIS!!!!=====*/
+						//self.meta('numOfAttendees', data.length);						
+						self.meta('numOfAttendees', data.length*8);
+						self.meta('carouselPos', 0);
+						if (self.meta('numOfAttendees') > 8) {
+							self.activateCarousel();
+						}
+					}
+				});
+				// if (!eventExists && typeof self.meta('eventID') == 'undefined') {
+				// 	FB.api('/404913136233483/events', 'post', {
+				// 		access_token: at, 
+				// 		name: eventInfo.get('eventSEODesc'), 
+				// 		start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000)
+				// 	}, function(response){
+				// 		console.log(response);
+				// 		var event_id = response.id;
+				// 		self.meta('eventID', event_id);
+				// 		FB.api(event_id+'/attending', 'post', function(response) {
+				// 			console.log(response);
+				// 			$('.rsvp-attending').html('<i class="icon-ok"></i><span>Attending</span>');
+				// 			$('.rsvp-attending').addClass('btn-custom2');
+				// 		});
+				// 	});
+				// }
+			});
+		});
 
 	},
 
@@ -103,7 +132,8 @@ window.TimelineDetailView = Backbone.View.extend({
 			'venueName': 'Venue Name', 
 			'venueLocation': 'Venue Location', 
 			'eventTime' : '10:00AM PDT',
-			'minPrice': '  From $1000 USD'
+			'minPrice': '  From $1000 USD',
+			'totalTickets': '10 tickets left',
 		};
 
 		$(this.el).html(this.template(data));
@@ -421,5 +451,54 @@ window.TimelineDetailView = Backbone.View.extend({
 			});
 		}
 		
+	},
+
+	fplClick: function() {
+		console.log('fplclick');
+		var carouselPos = this.meta('carouselPos');
+		if (carouselPos > 0) {
+			$(this.el).find('.facepile-container').animate({
+				left: '+=69'
+			}, 300, 'swing');
+			carouselPos = carouselPos-1;
+			this.meta('carouselPos', carouselPos);
+			if (carouselPos == 0) {
+				$(this.el).find('.facepile-arrows.left').css('color', '#b5b5b5');
+				$(this.el).find('.facepile-arrows.right').css('color', '#f97506');
+			} else {
+				$(this.el).find('.facepile-arrows.left').css('color', '#f97506');
+				$(this.el).find('.facepile-arrows.right').css('color', '#f97506');
+			}
+		}
+	},
+
+	fprClick: function() {
+		console.log('fprclick');
+		var carouselPos = this.meta('carouselPos');
+		if (carouselPos < (this.meta('numOfAttendees') - 8)) {
+			$(this.el).find('.facepile-container').animate({
+				left: '-=69'
+			}, 300, 'swing');
+			carouselPos = carouselPos+1;
+			this.meta('carouselPos', carouselPos);
+			if (carouselPos == (this.meta('numOfAttendees') - 8)) {
+				$(this.el).find('.facepile-arrows.left').css('color', '#f97506');
+				$(this.el).find('.facepile-arrows.right').css('color', '#b5b5b5');
+			} else {
+				$(this.el).find('.facepile-arrows.left').css('color', '#f97506');
+				$(this.el).find('.facepile-arrows.right').css('color', '#f97506');
+			}
+		}
+	},
+
+	activateCarousel: function() {
+		$(this.el).find('.facepile-arrows.right').css('display', 'block');
+		$(this.el).find('.facepile-arrows.left').css('display', 'block');
+		$(this.el).find('.facepile-arrows.right').css('color', '#f97506');
+	},
+
+	deactivateCarouse: function() {
+		$(this.el).find('.facepile-arrows.right').css('display', 'none');
+		$(this.el).find('.facepile-arrows.left').css('display', 'none');		
 	},
 });

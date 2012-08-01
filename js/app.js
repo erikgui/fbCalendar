@@ -140,7 +140,7 @@ window.AppRouter = Backbone.Router.extend({
 		        		
 		        	}
 		        	/*Shift modal position to be always centered on the viewport*/
-					$('.modal').css('top', info.clientHeight + info.scrollTop - (info.clientHeight-450) + 'px');
+					$('.modal').css('top', info.clientHeight + info.scrollTop - (info.clientHeight-400) + 'px');
 		        }
     		);
 		}, 500);
@@ -239,30 +239,30 @@ function setpgeo(geoID, location, element) {
 
 /*Search Bar Event Handlers*/
 function searchClicked() {
-	var queryVal = $('#search-input').val();
-	queryVal = $.trim(queryVal);
-	if (queryVal !== '') {
-		console.log(searchVal);
-		$('.timeline').html('');
-		//new view specifically for displaying search results
-		window.app.searchView = new TimelineView();
-		//new collection storing models of search results
-		window.app.searchCollection = new StubHubEventCollection();
+	// var queryVal = $('#search-input').val();
+	// queryVal = $.trim(queryVal);
+	// if (queryVal !== '') {
+	// 	console.log(searchVal);
+	// 	$('.timeline').html('');
+	// 	//new view specifically for displaying search results
+	// 	window.app.searchView = new TimelineView();
+	// 	//new collection storing models of search results
+	// 	window.app.searchCollection = new StubHubEventCollection();
 
-		//customizing query
+	// 	//customizing query
 
-		//fetch from LCS
-		window.app.searchCollection.fetch({success: function() {
-			for (var i = 0; i < collection.length; i++) {			
-				var eventInstance = searchCollection.at(i);
-				var eventDateObj = eventInstance.get('eventDateObj');
-				if (eventInstance.get('eventTotalTickets') > 0) {
-					window.app.searchView.addEvent(eventInstance);
-				}
-			}
-		}});
+	// 	//fetch from LCS
+	// 	window.app.searchCollection.fetch({success: function() {
+	// 		for (var i = 0; i < collection.length; i++) {			
+	// 			var eventInstance = searchCollection.at(i);
+	// 			var eventDateObj = eventInstance.get('eventDateObj');
+	// 			if (eventInstance.get('eventTotalTickets') > 0) {
+	// 				window.app.searchView.addEvent(eventInstance);
+	// 			}
+	// 		}
+	// 	}});
 
-	}
+	//}
 }
 
 function searchKeyup(e) {
@@ -283,6 +283,16 @@ function searchKeyup(e) {
 	var code = (e.keyCode ? e.keyCode : e.which);
 	if (code == 13) {
 		console.log('enter key was pressed');
+
+		$.ajax({
+				url: EVENT_URL + eventquery,
+				dataType: 'jsonp',
+				jsonp: 'json.wrf',
+				success: function(response) {
+					enterPressedCallback(response);
+				}
+		});
+
 	} else {
 		if (querytrim.length > 1) {
 			$.ajax({
@@ -367,4 +377,20 @@ function genreCallback(data, textStatus) {
 	} else {
 		$('#genreresults').empty().show();
 	}
+}
+
+function enterPressedCallback(data) {
+	var list = data.response.docs;
+
+	$('.timeline').html('');
+
+	//new view specifically for displaying search results
+	window.app.searchView = new TimelineView();
+	//new collection storing models of search results
+	window.app.searchCollection = new StubHubEventCollection();
+
+	for (var i = 0; i < list.length; i++) {
+
+	}
+
 }

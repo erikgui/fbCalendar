@@ -9,7 +9,11 @@
 		<div class='event-desc'>
 			<p><%= venueName %></p>
 			<p><%= eventTime %></p>
-			<a href="#" class="btn btn-primary btn-custom1" target="_blank">Find Tickets</a><span style="color:#AAA"><%= minPrice %></span>
+			<a href="#" class="btn btn-primary btn-custom1" target="_blank">Find Tickets</a>
+			<div class='ticket-info'>
+				<span style="color:#AAA"><%= minPrice %></span><br/>
+				<span style="color:#AAA"><%= totalTickets %></span>
+			</div>
 			<div class='divider'></div>
 			<p>Are you going?</p>
 			<a href="#" class="btn btn-primary inline rsvp-attending">Attending</a>
@@ -24,6 +28,17 @@
 				<a class='event-fbpage-link' href="#" target="_blank"></a>
 			</div>
 		</div>
+
+		<div class='event-facepile'>
+			<div class='facepile-mask'>
+				<div class='facepile-container'>
+					<ul class='faces'></ul>
+				</div>
+			</div>
+		</div>
+
+		<span class='facepile-arrows right'>&rsaquo;</span>
+		<span class='facepile-arrows left'>&lsaquo;</span>
 	</div>
 <!-- 	<div class="modal-footer">
 		<a href="#" class="btn" data-dismiss="modal">Close</a>
