@@ -87,18 +87,8 @@ window.TimelineDetailView = Backbone.View.extend({
 						for (var i = 0; i < data.length; i++) {
 							var user = data[i];
 							$(self.el).find('.faces').append('<li><img src="' + 'http://graph.facebook.com/' + user.id + '/picture' + '"/></li>');
-							$(self.el).find('.faces').append('<li><img src="' + 'http://graph.facebook.com/' + user.id + '/picture' + '"/></li>');
-							$(self.el).find('.faces').append('<li><img src="' + 'http://graph.facebook.com/' + user.id + '/picture' + '"/></li>');
-							$(self.el).find('.faces').append('<li><img src="' + 'http://graph.facebook.com/' + user.id + '/picture' + '"/></li>');
-							$(self.el).find('.faces').append('<li><img src="' + 'http://graph.facebook.com/' + user.id + '/picture' + '"/></li>');
-							$(self.el).find('.faces').append('<li><img src="' + 'http://graph.facebook.com/' + user.id + '/picture' + '"/></li>');
-							$(self.el).find('.faces').append('<li><img src="' + 'http://graph.facebook.com/' + user.id + '/picture' + '"/></li>');
-							$(self.el).find('.faces').append('<li><img src="' + 'http://graph.facebook.com/' + user.id + '/picture' + '"/></li>');
 						}
-						/*=================WARNING!!!====================*/
-						/*===FOR TESTING PURPOSES ONLY, FIX THIS!!!!=====*/
-						//self.meta('numOfAttendees', data.length);						
-						self.meta('numOfAttendees', data.length*8);
+						self.meta('numOfAttendees', data.length);
 						self.meta('carouselPos', 0);
 						if (self.meta('numOfAttendees') > 8) {
 							self.activateCarousel();
@@ -421,27 +411,48 @@ window.TimelineDetailView = Backbone.View.extend({
 								console.log(response);
 								if (typeof response.data[0] != 'undefined') {
 									eventLocId = response.data[0].id;
+									FB.api('/404913136233483/events', 'post', {
+										access_token: at, 
+										name: eventInfo.get('eventSEODesc'), 
+										start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000),
+										location_id: eventLocId,
+										picture: eventInfo.get('thumbnail'),
+									}, function(response){
+										console.log(response);
+										var event_id = response.id;
+										console.log(event_id);
+										self.meta('eventID', event_id);
+										FB.api(event_id+'/declined', 'post', function(response) {
+											$('.event-fbpage-link').attr('href', 'https://www.facebook.com/events/' + self.meta('eventID') + '/');
+											//console.log('https://www.facebook.com/events/' + self.meta('eventID') + '/');
+											console.log('eventID: ' + self.meta('eventID'));
+											window.open($('.event-fbpage-link').prop('href'));
+										});
+										
+									});
+								} else {
+									FB.api('/404913136233483/events', 'post', {
+										access_token: at, 
+										name: eventInfo.get('eventSEODesc'), 
+										start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000),
+										location: eventLocId,
+										picture: eventInfo.get('thumbnail'),
+									}, function(response){
+										console.log(response);
+										var event_id = response.id;
+										console.log(event_id);
+										self.meta('eventID', event_id);
+										FB.api(event_id+'/declined', 'post', function(response) {
+											$('.event-fbpage-link').attr('href', 'https://www.facebook.com/events/' + self.meta('eventID') + '/');
+											//console.log('https://www.facebook.com/events/' + self.meta('eventID') + '/');
+											console.log('eventID: ' + self.meta('eventID'));
+											window.open($('.event-fbpage-link').prop('href'));
+										});
+										
+									});
 								}
 
-								FB.api('/404913136233483/events', 'post', {
-									access_token: at, 
-									name: eventInfo.get('eventSEODesc'), 
-									start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000),
-									location_id: eventLocId,
-									picture: eventInfo.get('thumbnail'),
-								}, function(response){
-									console.log(response);
-									var event_id = response.id;
-									console.log(event_id);
-									self.meta('eventID', event_id);
-									FB.api(event_id+'/declined', 'post', function(response) {
-										$('.event-fbpage-link').attr('href', 'https://www.facebook.com/events/' + self.meta('eventID') + '/');
-										//console.log('https://www.facebook.com/events/' + self.meta('eventID') + '/');
-										console.log('eventID: ' + self.meta('eventID'));
-										window.open($('.event-fbpage-link').prop('href'));
-									});
-									
-								});
+								
 							}
 						});
 						

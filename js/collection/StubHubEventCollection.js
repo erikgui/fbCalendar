@@ -61,7 +61,7 @@ window.StubHubEventCollection = Backbone.Collection.extend({
 			URL +=' AND '+ this.meta('query');
 		}
 
-		URL +='&fl=event_date_time_local+nickname+lat_lon+seo_description+description+name_primary+act_primary+venue_name++genreUrlPath+urlpath+totalTickets+minPrice'
+		URL +='&fl=event_date_time_local+channelId+nickname+lat_lon+seo_description+description+name_primary+act_primary+venue_name++genreUrlPath+urlpath+totalTickets+minPrice'
 		
 		URL +='&version=2.2&start=0&indent=on&wt=json';
 		

@@ -57,13 +57,23 @@ window.TimelineEventView = Backbone.View.extend({
 		$(this.el).append(this.template(data));
 		$(this.el).find('.event-img').css('background-image', 'url(' + eventInfo.get('thumbnail') + ')');
 		$(this.el).find('.info-text span').html('From $' + eventInfo.get('eventMinPrice'));
-/*		var data = {'info': 'concert name here!'};
-		$(this.el).append(this.template(data));*/
+
+
+		/**/
+		var channelId = eventInfo.get('eventChannelID');
+		if (channelId === '1') {
+			$(this.el).find('.genre-icon-source').attr('src', 'img/concerts-large.png');
+		} else if (channelId === '174') {
+			$(this.el).find('.genre-icon-source').attr('src', 'img/theatre-large.png');
+		} else if (channelId === '28') {
+			$(this.el).find('.genre-icon-source').attr('src', 'img/sports-large.png');
+		}
+
+
 		return this.el;
 	},
 
 	showDetails: function() {
-		//this.meta('timelineDetailView')
 		window.app.modal.changeInfo(this.meta('eventInfo'), this);
 		window.app.modal.show();
 		FB.Canvas.getPageInfo(

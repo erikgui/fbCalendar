@@ -338,9 +338,10 @@ ul.timeline li {
 .carousel-container {
 	position: absolute;
 	left: 136px;
-	height: 133px;
-	top: 25px;
-	width: 592px;
+	height: 150px;
+	top: 17px;
+	padding-top: 8px;
+	width: 597px;
 	overflow: hidden;
 	z-index: 10;
 }
@@ -464,6 +465,16 @@ ul.eventInfos li {
 
 .info-text span {
 	font-weight: normal;
+}
+
+.genre-icon {
+	position: relative;
+	z-index: 4;
+	margin-bottom: -18px;
+	margin-top: -10px;
+	margin-left: 160px;
+	width: 28px;
+	height: 28px;
 }
 
 /*---------------------TimelineDetailView---------------------*/
