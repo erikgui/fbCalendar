@@ -74,6 +74,8 @@ window.FacebookUserModel = Backbone.Model.extend({
 
 			self.customizeEvents();
 			self.getRecommendations();
+
+			console.log(self.get('musicianNames'));
 		});
 	},
 
@@ -97,7 +99,7 @@ window.FacebookUserModel = Backbone.Model.extend({
 		var musicianIDs = self.get('musicianIDs');
 		var teamNames = self.get('teamNames');
 		var teamIDs = self.get('teamIDs');
-		while (typeof window.app.collection == 'undefined') {
+		while (typeof window.app === 'undefined') {
 			//ugly while loop to while for app to initialize
 		}
 		if (typeof window.app.collection == 'undefined') {
@@ -105,18 +107,11 @@ window.FacebookUserModel = Backbone.Model.extend({
 		}
 		var collection = window.app.collection;
 
-		// _.each(musicianNames, function(name) {
-		// 	console.log(name);
-		// 	collection.meta('description', name);
-		// 	collection.meta('event_date_time_local', '[2012-07-01T00:00:00Z TO 2012-12-01T00:00:00Z]');
-		// 	collection.fetch();		
-		// });
-
 		//filter and reconstruct Collection based on likes (preserving the original copy)
 		collection.meta('view', this.view);
 		collection.meta('event_date_time_local', '[NOW TO *]');
 		collection.fetch({success: function() {
-			//$('#ajax-loader').fadeOut('fast');
+
 			//successfully retrieved 200 items from LCS
 			console.log('filtering collection');
 
@@ -125,8 +120,6 @@ window.FacebookUserModel = Backbone.Model.extend({
 			window.d2 = new Date().addDays(1);
 			window.limit = new Date().addDays(8);
 			
-			//for (var idx = 0; idx < collection.length; idx++) {
-				//var counter = 0;
 			while (!d1.equals(limit)) {
 				for (var i = 0; i < collection.length; i++) {			
 					var eventInstance = collection.at(i);

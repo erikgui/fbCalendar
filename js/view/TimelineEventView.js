@@ -69,6 +69,24 @@ window.TimelineEventView = Backbone.View.extend({
 			$(this.el).find('.genre-icon-source').attr('src', 'img/sports-large.png');
 		}
 
+		console.log('act_primary: ', this.meta('act_primary').toLowerCase());
+
+		var musicianNames = FBUserModel.get('musicianNames');
+		var teamNames = FBUserModel.get('teamNames');
+		for (var i = 0; i < musicianNames.length; i++) {
+			if (this.meta('act_primary').toLowerCase() === musicianNames[i].toLowerCase()) {
+				$(this.el).attr('data-like', 'true');
+			}
+		}
+		for (var j = 0; j < teamNames.length; j++) {
+			if (this.meta('act_primary').toLowerCase() === teamNames[j].toLowerCase()) {
+				$(this.el).attr('data-like', 'true');
+			}
+		}
+		if (typeof $(this.el).attr('data-like') == 'undefined') {
+			$(this.el).attr('data-like', 'false');
+		}
+
 
 		return this.el;
 	},
