@@ -390,7 +390,7 @@ window.TimelineDetailView = Backbone.View.extend({
 			console.log('eventID: ' + self.meta('eventID'));
 	        window.open($('.event-fbpage-link').prop('href'));
 		} else {
-			FB.api('/404913136233483', {fields: 'access_token'}, function(response) {
+			FB.api('/404913136233483', {fields: 'access_token', access_token: 'AAADdZB8fTLBgBAICclsSoZByWZCtPXKxiVQ96DHonliItVlZCnIZCh5ibm277hg1ekiKAmCe7vx8DvNHR8WP3V434VZBbLe29gFZCVTQN0E8BOjZC4J1T9Mn'}, function(response) {
 				at = response.access_token;
 				FB.api('/404913136233483/events', {access_token: at}, function(response){
 					console.log('at: ', at);
