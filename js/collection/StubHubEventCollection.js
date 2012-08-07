@@ -42,7 +42,6 @@ window.StubHubEventCollection = Backbone.Collection.extend({
 			URL += ' AND description:%22' + this.meta('description') + '%22 ';
 		}
 		
-		// URL += ' AND event_date_local:'+ this.meta('timeRange') +'';
 		if(typeof this.meta('event_date_time_local') != 'undefined') {
 			URL += ' AND event_date_time_local:' + this.meta('event_date_time_local');
 		}

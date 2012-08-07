@@ -83,8 +83,6 @@ window.TimelineItemView = Backbone.View.extend({
 
 		setTimeout(function(){$(self.el).fadeIn('slow');}, window.cascadeTimeout);
 		window.cascadeTimeout = window.cascadeTimeout + 200;
-		//setTimeout(function(){}, 1000);
-		//window.cascadeTimeout = window.cascadeTimeout + 1000;
 		console.log("returning el");
 		return this.el;
 	},
@@ -132,6 +130,64 @@ window.TimelineItemView = Backbone.View.extend({
 		}
 	},
 
+	activateCarousel: function() {
+		var carouselActive = this.meta('carouselActive');
+		if (typeof carouselActive == 'undefined' || carouselActive === false) {
+			$(this.el).find('.arrow-right').css('display', 'block');
+			$(this.el).find('.arrow-left').css('display', 'block');
+			$(this.el).find('.arrow-right').css('border-left', '15px solid #f97506');
+		}
+	},
+
+	deactivateCarouse: function() {
+		$(this.el).find('.arrow-right').css('display', 'none');
+		$(this.el).find('.arrow-left').css('display', 'none');		
+	},
+
+	leftArrowClick: function() {
+		var timelineEventViews = this.meta('timelineEventViews');
+		var TEMNum = timelineEventViews.length;
+		var carouselPos = this.meta('carouselPos');
+		if (TEMNum > 3) {
+			if (carouselPos > 0) {
+				$(this.el).find('.eventInfos').animate({
+					left: '+=202'
+				}, 300, 'swing');
+				carouselPos = carouselPos-1;
+				this.meta('carouselPos', carouselPos);
+				if (carouselPos == 0) {
+					$(this.el).find('.arrow-left').css('border-right', '15px solid #b5b5b5');
+					$(this.el).find('.arrow-right').css('border-left', '15px solid #f97506');
+				} else {
+					$(this.el).find('.arrow-left').css('border-right', '15px solid #f97506');
+					$(this.el).find('.arrow-right').css('border-left', '15px solid #f97506');
+				}
+			}
+		}
+	},
+
+	rightArrowClick: function() {
+		var timelineEventViews = this.meta('timelineEventViews');
+		var TEMNum = timelineEventViews.length;
+		var carouselPos = this.meta('carouselPos');
+		if (TEMNum > 3) {
+			if (carouselPos < (TEMNum - 3)) {
+				$(this.el).find('.eventInfos').animate({
+					left: '-=202'
+				}, 300, 'swing');
+				carouselPos = carouselPos+1;
+				this.meta('carouselPos', carouselPos);
+				if (carouselPos == (TEMNum - 3)) {
+					$(this.el).find('.arrow-left').css('border-right', '15px solid #f97506');
+					$(this.el).find('.arrow-right').css('border-left', '15px solid #b5b5b5');
+				} else {
+					$(this.el).find('.arrow-left').css('border-right', '15px solid #f97506');
+					$(this.el).find('.arrow-right').css('border-left', '15px solid #f97506');
+				}
+			}
+		}
+	},
+
 	getDayOfWeek: function(number) {
 		switch(number) {
 			case 0:
@@ -158,114 +214,18 @@ window.TimelineItemView = Backbone.View.extend({
 		}
 	},
 
-	activateCarousel: function() {
-		var carouselActive = this.meta('carouselActive');
-		if (typeof carouselActive == 'undefined' || carouselActive === false) {
-			$(this.el).find('.arrow-right').css('display', 'block');
-			$(this.el).find('.arrow-left').css('display', 'block');
-			$(this.el).find('.arrow-right').css('border-left', '15px solid #f97506');
-			//this.enableAutoPlay();
-			//this.meta('carouselActive', true);
-		}
-	},
-
-	deactivateCarouse: function() {
-		$(this.el).find('.arrow-right').css('display', 'none');
-		$(this.el).find('.arrow-left').css('display', 'none');		
-	},
-
-	// enableAutoPlay: function() {
-	// 	var self = this;
-	// 	var ff = function() {
-	// 		var interval = setInterval(function() {
-	// 			if (Math.random() > 0.5) {
-	// 				self.moveLeft();
-	// 			} else {
-	// 				self.moveRight();
-	// 			}
-	// 		}, 5000);
-	// 		self.meta('interval', interval);
-	// 	}
-
-	// 	setTimeout(ff, Math.random()*1000);
-	// },
-
-	// disableAutoPlay: function() {
-	// 	console.log('clearing interval');
-	// 	var interval = this.meta('interval');
-	// 	clearInterval(interval);
-	// },
-
-	// moveLeft: function() {
-	// 	var timelineEventViews = this.meta('timelineEventViews');
-	// 	var TEMNum = timelineEventViews.length;
-	// 	var carouselPos = this.meta('carouselPos');
-	// 	if (TEMNum > 3) {
-	// 		if (carouselPos > 0) {
-	// 			$(this.el).find('.eventInfos').animate({
-	// 				left: '+=197'
-	// 			});
-	// 			this.meta('carouselPos', carouselPos-1);
-	// 		}
-	// 	}
-	// },
-
-	// moveRight: function() {
-	// 	var timelineEventViews = this.meta('timelineEventViews');
-	// 	var TEMNum = timelineEventViews.length;
-	// 	var carouselPos = this.meta('carouselPos');
-	// 	if (TEMNum > 3) {
-	// 		if (carouselPos < (TEMNum - 3)) {
-	// 			$(this.el).find('.eventInfos').animate({
-	// 				left: '-=197'
-	// 			});
-	// 			this.meta('carouselPos', carouselPos+1);
-	// 		}
-	// 	}
-	// },
-
-	leftArrowClick: function() {
-		//this.disableAutoPlay();
-		var timelineEventViews = this.meta('timelineEventViews');
-		var TEMNum = timelineEventViews.length;
-		var carouselPos = this.meta('carouselPos');
-		if (TEMNum > 3) {
-			if (carouselPos > 0) {
-				$(this.el).find('.eventInfos').animate({
-					left: '+=202'
-				}, 300, 'swing');
-				carouselPos = carouselPos-1;
-				this.meta('carouselPos', carouselPos);
-				if (carouselPos == 0) {
-					$(this.el).find('.arrow-left').css('border-right', '15px solid #b5b5b5');
-					$(this.el).find('.arrow-right').css('border-left', '15px solid #f97506');
-				} else {
-					$(this.el).find('.arrow-left').css('border-right', '15px solid #f97506');
-					$(this.el).find('.arrow-right').css('border-left', '15px solid #f97506');
-				}
+	sortEventViews: function() {
+		var tlevs = this.meta('timelineEventViews');
+		for (var i = 0; i < tlevs.length; i++) {
+			var tlev = tlevs[i];
+			if ($(tlev.el).attr('data-rec') === 'true') {
+				$(this.el).find('.eventInfos').prepend(tlev.el);
+				console.log('prepending based on user recs');
 			}
-		}
-	},
-
-	rightArrowClick: function() {
-		//this.disableAutoPlay();
-		var timelineEventViews = this.meta('timelineEventViews');
-		var TEMNum = timelineEventViews.length;
-		var carouselPos = this.meta('carouselPos');
-		if (TEMNum > 3) {
-			if (carouselPos < (TEMNum - 3)) {
-				$(this.el).find('.eventInfos').animate({
-					left: '-=202'
-				}, 300, 'swing');
-				carouselPos = carouselPos+1;
-				this.meta('carouselPos', carouselPos);
-				if (carouselPos == (TEMNum - 3)) {
-					$(this.el).find('.arrow-left').css('border-right', '15px solid #f97506');
-					$(this.el).find('.arrow-right').css('border-left', '15px solid #b5b5b5');
-				} else {
-					$(this.el).find('.arrow-left').css('border-right', '15px solid #f97506');
-					$(this.el).find('.arrow-right').css('border-left', '15px solid #f97506');
-				}
+			if ($(tlev.el).attr('data-like') === 'true') {
+				// $(tlev.el).remove();
+				$(this.el).find('.eventInfos').prepend(tlev.el);
+				console.log('prepending based on user likes');
 			}
 		}
 	},

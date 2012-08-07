@@ -13,7 +13,6 @@ window.TimelineMonthView = Backbone.View.extend({
 	initialize: function() {
 		_.bindAll(this, 'render');
 		this._meta = {};
-		//this.render(eventInfo);
 	},
 
 	render: function(eventInfo) {
@@ -109,5 +108,15 @@ window.TimelineMonthView = Backbone.View.extend({
 				break;
 		}
 
-	}
+	},
+
+	sortEventViews: function() {
+		var timelineItemViews = this.meta('timelineItemViews');
+		if (typeof timelineItemViews != 'undefined') {
+			for (var i = 0; i < timelineItemViews.length; i++) {
+				var tiv = timelineItemViews[i];
+				tiv.sortEventViews();		
+			}
+		}
+	},
 });

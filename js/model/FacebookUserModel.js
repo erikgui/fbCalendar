@@ -53,6 +53,7 @@ window.FacebookUserModel = Backbone.Model.extend({
 			var musicianIDs = [];
 			var teamNames = [];
 			var teamIDs = [];
+			console.log(response);
 			for (var i = 0 ; i < likes.data.length; i++) {
 				var like = likes.data[i];
 				if (like.category === 'Musician/band') {
@@ -71,9 +72,10 @@ window.FacebookUserModel = Backbone.Model.extend({
 			self.set('musicianIDs', musicianIDs);
 			self.set('teamNames', teamNames);
 			self.set('teamIDs', teamIDs);
+			
+			self.getRecommendations();
 
 			self.customizeEvents();
-			self.getRecommendations();
 
 			console.log(self.get('musicianNames'));
 		});
@@ -86,11 +88,15 @@ window.FacebookUserModel = Backbone.Model.extend({
 		window.app.hunch.meta('blocked_result_ids', musicianIDs);
 		window.app.hunch.meta('API-method', 'get-recommendations');
 		console.log(window.app.hunch.url());
-		//window.app.hunch.fetch(success: function() {this.hunchRecCallback(response)});
-	},
 
-	hunchRecCallback: function(response) {
-
+		Hunch.api('get-recommendations', {fields: 'name,description,aliases', topic_ids: 'list_musician', likes: musicianIDs, blocked_result_ids: musicianIDs}, function(response) {
+			console.log(response);
+			var recs = response.recommendations;
+			for (var i = 0; i < recs.length; i++) {
+				window.app.hunch.add(new HunchRecModel(recs[i]));
+			}
+			console.log(window.app.hunch);
+		});
 	},
 
 	customizeEvents: function() {
@@ -145,7 +151,6 @@ window.FacebookUserModel = Backbone.Model.extend({
 					// 	window.app.view.addEvent(eventInstance);
 
 					// }
-
 					var eventDateObj = eventInstance.get('eventDateObj');
 					if (eventDateObj.between(d1, d2) && eventInstance.get('eventTotalTickets') > 0) {
 						DisplayedCollection.add(eventInstance);
@@ -156,6 +161,8 @@ window.FacebookUserModel = Backbone.Model.extend({
 				d2 = d2.addDays(1);
 			}
 
+			app.view.sortEventViews();
+
 			var temp = new Date();
 			temp = d1.clone();
 			d2 = temp.addDays(1);
@@ -165,7 +172,8 @@ window.FacebookUserModel = Backbone.Model.extend({
 			console.log('d2: ' + d2);
 			console.log('limit: ' + limit);
 
-			//Checking for no event dates
+			/*=================Checking for dates with no events=================*/
+			/*==========================Not Implemented==========================*/
 			// var dateObj = new Date();
 			// while (dateObj.isBefore(d2)) {
 			// 	var containsDate = false;
@@ -216,9 +224,9 @@ window.FacebookUserModel = Backbone.Model.extend({
 			// 	});
 			// });
 			
-/*			window.app.hunch.meta('API-method', 'get-results');
-			window.app.hunch.meta('result_ids', musicianIDs[j]);
-			window.app.hunch.meta('fields', 'name,image_urls');*/
+			// window.app.hunch.meta('API-method', 'get-results');
+			// window.app.hunch.meta('result_ids', musicianIDs[j]);
+			// window.app.hunch.meta('fields', 'name,image_urls');
 						
 			
 //			console.log(DisplayedCollection);

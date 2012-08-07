@@ -100,22 +100,6 @@ window.TimelineDetailView = Backbone.View.extend({
 					});
 				}
 				
-				// if (!eventExists && typeof self.meta('eventID') == 'undefined') {
-				// 	FB.api('/404913136233483/events', 'post', {
-				// 		access_token: at, 
-				// 		name: eventInfo.get('eventSEODesc'), 
-				// 		start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000)
-				// 	}, function(response){
-				// 		console.log(response);
-				// 		var event_id = response.id;
-				// 		self.meta('eventID', event_id);
-				// 		FB.api(event_id+'/attending', 'post', function(response) {
-				// 			console.log(response);
-				// 			$('.rsvp-attending').html('<i class="icon-ok"></i><span>Attending</span>');
-				// 			$('.rsvp-attending').addClass('btn-custom2');
-				// 		});
-				// 	});
-				// }
 			});
 		});
 

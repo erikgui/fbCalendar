@@ -130,4 +130,13 @@ window.TimelineView = Backbone.View.extend({
 		}
 	},
 
+	sortEventViews: function() {
+		var monthViews = this.meta('timelineMonthViews'); 
+		if (typeof monthViews != 'undefined') {
+			for (var i = 0; i < monthViews.length; i++) {
+				var mv = monthViews[i];
+				mv.sortEventViews();
+			}
+		}
+	},
 });

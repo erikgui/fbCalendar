@@ -27,8 +27,7 @@ window.AppRouter = Backbone.Router.extend({
 		this.geo = new GeoLocationModel();
 
 		/*Hunch API calls are currently disabled*/
-/*		this.HunchRecCollection = new HunchRecCollection();
-		this.HunchRecCollection.meta('topic_ids', 'list_musician');
+/*		this.HunchRecCollection.meta('topic_ids', 'list_musician');
 		this.HunchRecCollection.meta('likes', 'hn_3570964');
 		this.HunchRecCollection.meta('blocked_result_ids', 'hn_3570964');
 		console.log(this.HunchRecCollection.url());
@@ -136,6 +135,7 @@ window.AppRouter = Backbone.Router.extend({
 							}
 
 							loadingMore = false;	
+							app.view.sortEventViews();
 		        		}
 		        		
 		        	}

@@ -6,12 +6,12 @@ window.HunchRecModel = Backbone.Model.extend({
 		description: ''
 	},
 
-	initialize: function() {
-
-	},
-
-	validateItem: function(key) {
-		return (this.validators[key]) ? this.validators[key](this.get(key)) : {isValid: true};
+	initialize: function(info) {
+		this.set({
+			name: info.name,
+			description: info.description,
+			aliases: info.aliases,
+		});
 	},
 
 });

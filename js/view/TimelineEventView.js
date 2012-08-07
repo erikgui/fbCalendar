@@ -69,8 +69,6 @@ window.TimelineEventView = Backbone.View.extend({
 			$(this.el).find('.genre-icon-source').attr('src', 'img/sports-large.png');
 		}
 
-		console.log('act_primary: ', this.meta('act_primary').toLowerCase());
-
 		var musicianNames = FBUserModel.get('musicianNames');
 		var teamNames = FBUserModel.get('teamNames');
 		for (var i = 0; i < musicianNames.length; i++) {
@@ -87,11 +85,22 @@ window.TimelineEventView = Backbone.View.extend({
 			$(this.el).attr('data-like', 'false');
 		}
 
+		for (var k = 0; k < window.app.hunch.length; k++) {
+			var recName = window.app.hunch.at(k).get('name');
+			if (this.meta('act_primary').toLowerCase() === recName.toLowerCase()) {
+				$(this.el).attr('data-rec', 'true');
+			}
+		}
+		if (typeof $(this.el).attr('data-rec') == 'undefined') {
+			$(this.el).attr('data-rec', 'false');
+		}
+
 
 		return this.el;
 	},
 
 	showDetails: function() {
+		console.log('clicked me!');
 		window.app.modal.changeInfo(this.meta('eventInfo'), this);
 		window.app.modal.show();
 		FB.Canvas.getPageInfo(
