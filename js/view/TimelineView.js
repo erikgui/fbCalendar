@@ -24,7 +24,7 @@ window.TimelineView = Backbone.View.extend({
 
 
 	/*===========================================================*/
-	/*Use this function to add events dynamically to the timeline*/
+	/*Use this function to dynamically add events to the timeline*/
 	/*===========================================================*/
 	addEvent: function(eventInfo) {
 		//$(this.el).append(new TimelineMonthView().render().el);
@@ -136,6 +136,46 @@ window.TimelineView = Backbone.View.extend({
 			for (var i = 0; i < monthViews.length; i++) {
 				var mv = monthViews[i];
 				mv.sortEventViews();
+			}
+		}
+	},
+
+	toggleSports: function(display) {
+		var monthViews = this.meta('timelineMonthViews'); 
+		if (typeof monthViews != 'undefined') {
+			for (var i = 0; i < monthViews.length; i++) {
+				var mv = monthViews[i];
+				mv.toggleSports(display);
+			}
+		}
+	},
+
+	toggleConcerts: function(display) {
+		var monthViews = this.meta('timelineMonthViews'); 
+		if (typeof monthViews != 'undefined') {
+			for (var i = 0; i < monthViews.length; i++) {
+				var mv = monthViews[i];
+				mv.toggleConcerts(display);
+			}
+		}
+	},
+
+	toggleTheatre: function(display) {
+		var monthViews = this.meta('timelineMonthViews'); 
+		if (typeof monthViews != 'undefined') {
+			for (var i = 0; i < monthViews.length; i++) {
+				var mv = monthViews[i];
+				mv.toggleTheatre(display);
+			}
+		}
+	},
+
+	toggleFriends: function(display) {
+		var monthViews = this.meta('timelineMonthViews'); 
+		if (typeof monthViews != 'undefined') {
+			for (var i = 0; i < monthViews.length; i++) {
+				var mv = monthViews[i];
+				mv.toggleFriends(display);
 			}
 		}
 	},

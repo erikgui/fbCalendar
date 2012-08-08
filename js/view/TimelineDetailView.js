@@ -130,7 +130,7 @@ window.TimelineDetailView = Backbone.View.extend({
 		if (!self.meta('attending')) {
 			var eventInfo = self.meta('eventInfo');
 			$('.rsvp-attending').html("<img src='img/ajax-loader2.gif'/>");
-			FB.api('/404913136233483', {fields: 'access_token'}, function(response) {
+			FB.api('/404913136233483', {fields: 'access_token', access_token: 'AAADdZB8fTLBgBAICclsSoZByWZCtPXKxiVQ96DHonliItVlZCnIZCh5ibm277hg1ekiKAmCe7vx8DvNHR8WP3V434VZBbLe29gFZCVTQN0E8BOjZC4J1T9Mn'}, function(response) {
 				console.log(response);
 				var at = response.access_token;
 				console.log(at);
@@ -209,7 +209,7 @@ window.TimelineDetailView = Backbone.View.extend({
 		if (!self.meta('maybe')) {
 			var eventInfo = self.meta('eventInfo');
 			$('.rsvp-maybe').html("<img src='img/ajax-loader2.gif'/>");
-			FB.api('/404913136233483', {fields: 'access_token'}, function(response) {
+			FB.api('/404913136233483', {fields: 'access_token' , access_token: 'AAADdZB8fTLBgBAICclsSoZByWZCtPXKxiVQ96DHonliItVlZCnIZCh5ibm277hg1ekiKAmCe7vx8DvNHR8WP3V434VZBbLe29gFZCVTQN0E8BOjZC4J1T9Mn'}, function(response) {
 				console.log(response);
 				var at = response.access_token;
 				FB.api('/404913136233483/events', {access_token: at}, function(response){
@@ -374,12 +374,15 @@ window.TimelineDetailView = Backbone.View.extend({
 			console.log('eventID: ' + self.meta('eventID'));
 	        window.open($('.event-fbpage-link').prop('href'));
 		} else {
-			FB.api('/404913136233483', {fields: 'access_token', access_token: 'AAADdZB8fTLBgBAICclsSoZByWZCtPXKxiVQ96DHonliItVlZCnIZCh5ibm277hg1ekiKAmCe7vx8DvNHR8WP3V434VZBbLe29gFZCVTQN0E8BOjZC4J1T9Mn'}, function(response) {
+			FB.api('/404913136233483', {fields: 'access_token', access_token: '244073459035160|gFJfZXQiB30R42y51Xwl9D02bz4'}, function(response) {
 				at = response.access_token;
+				console.log(response);
+	
 				FB.api('/404913136233483/events', {access_token: at}, function(response){
 					console.log('at: ', at);
 					var events = response.data;
 					var eventExists = false;
+					console.log(response);
 					for (var i = 0; i < events.length; i++) {
 						var evt = events[i];
 						if (evt.name === eventInfo.get('eventSEODesc')) {

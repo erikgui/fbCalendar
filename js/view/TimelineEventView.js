@@ -63,10 +63,13 @@ window.TimelineEventView = Backbone.View.extend({
 		var channelId = eventInfo.get('eventChannelID');
 		if (channelId === '1') {
 			$(this.el).find('.genre-icon-source').attr('src', 'img/concerts-large.png');
+			$(this.el).attr('data-channelID', '1');
 		} else if (channelId === '174') {
 			$(this.el).find('.genre-icon-source').attr('src', 'img/theatre-large.png');
+			$(this.el).attr('data-channelID', '174');
 		} else if (channelId === '28') {
 			$(this.el).find('.genre-icon-source').attr('src', 'img/sports-large.png');
+			$(this.el).attr('data-channelID', '28');
 		}
 
 		var musicianNames = FBUserModel.get('musicianNames');

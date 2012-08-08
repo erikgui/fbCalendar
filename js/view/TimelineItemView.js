@@ -229,4 +229,65 @@ window.TimelineItemView = Backbone.View.extend({
 			}
 		}
 	},
+
+	toggleSports: function(display) {
+		var tlevs = this.meta('timelineEventViews');
+		for (var i = 0; i < tlevs.length; i++) {
+			var tlev = tlevs[i];
+			if (display) {
+				if ($(tlev.el).attr('data-channelid') === '28') {
+					$(tlev.el).css('display', 'block');
+				}
+			} else {
+				if ($(tlev.el).attr('data-channelid') === '28') {
+					$(tlev.el).css('display', 'none');
+				}
+			}
+		}
+	},
+
+	toggleConcerts: function(display) {
+		var tlevs = this.meta('timelineEventViews');
+		for (var i = 0; i < tlevs.length; i++) {
+			var tlev = tlevs[i];
+			if (display) {
+				if ($(tlev.el).attr('data-channelid') === '1') {
+					$(tlev.el).css('display', 'block');
+				}
+			} else {
+				if ($(tlev.el).attr('data-channelid') === '1') {
+					$(tlev.el).css('display', 'none');
+				}
+			}
+		}
+	},
+
+	toggleTheatre: function(display) {
+		var tlevs = this.meta('timelineEventViews');
+		for (var i = 0; i < tlevs.length; i++) {
+			var tlev = tlevs[i];
+			if (display) {
+				if ($(tlev.el).attr('data-channelid') === '174') {
+					$(tlev.el).css('display', 'block');
+				}
+			} else {
+				if ($(tlev.el).attr('data-channelid') === '174') {
+					$(tlev.el).css('display', 'none');
+				}
+			}
+		}
+	},
+
+	toggleFriends: function(display) {
+		var tlevs = this.meta('timelineEventViews');
+		for (var i = 0; i < tlevs.length; i++) {
+			var tlev = tlevs[i];
+			if (display) {
+
+			} else {
+				
+			}
+		}
+	},
+
 });

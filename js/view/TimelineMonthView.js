@@ -119,4 +119,45 @@ window.TimelineMonthView = Backbone.View.extend({
 			}
 		}
 	},
+
+	toggleSports: function(display) {
+		var timelineItemViews = this.meta('timelineItemViews');
+		if (typeof timelineItemViews != 'undefined') {
+			for (var i = 0; i < timelineItemViews.length; i++) {
+				var tiv = timelineItemViews[i];
+				tiv.toggleSports(display);		
+			}
+		}
+	},
+
+	toggleConcerts: function(display) {
+		var timelineItemViews = this.meta('timelineItemViews');
+		if (typeof timelineItemViews != 'undefined') {
+			for (var i = 0; i < timelineItemViews.length; i++) {
+				var tiv = timelineItemViews[i];
+				tiv.toggleConcerts(display);		
+			}
+		}
+	},
+
+	toggleTheatre: function(display) {
+		var timelineItemViews = this.meta('timelineItemViews');
+		if (typeof timelineItemViews != 'undefined') {
+			for (var i = 0; i < timelineItemViews.length; i++) {
+				var tiv = timelineItemViews[i];
+				tiv.toggleTheatre(display);		
+			}
+		}
+	},
+
+	toggleFriends: function(display) {
+		var timelineItemViews = this.meta('timelineItemViews');
+		if (typeof timelineItemViews != 'undefined') {
+			for (var i = 0; i < timelineItemViews.length; i++) {
+				var tiv = timelineItemViews[i];
+				tiv.toggleFriends(display);		
+			}
+		}
+	},
+
 });

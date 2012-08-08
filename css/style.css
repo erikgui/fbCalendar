@@ -405,7 +405,7 @@ ul.eventInfos {
 	padding: 0;
 }
 ul.eventInfos li {
-	margin-right: 15px;
+	margin-right: 14px;
 	display: block;
 	width: 180px;
 	height: 125px;
@@ -413,9 +413,13 @@ ul.eventInfos li {
 }
 
 .timelineevent-container {
-	border: 3px white solid;
+/*	border: 3px white solid;
 	outline: 1px #d8d8d8 solid;
 	margin: 1px;
+	background-color: white;
+	cursor: pointer;*/
+	border: 1px #D8D8D8 solid;
+	padding: 3px;
 	background-color: white;
 	cursor: pointer;
 }

@@ -26,13 +26,6 @@ window.AppRouter = Backbone.Router.extend({
 		/*Geolocation functionality to map the user location to the nearest StubHub location based on IP address*/
 		this.geo = new GeoLocationModel();
 
-		/*Hunch API calls are currently disabled*/
-/*		this.HunchRecCollection.meta('topic_ids', 'list_musician');
-		this.HunchRecCollection.meta('likes', 'hn_3570964');
-		this.HunchRecCollection.meta('blocked_result_ids', 'hn_3570964');
-		console.log(this.HunchRecCollection.url());
-		this.HunchRecCollection.fetch();*/
-
 		/*Manually set the height of the application for infinite scrolling*/
 		window.appHeight = 1200;
 		/*cascadeTimeout is used for the animation effect of fading in the itemView tiles one by one*/
@@ -210,6 +203,37 @@ window.AppRouter = Backbone.Router.extend({
 	$('#search-input').keyup(function(e) {
 		searchKeyup(e);
 	});
+
+	$('#sports-checkbox').change(function(e) {
+		if ($('#sports-checkbox').is(':checked')) {
+			console.log('checkbox checked');
+			window.app.view.toggleSports(true);
+		} else {
+			console.log('checkbox unchecked');
+			window.app.view.toggleSports(false);
+		}
+	});
+
+	$('#concerts-checkbox').change(function(e) {
+		if ($('#concerts-checkbox').is(':checked')) {
+			console.log('checkbox checked');
+			window.app.view.toggleConcerts(true);
+		} else {
+			console.log('checkbox unchecked');
+			window.app.view.toggleConcerts(false);
+		}
+	});
+
+	$('#theatre-checkbox').change(function(e) {
+		if ($('#theatre-checkbox').is(':checked')) {
+			console.log('checkbox checked');
+			window.app.view.toggleTheatre(true);
+		} else {
+			console.log('checkbox unchecked');
+			window.app.view.toggleTheatre(false);
+		}
+	});
+
 
 
 })(jQuery);
