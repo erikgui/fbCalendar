@@ -1,3 +1,11 @@
+/*=======================TimelineView=============================*/
+// The outermost container/view of the timeline display format. From 
+// here you can directly query whether a certain event exists or add 
+// an event by providing a StubHubEventModel. The view would 
+// dynamically add the even to the correct location on the timeline. 
+// Event handlers for the checkbox filters on the heading of the app 
+// is also written here.
+/*================================================================*/
 window.TimelineView = Backbone.View.extend({
 	el: '.timeline',
 
@@ -14,14 +22,7 @@ window.TimelineView = Backbone.View.extend({
 		_.bindAll(this, 'render');
 
 		this._meta = {};
-		//this.model.bind('change', this.render);
-		//this.render();
 	},
-	
-	render: function() {
-		//$(this.el).append(this.template);
-	},
-
 
 	/*===========================================================*/
 	/*Use this function to dynamically add events to the timeline*/
@@ -130,6 +131,13 @@ window.TimelineView = Backbone.View.extend({
 		}
 	},
 
+	// This function would iteratively call the subviews to sort the EventViews based
+	// on the priority of the event depending on wheather if the event is recommended or not.
+	// The priority of the sorting is as follows:
+	// 1. Friends' Events (events that the user's friends are going to )
+	// 2. Events that matches the user's Facebook Likes
+	// 3. Events that matches Hunch's recommendations based on the user's Facebook Likes
+	// 4. Events near the user's location
 	sortEventViews: function() {
 		var monthViews = this.meta('timelineMonthViews'); 
 		if (typeof monthViews != 'undefined') {

@@ -10,6 +10,9 @@ window.TimelineDetailView = Backbone.View.extend({
 		'click .event-fbpage': 'eventFBPage',
 		'click .facepile-arrows.left': 'fplClick',
 		'click .facepile-arrows.right': 'fprClick',
+		'click .facepile-tab.fp-tab1': 'fpTab1',
+		'click .facepile-tab.fp-tab2': 'fpTab2',
+		'click .facepile-tab.fp-tab3': 'fpTab3',
 	},
 
 	meta: function(property, value) {
@@ -32,6 +35,7 @@ window.TimelineDetailView = Backbone.View.extend({
 		this.meta('eventID', '');
 		this.meta('eventInfo', eventInfo);
 		this.meta('timelineEventView', timelineEventView);
+
 		if (typeof eventInfo.get('eventSEODesc') == 'undefined') {
 			console.log('eventSEODesc undef');
 			if (typeof eventInfo.get('eventName') == 'undefined') {
@@ -67,9 +71,9 @@ window.TimelineDetailView = Backbone.View.extend({
 		this.meta('attending', false);
 		this.meta('maybe', false);
 
-		FB.api('/404913136233483', {fields: 'access_token'}, function(response) {
+		FB.api('/348498421894763', {fields: 'access_token', access_token: '244073459035160|gFJfZXQiB30R42y51Xwl9D02bz4'}, function(response) {
 			var at = response.access_token;
-			FB.api('/404913136233483/events', {access_token: at}, function(response){
+			FB.api('/348498421894763/events', {access_token: at}, function(response){
 				var events = response.data;
 				var eventExists = false;
 				for (var i = 0; i < events.length; i++) {
@@ -117,6 +121,7 @@ window.TimelineDetailView = Backbone.View.extend({
 
 		$(this.el).html(this.template(data));
 		$('#details-modal').modal({show: false});
+
 		return this.el;
 	},
 
@@ -130,11 +135,12 @@ window.TimelineDetailView = Backbone.View.extend({
 		if (!self.meta('attending')) {
 			var eventInfo = self.meta('eventInfo');
 			$('.rsvp-attending').html("<img src='img/ajax-loader2.gif'/>");
-			FB.api('/404913136233483', {fields: 'access_token', access_token: 'AAADdZB8fTLBgBAICclsSoZByWZCtPXKxiVQ96DHonliItVlZCnIZCh5ibm277hg1ekiKAmCe7vx8DvNHR8WP3V434VZBbLe29gFZCVTQN0E8BOjZC4J1T9Mn'}, function(response) {
+			FB.api('/348498421894763', {fields: 'access_token', access_token: '244073459035160|gFJfZXQiB30R42y51Xwl9D02bz4'}, function(response) {
 				console.log(response);
 				var at = response.access_token;
 				console.log(at);
-				FB.api('/404913136233483/events', {access_token: at}, function(response){
+
+				FB.api('/348498421894763/events', {access_token: at}, function(response){
 					console.log(response);
 					var events = response.data;
 					var eventExists = false;
@@ -164,7 +170,7 @@ window.TimelineDetailView = Backbone.View.extend({
 								if (typeof response.data[0] != 'undefined') {
 									eventLocId = response.data[0].id;
 								}
-								FB.api('/404913136233483/events', 'post', {
+								FB.api('/348498421894763/events', 'post', {
 									access_token: at, 
 									name: eventInfo.get('eventSEODesc'), 
 									start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000),
@@ -209,10 +215,10 @@ window.TimelineDetailView = Backbone.View.extend({
 		if (!self.meta('maybe')) {
 			var eventInfo = self.meta('eventInfo');
 			$('.rsvp-maybe').html("<img src='img/ajax-loader2.gif'/>");
-			FB.api('/404913136233483', {fields: 'access_token' , access_token: 'AAADdZB8fTLBgBAICclsSoZByWZCtPXKxiVQ96DHonliItVlZCnIZCh5ibm277hg1ekiKAmCe7vx8DvNHR8WP3V434VZBbLe29gFZCVTQN0E8BOjZC4J1T9Mn'}, function(response) {
+			FB.api('/348498421894763', {fields: 'access_token', access_token: '244073459035160|gFJfZXQiB30R42y51Xwl9D02bz4'}, function(response) {
 				console.log(response);
 				var at = response.access_token;
-				FB.api('/404913136233483/events', {access_token: at}, function(response){
+				FB.api('/348498421894763/events', {access_token: at}, function(response){
 					console.log(response);
 					var events = response.data;
 					var eventExists = false;
@@ -241,7 +247,7 @@ window.TimelineDetailView = Backbone.View.extend({
 								if (typeof response.data[0] != 'undefined') {
 									eventLocId = response.data[0].id;
 								}
-								FB.api('/404913136233483/events', 'post', {
+								FB.api('/348498421894763/events', 'post', {
 									access_token: at, 
 									name: eventInfo.get('eventSEODesc'), 
 									start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000),
@@ -374,11 +380,11 @@ window.TimelineDetailView = Backbone.View.extend({
 			console.log('eventID: ' + self.meta('eventID'));
 	        window.open($('.event-fbpage-link').prop('href'));
 		} else {
-			FB.api('/404913136233483', {fields: 'access_token', access_token: '244073459035160|gFJfZXQiB30R42y51Xwl9D02bz4'}, function(response) {
-				at = response.access_token;
-				console.log(response);
+			//FB.api('/348498421894763', {fields: 'access_token', access_token: '244073459035160|gFJfZXQiB30R42y51Xwl9D02bz4'}, function(response) {
+				at = '244073459035160|gFJfZXQiB30R42y51Xwl9D02bz4';
+			//	console.log(response);
 	
-				FB.api('/404913136233483/events', {access_token: at}, function(response){
+				FB.api('/348498421894763/events', {access_token: at}, function(response){
 					console.log('at: ', at);
 					var events = response.data;
 					var eventExists = false;
@@ -406,7 +412,7 @@ window.TimelineDetailView = Backbone.View.extend({
 									console.log(response);
 									if (typeof response.data[0] != 'undefined') {
 										eventLocId = response.data[0].id;
-										FB.api('/404913136233483/events', 'post', {
+										FB.api('/348498421894763/events', 'post', {
 											access_token: at, 
 											name: eventInfo.get('eventSEODesc'), 
 											start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000),
@@ -426,7 +432,7 @@ window.TimelineDetailView = Backbone.View.extend({
 											
 										});
 									} else {
-										FB.api('/404913136233483/events', 'post', {
+										FB.api('/348498421894763/events', 'post', {
 											access_token: at, 
 											name: eventInfo.get('eventSEODesc'), 
 											start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000),
@@ -452,7 +458,7 @@ window.TimelineDetailView = Backbone.View.extend({
 							});
 						} else {
 							console.log('at: ', at);
-							FB.api('/404913136233483/events', 'post', {
+							FB.api('/348498421894763/events', 'post', {
 								access_token: at, 
 								name: eventInfo.get('eventSEODesc'), 
 								start_time: Math.round(eventInfo.get('eventDateObj').getTime()/1000),
@@ -476,7 +482,7 @@ window.TimelineDetailView = Backbone.View.extend({
 						
 					}
 					
-				});
+				//});
 			});
 		}
 		
@@ -529,5 +535,45 @@ window.TimelineDetailView = Backbone.View.extend({
 	deactivateCarouse: function() {
 		$(this.el).find('.facepile-arrows.right').css('display', 'none');
 		$(this.el).find('.facepile-arrows.left').css('display', 'none');		
+	},
+
+	fpTab1: function() {
+		console.log('called');
+		$(this.el).find('.facepile-tab.fp-tab1').removeClass('facepile-tab-active');
+		$(this.el).find('.facepile-tab.fp-tab2').removeClass('facepile-tab-active');
+		$(this.el).find('.facepile-tab.fp-tab3').removeClass('facepile-tab-active');
+		$(this.el).find('.facepile-tab.fp-tab1').removeClass('facepile-tab-inactive');
+		$(this.el).find('.facepile-tab.fp-tab2').removeClass('facepile-tab-inactive');
+		$(this.el).find('.facepile-tab.fp-tab3').removeClass('facepile-tab-inactive');
+
+		$(this.el).find('.facepile-tab.fp-tab1').addClass('facepile-tab-active');
+		$(this.el).find('.facepile-tab.fp-tab2').addClass('facepile-tab-inactive');
+		$(this.el).find('.facepile-tab.fp-tab3').addClass('facepile-tab-inactive');
+	},
+	fpTab2: function() {
+		console.log('called');
+		$(this.el).find('.facepile-tab.fp-tab1').removeClass('facepile-tab-active');
+		$(this.el).find('.facepile-tab.fp-tab2').removeClass('facepile-tab-active');
+		$(this.el).find('.facepile-tab.fp-tab3').removeClass('facepile-tab-active');
+		$(this.el).find('.facepile-tab.fp-tab1').removeClass('facepile-tab-inactive');
+		$(this.el).find('.facepile-tab.fp-tab2').removeClass('facepile-tab-inactive');
+		$(this.el).find('.facepile-tab.fp-tab3').removeClass('facepile-tab-inactive');
+
+		$(this.el).find('.facepile-tab.fp-tab1').addClass('facepile-tab-inactive');
+		$(this.el).find('.facepile-tab.fp-tab2').addClass('facepile-tab-active');
+		$(this.el).find('.facepile-tab.fp-tab3').addClass('facepile-tab-inactive');
+	},
+	fpTab3: function() {
+		console.log('called');
+		$(this.el).find('.facepile-tab.fp-tab1').removeClass('facepile-tab-active');
+		$(this.el).find('.facepile-tab.fp-tab2').removeClass('facepile-tab-active');
+		$(this.el).find('.facepile-tab.fp-tab3').removeClass('facepile-tab-active');
+		$(this.el).find('.facepile-tab.fp-tab1').removeClass('facepile-tab-inactive');
+		$(this.el).find('.facepile-tab.fp-tab2').removeClass('facepile-tab-inactive');
+		$(this.el).find('.facepile-tab.fp-tab3').removeClass('facepile-tab-inactive');
+
+		$(this.el).find('.facepile-tab.fp-tab1').addClass('facepile-tab-inactive');
+		$(this.el).find('.facepile-tab.fp-tab2').addClass('facepile-tab-inactive');
+		$(this.el).find('.facepile-tab.fp-tab3').addClass('facepile-tab-active');
 	},
 });

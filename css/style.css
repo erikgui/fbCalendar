@@ -54,6 +54,7 @@ a:hover {
 	border-radius: 5px 0px 0px 0px; 
 	-moz-border-radius: 5px 0px 0px 0px; 
 	-webkit-border-radius: 5px 0px 0px 0px; 
+	display: none;
 }
 
 #my-calendar-btn {
@@ -65,6 +66,7 @@ a:hover {
 	border-radius: 0px 5px 0px 0px; 
 	-moz-border-radius: 0px 5px 0px 0px; 
 	-webkit-border-radius: 0px 5px 0px 0px;
+	display: none;
 }
 
 #view-container {
@@ -139,6 +141,7 @@ a:hover {
 	position: absolute;
 	right: 10px;
 	margin-top: 5px;
+	display: none;
 }
 
 #checkboxes {
@@ -154,6 +157,7 @@ a:hover {
 #thirdRow {
 	height: 20px;
 	margin: 12px;
+	display: none;
 }
 
 #thirdRowTitle {
@@ -584,7 +588,6 @@ ul.eventInfos li {
 
 .event-facepile {
 	float: left;
-	margin-top: 10px;
 	width: 570px;
 	height: 54px;
 	outline: 1px #C7C7C7 solid;
@@ -637,4 +640,30 @@ ul.eventInfos li {
 .facepile-arrows.right {
 	left: 587px;
 	display: none;
+}
+
+.facepile-tab {
+	float: left;
+	width: 90px;
+	text-align: center;
+	border-radius: 5px 5px 0px 0px;
+	-moz-border-radius: 5px 5px 0px 0px;
+	-webkit-border-radius: 5px 5px 0px 0px;
+	border: 1px #C7C7C7 solid;
+	border-bottom-color: #FFFFFF;
+	margin-top: 10px;
+	margin-right: 3px;
+	left: -1px;
+	position: relative;
+	cursor: pointer;
+}
+
+.facepile-tab-active {
+	border-bottom-color: #FFFFFF;
+	background-color: #FFFFFF;
+}
+
+.facepile-tab-inactive {
+	border-bottom-color: #C7C7C7;
+	background-color: #ECECEC;
 }
