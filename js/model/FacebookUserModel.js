@@ -99,6 +99,52 @@ window.FacebookUserModel = Backbone.Model.extend({
 		});
 	},
 
+	updateCollection: function(startTime) {
+		var self = this;
+		var musicianNames = self.get('musicianNames');
+		var musicianIDs = self.get('musicianIDs');
+		var teamNames = self.get('teamNames');
+		var teamIDs = self.get('teamIDs');
+		var collection = window.app.collection;
+		collection.meta('view', this.view);
+		collection.meta('event_date_time_local', '[' + startTime + ' TO *]');
+		collection.fetch({success: function() {
+
+			console.log('filtering collection');
+
+			window.DisplayedCollection = new StubHubEventCollection();
+			console.log('startTime ', startTime);
+			window.d1 = DateUtil.convertToDateObject(startTime);
+			window.d2 = d1.clone().addDays(1);
+			window.limit = d1.clone().addDays(8);
+			console.log('d1 ', d1);
+			console.log('d2 ', d2);
+			
+			while (!d1.equals(limit)) {
+				console.log('here1');
+				for (var i = 0; i < collection.length; i++) {
+					console.log('here2');		
+					var eventInstance = collection.at(i);
+					var eventDateObj = eventInstance.get('eventDateObj');
+					if (eventDateObj.between(d1, d2) && eventInstance.get('eventTotalTickets') > 0) {
+						DisplayedCollection.add(eventInstance);
+						window.app.view.addEvent(eventInstance);
+					}
+				}
+				d1 = d2.clone();
+				d2 = d2.addDays(1);
+			}
+
+			app.view.sortEventViews();
+
+			var temp = new Date();
+			temp = d1.clone();
+			d2 = temp.addDays(1);
+			limit = limit.addDays(8);	
+
+		}});
+	},
+
 	customizeEvents: function() {
 		var self = this;
 		var musicianNames = self.get('musicianNames');
@@ -129,28 +175,6 @@ window.FacebookUserModel = Backbone.Model.extend({
 			while (!d1.equals(limit)) {
 				for (var i = 0; i < collection.length; i++) {			
 					var eventInstance = collection.at(i);
-					// var act_primary = eventInstance.get('act_primary');
-					// var musicianMatch = false;
-					// var teamMatch = false;
-					// for (var j = 0; j < musicianNames.length; j++) {
-					// 	if ((new RegExp(musicianNames[j])).test(act_primary)) {
-					// 		musicianMatch = true;
-					// 		break;
-					// 	}
-					// }
-
-					// for (var k = 0; k < teamNames.length; k++) {
-					// 	if ((new RegExp(teamNames[k])).test(act_primary)) {
-					// 		teamMatch = true;
-					// 		break;
-					// 	}
-					// }
-
-					// if (musicianMatch || teamMatch) {
-					// 	DisplayedCollection.add(eventInstance);
-					// 	window.app.view.addEvent(eventInstance);
-
-					// }
 					var eventDateObj = eventInstance.get('eventDateObj');
 					if (eventDateObj.between(d1, d2) && eventInstance.get('eventTotalTickets') > 0) {
 						DisplayedCollection.add(eventInstance);
@@ -212,22 +236,7 @@ window.FacebookUserModel = Backbone.Model.extend({
 			// 	// 	console.log('missing date: ' + dateObj);
 			// 	// }
 			// 	dateObj = dateObj.addDays(1);
-			// }
-
-			
-			// FB.api('/404913136233483', {fields: 'access_token'}, function(response) {
-			// 	console.log(response);
-			// 	var at = response.access_token;
-			// 	console.log(new Date().addDays(2).getTime());
-			// 	FB.api('/404913136233483/events', 'post', {access_token: at, name: 'Get more food', start_time: Math.round(new Date().addDays(2).getTime()/1000)}, function(response){
-			// 		console.log(response);
-			// 	});
-			// });
-			
-			// window.app.hunch.meta('API-method', 'get-results');
-			// window.app.hunch.meta('result_ids', musicianIDs[j]);
-			// window.app.hunch.meta('fields', 'name,image_urls');
-						
+			// }		
 			
 //			console.log(DisplayedCollection);
 			// for (var idx = 0; idx < DisplayedCollection.length; idx++) {
@@ -257,11 +266,5 @@ window.FacebookUserModel = Backbone.Model.extend({
 			// 	}
 			// }
 		}});
-
-		
-
-
 	},
-
-
 });

@@ -144,7 +144,34 @@ var DateUtil = new function() {
                 return 'December';
                 break;
         }
+    };
 
+    this.getMonthNumber = function(monthName) {
+        if (monthName === 'January') {
+            return 0;
+        } else if (monthName === 'February') {
+            return 1;
+        } else if (monthName === 'March') {
+            return 2;
+        } else if (monthName === 'April') {
+            return 3;
+        } else if (monthName === 'May') {
+            return 4;
+        } else if (monthName === 'June') {
+            return 5;
+        } else if (monthName === 'July') {
+            return 6;
+        } else if (monthName === 'August') {
+            return 7;
+        } else if (monthName === 'September') {
+            return 8;
+        } else if (monthName === 'October') {
+            return 9;
+        } else if (monthName === 'November') {
+            return 10;
+        } else if (monthName === 'December') {
+            return 11;
+        }
     };
 
     this.formatTime = function(hour, minutes) {

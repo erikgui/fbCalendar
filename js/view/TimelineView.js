@@ -28,7 +28,6 @@ window.TimelineView = Backbone.View.extend({
 	/*Use this function to dynamically add events to the timeline*/
 	/*===========================================================*/
 	addEvent: function(eventInfo) {
-		//$(this.el).append(new TimelineMonthView().render().el);
 		var eventDate = eventInfo.get('eventDate');
 		var eventMonth = eventInfo.get('eventMonth');
 		var eventYear = eventInfo.get('eventYear');

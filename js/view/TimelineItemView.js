@@ -283,9 +283,13 @@ window.TimelineItemView = Backbone.View.extend({
 		for (var i = 0; i < tlevs.length; i++) {
 			var tlev = tlevs[i];
 			if (display) {
-
+				if ($(tlev.el).attr('data-channelid') === '9999') {
+					$(tlev.el).css('display', 'block');
+				}
 			} else {
-				
+				if ($(tlev.el).attr('data-channelid') === '9999') {
+					$(tlev.el).css('display', 'none');
+				}
 			}
 		}
 	},

@@ -58,8 +58,6 @@ window.TimelineEventView = Backbone.View.extend({
 		$(this.el).find('.event-img').css('background-image', 'url(' + eventInfo.get('thumbnail') + ')');
 		$(this.el).find('.info-text span').html('From $' + eventInfo.get('eventMinPrice'));
 
-
-		/**/
 		var channelId = eventInfo.get('eventChannelID');
 		if (channelId === '1') {
 			$(this.el).find('.genre-icon-source').attr('src', 'img/concerts-large.png');
@@ -70,7 +68,14 @@ window.TimelineEventView = Backbone.View.extend({
 		} else if (channelId === '28') {
 			$(this.el).find('.genre-icon-source').attr('src', 'img/sports-large.png');
 			$(this.el).attr('data-channelID', '28');
+		} else if (channelId === '9999') { 
+			//friends' events are catagorized into channel ID of 9999
+			//if this arbitrary value causes problems it can be changed
+			$(this.el).find('.genre-icon-source').attr('src', 'img/friends-large.png');
+			$(this.el).attr('data-channelID', '9999');
 		}
+
+
 
 		var musicianNames = FBUserModel.get('musicianNames');
 		var teamNames = FBUserModel.get('teamNames');
@@ -103,7 +108,6 @@ window.TimelineEventView = Backbone.View.extend({
 	},
 
 	showDetails: function() {
-		console.log('clicked me!');
 		window.app.modal.changeInfo(this.meta('eventInfo'), this);
 		window.app.modal.show();
 		FB.Canvas.getPageInfo(

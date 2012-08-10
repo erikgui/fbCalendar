@@ -121,10 +121,6 @@ window.AppRouter = Backbone.Router.extend({
 
 									loadingMore = false;
 								}
-								
-								// console.log('d1: ' + d1);
-								// console.log('d2: ' + d2);
-								// console.log('limit: ' + limit);
 							}
 
 							loadingMore = false;	
@@ -206,35 +202,68 @@ window.AppRouter = Backbone.Router.extend({
 
 	$('#sports-checkbox').change(function(e) {
 		if ($('#sports-checkbox').is(':checked')) {
-			console.log('checkbox checked');
 			window.app.view.toggleSports(true);
 		} else {
-			console.log('checkbox unchecked');
 			window.app.view.toggleSports(false);
 		}
 	});
 
 	$('#concerts-checkbox').change(function(e) {
 		if ($('#concerts-checkbox').is(':checked')) {
-			console.log('checkbox checked');
 			window.app.view.toggleConcerts(true);
 		} else {
-			console.log('checkbox unchecked');
 			window.app.view.toggleConcerts(false);
 		}
 	});
 
 	$('#theatre-checkbox').change(function(e) {
 		if ($('#theatre-checkbox').is(':checked')) {
-			console.log('checkbox checked');
 			window.app.view.toggleTheatre(true);
 		} else {
-			console.log('checkbox unchecked');
 			window.app.view.toggleTheatre(false);
 		}
 	});
 
+	$('#friends-checkbox').change(function(e) {
+		if ($('#friends-checkbox').is(':checked')) {
+			window.app.view.toggleFriends(true);
+		} else {
+			window.app.view.toggleFriends(false);
+		}
+	});
 
+	var today = new Date();
+	var month = today.getMonth();
+	for (var i = 0; i < 12; i++) {
+		var tempMonth = month+i;
+		var tempYear = today.getFullYear();
+		while (tempMonth > 11) {
+			tempMonth = tempMonth - 11;
+			tempYear = tempYear + 1;
+		}
+		$('#month-selector').append('<option>' + DateUtil.getMonthName(tempMonth) + ', ' + tempYear + '</option>');
+	}
+
+	$('#month-selector').change(function(e) {
+		var value = $('#month-selector').val();
+		$('.timeline').html('');
+		window.app.view = new TimelineView();
+
+		window.app.collection.reset();
+		var monthName = value.substr(0, value.indexOf(",")).trim();
+		var monthNumber = DateUtil.getMonthNumber(monthName)+1;
+		var year = value.substr(value.indexOf(",") + 1).trim();
+		if (monthNumber-1 == today.getMonth() && year == today.getFullYear()) {
+			window.FBUserModel.customizeEvents();
+		} else {
+			window.FBUserModel.updateCollection(year + '-' + monthNumber + '-1T00:00:00Z');
+		}
+		
+		FB.Canvas.setSize({height: 1200});
+		window.appHeight = 1200;
+		window.cascadeTimeout = 0;
+		window.loadingMore = false;
+	});
 
 })(jQuery);
 
