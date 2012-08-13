@@ -12,7 +12,6 @@ window.TimelineDetailView = Backbone.View.extend({
 		'click .facepile-arrows.right': 'fprClick',
 		'click .facepile-tab.fp-tab1': 'fpTab1',
 		'click .facepile-tab.fp-tab2': 'fpTab2',
-		'click .facepile-tab.fp-tab3': 'fpTab3',
 	},
 
 	meta: function(property, value) {
@@ -538,42 +537,21 @@ window.TimelineDetailView = Backbone.View.extend({
 	},
 
 	fpTab1: function() {
-		console.log('called');
 		$(this.el).find('.facepile-tab.fp-tab1').removeClass('facepile-tab-active');
 		$(this.el).find('.facepile-tab.fp-tab2').removeClass('facepile-tab-active');
-		$(this.el).find('.facepile-tab.fp-tab3').removeClass('facepile-tab-active');
 		$(this.el).find('.facepile-tab.fp-tab1').removeClass('facepile-tab-inactive');
 		$(this.el).find('.facepile-tab.fp-tab2').removeClass('facepile-tab-inactive');
-		$(this.el).find('.facepile-tab.fp-tab3').removeClass('facepile-tab-inactive');
 
 		$(this.el).find('.facepile-tab.fp-tab1').addClass('facepile-tab-active');
 		$(this.el).find('.facepile-tab.fp-tab2').addClass('facepile-tab-inactive');
-		$(this.el).find('.facepile-tab.fp-tab3').addClass('facepile-tab-inactive');
 	},
 	fpTab2: function() {
-		console.log('called');
 		$(this.el).find('.facepile-tab.fp-tab1').removeClass('facepile-tab-active');
 		$(this.el).find('.facepile-tab.fp-tab2').removeClass('facepile-tab-active');
-		$(this.el).find('.facepile-tab.fp-tab3').removeClass('facepile-tab-active');
 		$(this.el).find('.facepile-tab.fp-tab1').removeClass('facepile-tab-inactive');
 		$(this.el).find('.facepile-tab.fp-tab2').removeClass('facepile-tab-inactive');
-		$(this.el).find('.facepile-tab.fp-tab3').removeClass('facepile-tab-inactive');
 
 		$(this.el).find('.facepile-tab.fp-tab1').addClass('facepile-tab-inactive');
 		$(this.el).find('.facepile-tab.fp-tab2').addClass('facepile-tab-active');
-		$(this.el).find('.facepile-tab.fp-tab3').addClass('facepile-tab-inactive');
-	},
-	fpTab3: function() {
-		console.log('called');
-		$(this.el).find('.facepile-tab.fp-tab1').removeClass('facepile-tab-active');
-		$(this.el).find('.facepile-tab.fp-tab2').removeClass('facepile-tab-active');
-		$(this.el).find('.facepile-tab.fp-tab3').removeClass('facepile-tab-active');
-		$(this.el).find('.facepile-tab.fp-tab1').removeClass('facepile-tab-inactive');
-		$(this.el).find('.facepile-tab.fp-tab2').removeClass('facepile-tab-inactive');
-		$(this.el).find('.facepile-tab.fp-tab3').removeClass('facepile-tab-inactive');
-
-		$(this.el).find('.facepile-tab.fp-tab1').addClass('facepile-tab-inactive');
-		$(this.el).find('.facepile-tab.fp-tab2').addClass('facepile-tab-inactive');
-		$(this.el).find('.facepile-tab.fp-tab3').addClass('facepile-tab-active');
 	},
 });

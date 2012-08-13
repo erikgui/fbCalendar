@@ -44,6 +44,9 @@
 	<script type="text/javascript" src="js/view/TimelineItemView.js"></script>
 	<script type="text/javascript" src="js/view/TimelineEventView.js"></script>
 	<script type="text/javascript" src="js/view/TimelineDetailView.js"></script>
+	<script type="text/javascript" src="js/view/TimelineSearchView.js"></script>
+	<script type="text/javascript" src="js/view/TimelineSearchEventView.js"></script>
+	<script type="text/javascript" src="js/view/TimelineSearchMonthView.js"></script>
 
 </head>
 
@@ -71,7 +74,6 @@
 			
 			console.log('fbinit');	
 
-			window.FBUserModel = new FacebookUserModel();
 		};
 
 		(function() {
@@ -159,6 +161,7 @@
 
 			<div id='view-container'>
 				<ul class="timeline"></ul>	
+				<ul class="timeline-search"></ul>
 				<div id='timelinedetail-container'></div>
 				<div id='ajax-loader'><img src='img/ajax-loader.gif'/></div>
 			</div>

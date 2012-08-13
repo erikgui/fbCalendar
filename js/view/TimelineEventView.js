@@ -28,7 +28,6 @@ window.TimelineEventView = Backbone.View.extend({
 		this.meta('eventYear', eventInfo.get('eventYear'));
 		this.meta('eventInfo', eventInfo);
 		this.meta('itemView', itemView);
-
 		var dataStr;
 		if (typeof eventInfo.get('eventSEODesc') == 'undefined') {
 			console.log('eventSEODesc undef');

@@ -33,6 +33,7 @@ a:hover {
 #content_container{
 	position: relative;
 	width: 760px;
+	min-height: 340px;
 	margin: 0 auto; 
 	outline: 1px #C7C7C7 solid;
 }
@@ -556,7 +557,7 @@ ul.eventInfos li {
 	background-image: url('../img/post.gif');
 	background-position: center;
 	background-repeat: no-repeat;
-	width: 83px;
+	width: 82px;
 	height: 28px;
 	float: left;
 	margin-right: 2px;
@@ -674,4 +675,161 @@ ul.eventInfos li {
 .facepile-tab-inactive {
 	border-bottom-color: #C7C7C7;
 	background-color: #ECECEC;
+}
+
+
+/*---------------------TimelineSearchView---------------------*/
+.search-view-container {
+	text-align: left;
+}
+
+.search-view-container p {
+	margin-left: 10px;
+}
+
+.search-view-container p span {
+	color: #f97506;
+}
+
+.search-month-views {
+	margin-left: 0px;
+}
+.search-month-views li{
+	list-style: none;
+}
+
+.search-events {
+	margin-left: 0px;
+}
+.search-events li {
+	list-style: none;
+}
+
+.timeline-search-month {
+	position: relative;
+	width: 760px;
+	height: 100%;
+	text-align: left;
+}
+
+.search-event-container {
+	position: relative;
+	width: 760px;
+	height: 182px;
+}
+
+.search-dateSlate {
+	position: relative;
+	width: 644px;
+	height: 165px;
+	margin-top: -27px;
+	margin-left: 110px;
+	background-color: white;
+}
+
+.dateSlateBackground.search {
+	border-bottom: 1px #C7C7C7 solid;
+	border-top: 1px #C7C7C7 solid;
+}
+
+.dateSlateBackground.search.today {
+	background-color: #f97506;
+}
+
+.event-img.search {
+	top: 20px;
+	left: 25px;
+	outline: 1px #C7C7C7 solid;
+	border: 2px white solid;
+}
+
+.event-img-default.search {
+	top: -109px;
+	left: 25px;
+	outline: 1px #C7C7C7 solid;
+	border: 2px white solid;
+}
+
+.event-info.search {
+	position: relative;
+	top: -247px;
+	left: 230px;
+}
+
+.event-info.search p {
+	line-height: 10px;
+}
+
+.event-info.search p:first-child {
+	font-weight: bold;
+}
+
+.genre-icon.search {
+	top: -235px;
+	left: 30px;
+}
+
+.btn-custom1.search {
+	position: relative;
+	top: -246px;
+	left: 230px;
+}
+
+.search-ticket-info {
+	position: relative;
+	top: -278px;
+	left: 335px;
+}
+
+.search-rsvp {
+	position: relative;
+	top: -280px;
+	width: 493px;
+	left: 147px;
+}
+
+.search-rsvp p {
+	margin: 3px;
+}
+
+.search-event-func {
+	margin: 0px;
+}
+
+.search-event-func li {
+	list-style: none;
+}
+
+.monthName.search {
+	position: relative;
+	font-size: 0.9em;
+	width: 110px;
+	text-align: center;
+	color: #C7C7C7;
+	top: 25px;
+}
+
+.eventHour.search {
+	position: relative;
+	font-size: 0.9em;
+	width: 110px;
+	text-align: center;
+	top: 130px;
+}
+
+.search-event-func {
+	position: relative;
+	top: -370px;
+	left: 568px;
+	width: 100px;
+}
+
+.search-event-func li {
+	margin-bottom: 3px;
+}
+
+ul.timeline-search {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
 }
