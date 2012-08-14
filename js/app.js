@@ -318,6 +318,8 @@ function searchLCS() {
 	
 	if (querytrim.length > 1) {
 		$('.timeline').css('display', 'none');
+		$('#secondRow').css('display', 'none');
+		$('#month-selector').css('display', 'none');
 		$.ajax({
 			url: EVENT_URL + eventquery,
 			dataType: 'jsonp',

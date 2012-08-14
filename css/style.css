@@ -681,6 +681,7 @@ ul.eventInfos li {
 /*---------------------TimelineSearchView---------------------*/
 .search-view-container {
 	text-align: left;
+	margin-top: 10px;
 }
 
 .search-view-container p {

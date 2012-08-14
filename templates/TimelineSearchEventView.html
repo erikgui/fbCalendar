@@ -1,0 +1,36 @@
+<div class="dateSlateBackground search">
+	<div class="dateNumber"><%= dateNumber %></div>
+	<div class="dateName"><%= dateName %></div>
+	<div class="monthName search"><%= monthName %></div>
+	<div class="eventHour search"><%= eventHour %></div>
+	<div class="search-dateSlate">
+		<div class='event-img search'></div>
+		<div class='event-img-default search'></div>
+		<div class='genre-icon search'><img class='genre-icon-source' src=''/></div>
+		<div class='event-info search'>
+			<p><%= eventName %></p>
+			<p><%= venueName %></p>
+			<p><%= eventTime %></p>
+		</div>
+		<a href="#" class="btn btn-primary btn-custom1 search" target="_blank">Find Tickets</a>
+		<div class='search-ticket-info'>
+			<span style="color:#AAA"><%= minPrice %></span><br/>
+			<span style="color:#AAA"><%= totalTickets %></span>
+		</div>
+
+		<ul class='search-event-func'>
+			<li class='event-post search'></li>
+			<li class='event-invite search'></li>
+			<li class='event-fbpage search'>
+				<a class='event-fbpage-link' href="#" target="_blank"></a>
+			</li>
+		</ul>
+
+		<div class='search-rsvp'>
+			<p>Are you going?</p>
+			<a href="#" class="btn btn-primary inline rsvp-attending">Attending</a>
+			<a href="#" class="btn btn-primary inline rsvp-maybe">Maybe</a> | 
+			<a href="#" class="inline remove-event">Remove Event</a>
+		</div>
+	</div>
+</div>
