@@ -1,16 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
-
 	<!--Loading stylesheets-->
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
-	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.css"/>
 	<link rel="stylesheet" type="text/css" href="jquery-ui/css/jquery.ui.slider.css"/>
 	<link rel="stylesheet" type="text/css" href="jquery-ui/css/jquery.ui.theme.css"/>
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 
 	<!--Loading libraries-->
-	<script type='text/javascript' src='js/libs/jquery/jquery-1.7.2.min.js'></script>
+	<script type="text/javascript" src='js/libs/jquery/jquery-1.7.2.min.js'></script>
 	<script type="text/javascript" src="js/libs/underscore-min.js"></script>
 	<script type="text/javascript" src="js/libs/backbone-min.js"></script>
 	<script type="text/javascript" src="js/libs/jquery.masonry.min.js"></script>
@@ -47,7 +45,6 @@
 	<script type="text/javascript" src="js/view/TimelineSearchView.js"></script>
 	<script type="text/javascript" src="js/view/TimelineSearchEventView.js"></script>
 	<script type="text/javascript" src="js/view/TimelineSearchMonthView.js"></script>
-
 </head>
 
 
@@ -67,13 +64,7 @@
 				cookie: true,
 				xfbml: true,
 				oauth: true});
-
-			// run once with current status and whenever the status changes
-			//FB.getLoginStatus(updateButton);
-			//FB.Event.subscribe('auth.statusChange', updateButton);
-			
 			console.log('fbinit');	
-
 		};
 
 		(function() {
@@ -99,7 +90,7 @@
 	<div id="wrapper">       
 
 		<div id="content_container">
-
+			<!-- app header including search bar, dropdown, checkboxes are contained here -->
 			<div id="header_container">
 				<div id="header-image"></div>
 				<ul class="nav nav-pills">
@@ -160,6 +151,7 @@
 			</div>
 
 			<div id='view-container'>
+				<div id="alert"><img src='img/no-genre.png'/></div>
 				<ul class="timeline"></ul>	
 				<ul class="timeline-search"></ul>
 				<div id='timelinedetail-container'></div>
@@ -169,6 +161,7 @@
 
 	</div><!-- wrapper -->
 
+<!-- Change location dialog -->
 <div id='change-loc-d-template' style='display: none'>
 	By telling us where you are, we'll feature events in your area on StubHub
 	<a id='change-loc-dialog-dismiss-template'><i class='icon-remove'></i></a>

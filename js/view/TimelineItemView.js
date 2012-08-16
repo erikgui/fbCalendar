@@ -32,7 +32,7 @@ window.TimelineItemView = Backbone.View.extend({
 			eventDate = '0' + eventDate;
 		}
 
-		var data = {'dateNumber': eventDate, 'dateName': this.getDayOfWeek(dateObj.getDay())};
+		var data = {'dateNumber': eventDate, 'dateName': this.getDayOfWeek(dateObj.getDay()), 'monthName': DateUtil.getMonthName(eventInfo.get('eventMonth'))};
 		this.meta('dateNumber', eventDate);
 		$(this.el).append(this.template(data));
 
@@ -77,7 +77,7 @@ window.TimelineItemView = Backbone.View.extend({
 			}
 		}
 
-		var data = {'dateNumber': eventDate, 'dateName': this.getDayOfWeek(dateObj.getDay())};
+		var data = {'dateNumber': eventDate, 'dateName': this.getDayOfWeek(dateObj.getDay()), 'monthName': DateUtil.getMonthName(eventInfo.get('eventMonth'))};
 		this.meta('dateNumber', eventDate);
 		$(this.el).append(this.template(data));
 

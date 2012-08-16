@@ -33,7 +33,7 @@ a:hover {
 #content_container{
 	position: relative;
 	width: 760px;
-	min-height: 340px;
+	min-height: 700px;
 	margin: 0 auto; 
 	outline: 1px #C7C7C7 solid;
 }
@@ -75,6 +75,11 @@ a:hover {
 	height: 100%;
 }
 
+#alert {
+	display: none;
+	position: relative;
+	top: 185px;
+}
 
 #search-input {
 	margin: 5px;
@@ -408,6 +413,14 @@ ul.timeline-items li {
 	position: relative;
 	margin-top: 140px;
 	margin-left: 20px;
+}
+
+.monthName {
+	position: absolute;
+	top: 18px;
+	text-align: center;
+	width: 111px;
+	z-index: 12;
 }
 
 /*---------------------TimelineEventView---------------------*/

@@ -1,3 +1,8 @@
+/*=======================GeoLocationModel=============================*/
+// This is essentially a hardcoded list of US locations that StubHub supports.
+// The model would use the geoCalculation.js library to map the user's current
+// IP address to the nearest location on StubHub.
+/*====================================================================*/
 window.GeoLocationModel = Backbone.Model.extend({
 
 	initialize: function() {

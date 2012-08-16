@@ -22,6 +22,11 @@ window.TimelineView = Backbone.View.extend({
 		_.bindAll(this, 'render');
 
 		this._meta = {};
+
+		this.meta('display_sports', true);
+		this.meta('display_concerts', true);
+		this.meta('display_theatre', true);
+		this.meta('display_friends', true);
 	},
 
 	/*===========================================================*/
@@ -155,6 +160,19 @@ window.TimelineView = Backbone.View.extend({
 				mv.toggleSports(display);
 			}
 		}
+		this.meta('display_sports', display);
+		if (!this.meta('display_sports') &&
+			!this.meta('display_concerts') &&
+			!this.meta('display_theatre') &&
+			!this.meta('display_friends')) {
+			$(this.el).css('display', 'none');
+			$('#ajax-loader').css('display', 'none');
+			$('#month-selector').css('display', 'none');
+			$('#alert').css('display', 'block');
+		} else {
+			$(this.el).css('display', 'block');
+			$('#ajax-loader').css('display', 'block');
+		}
 	},
 
 	toggleConcerts: function(display) {
@@ -164,6 +182,19 @@ window.TimelineView = Backbone.View.extend({
 				var mv = monthViews[i];
 				mv.toggleConcerts(display);
 			}
+		}
+		this.meta('display_concerts', display);
+		if (!this.meta('display_sports') &&
+			!this.meta('display_concerts') &&
+			!this.meta('display_theatre') &&
+			!this.meta('display_friends')) {
+			$(this.el).css('display', 'none');
+			$('#ajax-loader').css('display', 'none');
+			$('#month-selector').css('display', 'none');
+			$('#alert').css('display', 'block');
+		} else {
+			$(this.el).css('display', 'block');
+			$('#ajax-loader').css('display', 'block');
 		}
 	},
 
@@ -175,6 +206,19 @@ window.TimelineView = Backbone.View.extend({
 				mv.toggleTheatre(display);
 			}
 		}
+		this.meta('display_theatre', display);
+		if (!this.meta('display_sports') &&
+			!this.meta('display_concerts') &&
+			!this.meta('display_theatre') &&
+			!this.meta('display_friends')) {
+			$(this.el).css('display', 'none');
+			$('#ajax-loader').css('display', 'none');
+			$('#month-selector').css('display', 'none');
+			$('#alert').css('display', 'block');
+		} else {
+			$(this.el).css('display', 'block');
+			$('#ajax-loader').css('display', 'block');
+		}
 	},
 
 	toggleFriends: function(display) {
@@ -184,6 +228,19 @@ window.TimelineView = Backbone.View.extend({
 				var mv = monthViews[i];
 				mv.toggleFriends(display);
 			}
+		}
+		this.meta('display_friends', display);
+		if (!this.meta('display_sports') &&
+			!this.meta('display_concerts') &&
+			!this.meta('display_theatre') &&
+			!this.meta('display_friends')) {
+			$(this.el).css('display', 'none');
+			$('#ajax-loader').css('display', 'none');
+			$('#month-selector').css('display', 'none');
+			$('#alert').css('display', 'block');
+		} else {
+			$(this.el).css('display', 'block');
+			$('#ajax-loader').css('display', 'block');
 		}
 	},
 });

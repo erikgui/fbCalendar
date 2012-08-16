@@ -46,7 +46,10 @@ window.AppRouter = Backbone.Router.extend({
 		        			console.log('infinite scrolling!');
 		        			loadingMore = true;
 			        		window.cascadeTimeout = 0;
-			        		FB.Canvas.setSize({height: window.appHeight+1200});
+			        		console.log($('#content_container').height());
+			        		if ($('#content_container').height() >= 800) {
+			        			FB.Canvas.setSize({height: window.appHeight+1200});
+			        		}
 			        		window.appHeight = window.appHeight+1200;
 							
 
@@ -255,6 +258,7 @@ window.AppRouter = Backbone.Router.extend({
 	}
 
 	$('#month-selector').change(function(e) {
+		$('#ajax-loader').css('display', 'block');
 		var value = $('#month-selector').val();
 		$('.timeline').html('');
 		window.app.view = new TimelineView();
@@ -273,14 +277,23 @@ window.AppRouter = Backbone.Router.extend({
 		window.appHeight = 1200;
 		window.cascadeTimeout = 0;
 		window.loadingMore = false;
+
+		setTimeout(function() {
+			$('#ajax-loader').css('display', 'none');
+		}, 5000);
 	});
 
+	setTimeout(function() {
+		$('#ajax-loader').css('display', 'none');
+	}, 5000);
 })(jQuery);
 
 /*This function is called when the user specifies a new location.*/
 /*The entire timeline is reconstructed again from the bottom up.*/
 function setpgeo(geoID, location, element) {
 	console.log('clicked: ', location);
+	$('#ajax-loader').css('display', 'block');
+
 	var loc = location.slice(0, location.indexOf(','));
 	if (typeof window.app.geo != 'undefined') {
 		window.app.geo.replaceLocation(loc);
@@ -298,6 +311,10 @@ function setpgeo(geoID, location, element) {
 	console.log('hiding');
 	$('#change-loc-d').remove();
 	window.changeLocActive = false;
+
+	setTimeout(function() {
+		$('#ajax-loader').css('display', 'none');
+	}, 10000);
 }
 
 /*Search Bar Event Handlers*/
@@ -348,18 +365,8 @@ function searchLCS() {
 }
 
 function searchKeyup(e) {
-	// var area = 'AND ancestorGeoDescriptions:SF Bay Area AND';
-	// if (typeof window.app.geo != 'undefined') {
-	// 	area = 'AND ancestorGeoDescriptions:' + window.app.geo.get('loc') + ' AND';
-	// }
-	// EVENT_URL = 'http://www.stubhub.com/listingCatalog/select/?fq=stubhubDocumentType:event AND ancestorGenreIds:(28 OR 174 OR 1) AND book_of_business_id:1 ' + area + ' active:1 &start=0&rows=5&fl=channelId,act_primary,seo_description_en_US,eventGeoDescription,city,lat_lon,event_time_local,event_date_local,event_date_time_local,genreUrlPath,urlpath&wt=json&q=(';
- //  	GENRE_URL = 'http://www.stubhub.com/listingCatalog/select/?fq=stubhubDocumentType:event AND active:1 &start=0&rows=5&fl=act_primary_en_US,genre_parent_name,genreUrlPath&wt=json&sfield=lat_lon&pt=' + geoip_latitude() + ',' + geoip_longitude() + '&group=true&group.field=eventGenreParentDescription_facet_str&group.main=true&sort=geodist() asc&q=(act_primary_en_US:"';
-  	var queryraw = $('#search-input').val();
+ 	var queryraw = $('#search-input').val();
   	querytrim = jQuery.trim(queryraw);
- //  	var eventquerypre = querytrim.replace(/ /g," AND "); 
-	// var genrequerypre = querytrim.replace(/ /g," AND ");
-	// var eventquery = eventquerypre + '*) OR ("' + querytrim + '"~1000000^10)';
-	// var genrequery = genrequerypre + '")';
 
 	//Check if enter key is pressed 
 	var code = (e.keyCode ? e.keyCode : e.which);
@@ -368,36 +375,6 @@ function searchKeyup(e) {
 
 		this.searchLCS();
 	}
-	// } else {
-		if (querytrim.length > 1) {
-			// $.ajax({
-			// 	url: EVENT_URL + eventquery,
-			// 	dataType: 'jsonp',
-			// 	jsonp: 'json.wrf',
-			// 	success: function(response) {
-			// 		eventCallback(response);
-			// 	}
-			// });
-			// $.ajax({
-			// 	url: GENRE_URL + genrequery,
-			// 	dataType: 'jsonp',
-			// 	jsonp: 'json.wrf',
-			// 	success: function(response) {
-			// 		genreCallback(response);
-			// 	}
-			// });
-			$('#search-close').show();
-			$('#searchall').empty().show();
-			//$('#searchall').append('<li class="result searchall" style="color:#0088cc;font-weight:bold;"><a href="http://www.stubhub.com/search/doSearch?searchStr=' + querytrim + '&pageNumber=1&resultsPerPage=50&searchMode=event&start=0&rows=50&geo_exp=1">Search StubHub for "'+ querytrim + '" tickets</a></li>');
-		} else {
-			$('#eventresults').hide();
-			$('#genreresults').hide();
-			$('#searchall').hide();
-			$("#search-results").hide();
-			$('#hide').show();
-			$('#search-close').hide();
-		}
-	//}
 }
 
 function eventCallback(data, textStatus) {

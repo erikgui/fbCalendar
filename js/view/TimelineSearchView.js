@@ -1,3 +1,9 @@
+/*=======================TimelineView=============================*/
+// This is the outermost container of the search view that attaches to
+// the .timeline-search div. Similar to the TimelineView, this view enables
+// the functionality to addEvents, and it provides the event handler for 
+// switching back to the timeline view.
+/*================================================================*/
 window.TimelineSearchView = Backbone.View.extend({
 	el: '.timeline-search',
 
