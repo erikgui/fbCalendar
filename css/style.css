@@ -420,7 +420,7 @@ ul.timeline-items li {
 	top: 18px;
 	text-align: center;
 	width: 111px;
-	z-index: 12;
+	z-index: 10;
 }
 
 /*---------------------TimelineEventView---------------------*/

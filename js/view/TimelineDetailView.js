@@ -70,7 +70,7 @@ window.TimelineDetailView = Backbone.View.extend({
 		this.meta('attending', false);
 		this.meta('maybe', false);
 
-		FB.api('/348498421894763', {fields: 'access_token', access_token: '244073459035160|gFJfZXQiB30R42y51Xwl9D02bz4'}, function(response) {
+		FB.api('/348498421894763', {fields: 'access_token', access_token: 'AAADdZB8fTLBgBAFjglPA7iSDlhrev68WSrvixHzbbwsK9azIpsAg10Q1eSWvsHlPZBSlZCC2fTptWG8FKVzF2cZCinT9TW0lQOZAIRQKeqYPMQoN8aXxD'}, function(response) {
 			var at = response.access_token;
 			FB.api('/348498421894763/events', {access_token: at}, function(response){
 				var events = response.data;
@@ -134,7 +134,7 @@ window.TimelineDetailView = Backbone.View.extend({
 		if (!self.meta('attending')) {
 			var eventInfo = self.meta('eventInfo');
 			$('.rsvp-attending').html("<img src='img/ajax-loader2.gif'/>");
-			FB.api('/348498421894763', {fields: 'access_token', access_token: '244073459035160|gFJfZXQiB30R42y51Xwl9D02bz4'}, function(response) {
+			FB.api('/348498421894763', {fields: 'access_token', access_token: 'AAADdZB8fTLBgBAFjglPA7iSDlhrev68WSrvixHzbbwsK9azIpsAg10Q1eSWvsHlPZBSlZCC2fTptWG8FKVzF2cZCinT9TW0lQOZAIRQKeqYPMQoN8aXxD'}, function(response) {
 				console.log(response);
 				var at = response.access_token;
 				console.log(at);
@@ -214,7 +214,7 @@ window.TimelineDetailView = Backbone.View.extend({
 		if (!self.meta('maybe')) {
 			var eventInfo = self.meta('eventInfo');
 			$('.rsvp-maybe').html("<img src='img/ajax-loader2.gif'/>");
-			FB.api('/348498421894763', {fields: 'access_token', access_token: '244073459035160|gFJfZXQiB30R42y51Xwl9D02bz4'}, function(response) {
+			FB.api('/348498421894763', {fields: 'access_token', access_token: 'AAADdZB8fTLBgBAFjglPA7iSDlhrev68WSrvixHzbbwsK9azIpsAg10Q1eSWvsHlPZBSlZCC2fTptWG8FKVzF2cZCinT9TW0lQOZAIRQKeqYPMQoN8aXxD'}, function(response) {
 				console.log(response);
 				var at = response.access_token;
 				FB.api('/348498421894763/events', {access_token: at}, function(response){
@@ -379,9 +379,9 @@ window.TimelineDetailView = Backbone.View.extend({
 			console.log('eventID: ' + self.meta('eventID'));
 	        window.open($('.event-fbpage-link').prop('href'));
 		} else {
-			//FB.api('/348498421894763', {fields: 'access_token', access_token: '244073459035160|gFJfZXQiB30R42y51Xwl9D02bz4'}, function(response) {
-				at = '244073459035160|gFJfZXQiB30R42y51Xwl9D02bz4';
-			//	console.log(response);
+			FB.api('/348498421894763', {fields: 'access_token', access_token: 'AAADdZB8fTLBgBAFjglPA7iSDlhrev68WSrvixHzbbwsK9azIpsAg10Q1eSWvsHlPZBSlZCC2fTptWG8FKVzF2cZCinT9TW0lQOZAIRQKeqYPMQoN8aXxD'}, function(response) {
+				at = response.access_token;
+				console.log(response);
 	
 				FB.api('/348498421894763/events', {access_token: at}, function(response){
 					console.log('at: ', at);
@@ -481,7 +481,7 @@ window.TimelineDetailView = Backbone.View.extend({
 						
 					}
 					
-				//});
+				});
 			});
 		}
 		

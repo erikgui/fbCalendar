@@ -170,7 +170,9 @@ window.TimelineView = Backbone.View.extend({
 			$('#month-selector').css('display', 'none');
 			$('#alert').css('display', 'block');
 		} else {
+			$('#alert').css('display', 'none');
 			$(this.el).css('display', 'block');
+			$('#month-selector').css('display', 'inline');
 			$('#ajax-loader').css('display', 'block');
 		}
 	},
@@ -193,7 +195,9 @@ window.TimelineView = Backbone.View.extend({
 			$('#month-selector').css('display', 'none');
 			$('#alert').css('display', 'block');
 		} else {
+			$('#alert').css('display', 'none');
 			$(this.el).css('display', 'block');
+			$('#month-selector').css('display', 'inline');
 			$('#ajax-loader').css('display', 'block');
 		}
 	},
@@ -216,7 +220,9 @@ window.TimelineView = Backbone.View.extend({
 			$('#month-selector').css('display', 'none');
 			$('#alert').css('display', 'block');
 		} else {
+			$('#alert').css('display', 'none');
 			$(this.el).css('display', 'block');
+			$('#month-selector').css('display', 'inline');
 			$('#ajax-loader').css('display', 'block');
 		}
 	},
@@ -239,7 +245,9 @@ window.TimelineView = Backbone.View.extend({
 			$('#month-selector').css('display', 'none');
 			$('#alert').css('display', 'block');
 		} else {
+			$('#alert').css('display', 'none');
 			$(this.el).css('display', 'block');
+			$('#month-selector').css('display', 'inline');
 			$('#ajax-loader').css('display', 'block');
 		}
 	},
